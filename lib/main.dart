@@ -1,3 +1,4 @@
+import 'package:alpha/common%20widgets/splash_screen.dart';
 import 'package:flutter/material.dart';
 
 void main() {
@@ -36,13 +37,6 @@ class _MyHomePageState extends State<MyHomePage> {
   @override
   Widget build(BuildContext context) {
 
-    return Scaffold(
-      appBar: AppBar(
-        
-      ),
-      body: Center(
-       
-      ),
-    );
+    return SplashScreen();
   }
 }
