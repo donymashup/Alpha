@@ -1,4 +1,5 @@
 import 'package:alpha/common%20widgets/splash_screen.dart';
+import 'package:alpha/features/auth/screen/registration.dart';
 import 'package:flutter/material.dart';
 
 void main() {
@@ -14,11 +15,11 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       title: 'Flutter Demo',
       theme: ThemeData(
-
+        
         colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
         useMaterial3: true,
       ),
-      home: const MyHomePage(title: 'Flutter Demo Home Page'),
+      home:  RegistrationScreen(),
     );
   }
 }
