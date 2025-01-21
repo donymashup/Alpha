@@ -1,4 +1,6 @@
 import 'package:alpha/common%20widgets/splash_screen.dart';
+import 'package:alpha/constants/app_constants.dart';
+import 'package:alpha/features/auth/screen/registration.dart';
 import 'package:flutter/material.dart';
 
 
@@ -15,10 +17,11 @@ class MyApp extends StatelessWidget {
       debugShowCheckedModeBanner: false,
       title: 'Flutter Demo',
       theme: ThemeData(
-        colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
+        
+        colorScheme: ColorScheme.fromSeed(seedColor: AppConstant.primaryColor),
         useMaterial3: true,
       ),
-      home: const SplashScreen(),
+      home:  SplashScreen(),
     );
   }
 }
