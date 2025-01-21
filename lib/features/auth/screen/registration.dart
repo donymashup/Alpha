@@ -18,7 +18,7 @@ class RegistrationScreen extends StatelessWidget {
               clipper: WaveClipper(),
               child: Container(
                 height: MediaQuery.of(context).size.height * 0.27,
-                color: AppConstant.primaryColour,
+                color: AppConstant.primaryColor,
               ),
             ), 
           ],
@@ -27,6 +27,7 @@ class RegistrationScreen extends StatelessWidget {
     );
   }
 }
+
 
 class wave_widget extends StatelessWidget {
   const wave_widget({
@@ -40,7 +41,7 @@ class wave_widget extends StatelessWidget {
       clipper: WaveClipper(),
       child: Container(
         height: MediaQuery.of(context).size.height * 0.3,
-        color: AppConstant.primaryColour,
+        color: AppConstant.primaryColor,
       ),
     );
   }
