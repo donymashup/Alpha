@@ -1,4 +1,6 @@
+
 import 'package:alpha/common%20widgets/color_dot.dart';
+
 import 'package:alpha/constants/app_constants.dart';
 import 'package:alpha/features/auth/screen/registration.dart';
 import 'package:flutter/material.dart';
@@ -40,11 +42,14 @@ class _WelcomePageState extends State<WelcomePage> {
     return Scaffold(
       body: Container(
         decoration: BoxDecoration(
+
           color: AppConstant.backgroundColor,
+
         ),
         child: Stack(
           children: [
             // Background dots
+
             const colorDot(top: -50, right: -50, width: 150, height: 150, Color: AppConstant.orangedot),
             const colorDot(top: 20, right: 70, width: 100, height: 100, Color: AppConstant.reddot),
             const colorDot(top: 150, right: 350, width: 30, height: 30, Color: AppConstant.bluedot),
@@ -64,6 +69,7 @@ class _WelcomePageState extends State<WelcomePage> {
                   ),
                   // Content below image
                   Container(
+
                     color: AppConstant.backgroundColor,
                     child: Column(
                       children: [
@@ -71,14 +77,15 @@ class _WelcomePageState extends State<WelcomePage> {
                         Row(
                           mainAxisAlignment: MainAxisAlignment.center,
                           children: List.generate(
-                            3, // Adjust the number of pages
+                            widget.totalPages,
                             (index) => AnimatedContainer(
                               duration: const Duration(milliseconds: 300),
                               margin: const EdgeInsets.symmetric(horizontal: 4),
-                              width: 12, // Adjust the size
+                              width: widget.currentIndex == index ? 12 : 8,
                               height: 8,
                               decoration: BoxDecoration(
-                                color: Colors.blue, // Adjust color
+                                color: widget.currentIndex == index ? Colors.blue : Colors.grey,
+
                                 borderRadius: BorderRadius.circular(4),
                               ),
                             ),

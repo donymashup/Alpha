@@ -1,6 +1,7 @@
 import 'package:alpha/common%20widgets/welcome_screen.dart';
 import 'package:flutter/material.dart';
-import 'package:alpha/constants/app_constants.dart';  // Import SwipeableButtonView
+import 'package:alpha/constants/app_constants.dart'; // Correct import statement
+
 
 class OnboardingScreen extends StatefulWidget {
   @override
@@ -134,7 +135,7 @@ class OnboardingPage extends StatelessWidget {
                       clipper: BottomRoundedClipper(), // Custom clipper for bottom rounded corners
                       child: Container(
                         decoration: BoxDecoration(
-                          color: AppConstant.primaryColor2,
+                          color: AppConstant.primaryColor,
                         ),
                         child: Center(
                           child: Image.asset(page.imagePath, height: 250),

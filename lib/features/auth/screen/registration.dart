@@ -1,8 +1,7 @@
 import 'package:alpha/constants/app_constants.dart';
-import 'package:alpha/features/auth/widgets/custom_buttom.dart';
+import 'package:alpha/features/auth/widgets/custom_buttom.dart'; // Correct import statement
 import 'package:alpha/features/auth/widgets/custom_textfield.dart';
 import 'package:alpha/features/auth/widgets/profile.dart';
-import 'package:alpha/features/auth/widgets/wave_clipper.dart';
 import 'package:alpha/features/auth/widgets/wave_widget.dart';
 import 'package:flutter/material.dart';
 
@@ -46,7 +45,6 @@ class RegistrationScreen extends StatelessWidget {
                 profile(),
               ],
             ),
-          
             const SizedBox(height: 20),
             Padding(
               padding: const EdgeInsets.symmetric(horizontal: 20),
@@ -54,24 +52,24 @@ class RegistrationScreen extends StatelessWidget {
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    CustomTextField(labelText:"First Name" ,hintText: "Enter your first name",),
+                    CustomTextField(labelText: "First Name", hintText: "Enter your first name"),
                     const SizedBox(height: 17),
-                    CustomTextField(labelText:"Last Name" ,hintText: "Enter your last name",),
+                    CustomTextField(labelText: "Last Name", hintText: "Enter your last name"),
                     const SizedBox(height: 17),
-                    CustomTextField(labelText:"Email id" ,hintText: "Enter your email id",),
+                    CustomTextField(labelText: "Email id", hintText: "Enter your email id"),
                     const SizedBox(height: 17),
-                    CustomTextField(labelText:"Password" ,hintText: "Enter your password",isPassword: true),
+                    CustomTextField(labelText: "Password", hintText: "Enter your password", isPassword: true),
                     const SizedBox(height: 17),
-                    CustomTextField(labelText:"Select your class" ,hintText: "class 5",),
+                    CustomTextField(labelText: "Select your class", hintText: "class 5"),
                     const SizedBox(height: 17),
-                    CustomTextField(labelText:"School Name" ,hintText: "Enter your school name",),
+                    CustomTextField(labelText: "School Name", hintText: "Enter your school name"),
                     const SizedBox(height: 17),
-                    CustomTextField(labelText:"Phone Number" ,hintText : "",),
-                    
+                    CustomTextField(labelText: "Phone Number", hintText: ""),
                     const SizedBox(height: 30),
                     Center(
                       child: CustomButtom(),
                       
+
 
                     ),
                     const SizedBox(height: 40),
