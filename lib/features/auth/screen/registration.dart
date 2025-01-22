@@ -67,7 +67,7 @@ class RegistrationScreen extends StatelessWidget {
                     CustomTextField(labelText: "Phone Number", hintText: ""),
                     const SizedBox(height: 30),
                     Center(
-                      child: CustomButtom(),
+                      child: CustomButton(),
                       
 
 
