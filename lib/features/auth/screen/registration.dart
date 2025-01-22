@@ -18,7 +18,7 @@ class RegistrationScreen extends StatelessWidget {
                 Opacity(
                   opacity: 0.5,
                   child: wave_widget(
-                    height: MediaQuery.of(context).size.height * 0.3,
+                    height: MediaQuery.of(context).size.height * 0.35,
                   ),
                 ),
                 wave_widget(
@@ -71,7 +71,10 @@ class RegistrationScreen extends StatelessWidget {
                     const SizedBox(height: 30),
                     Center(
                       child: CustomButtom(),
+                      
+
                     ),
+                    const SizedBox(height: 40),
                   ],
                 ),
               ),
