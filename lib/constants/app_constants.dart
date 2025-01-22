@@ -12,6 +12,8 @@ class AppConstant {
   static const primaryColor3 = Color(0xFF323592);
   static const titlecolor = Color(0xFF000000); // Correct black color
   static const subtitlecolor = Color(0xFF989EA7);
+  static const shadowColor = Color.fromARGB(255, 202, 188, 188);
+  
 
 
   // Dots colors
@@ -28,5 +30,17 @@ class AppConstant {
     begin: Alignment.topCenter,
     end: Alignment.bottomCenter,
   );
+
+
+  static const List<String> carouselImages = [
+       'assets/images/alphalogo.png',
+       'assets/images/banner2.png',
+       'assets/images/banner3.png',
+        'assets/images/banner4.png',
+    ];
+
+    static const List<String> items = [
+    "All Courses", "NEET", "JEE", "UPSC", "PSC", "SSC"
+  ]; 
 }
 
