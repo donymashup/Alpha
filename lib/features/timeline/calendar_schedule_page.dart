@@ -49,7 +49,7 @@ class _CalendarSchedulePageState extends State<CalendarSchedulePage> {
       backgroundColor: AppConstant.backgroundColor,
       appBar: AppBar(
         leading: IconButton(
-          icon: Icon(Icons.arrow_back, color: AppConstant.titlecolor),
+          icon: const Icon(Icons.arrow_back, color: AppConstant.titlecolor),
           onPressed: () => Navigator.pop(context),
         ),
         backgroundColor: Colors.transparent,
@@ -57,7 +57,7 @@ class _CalendarSchedulePageState extends State<CalendarSchedulePage> {
       ),
       body: SingleChildScrollView(
         child: Padding(
-          padding: EdgeInsets.all(20),
+          padding: const EdgeInsets.all(20),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
@@ -66,26 +66,26 @@ class _CalendarSchedulePageState extends State<CalendarSchedulePage> {
                 crossAxisAlignment: CrossAxisAlignment.end,
                 children: [
                   Text(
-                    '07',
-                    style: TextStyle(
+                    DateFormat('dd').format(selectedDate),
+                    style: const TextStyle(
                       fontSize: 48,
                       fontWeight: FontWeight.bold,
                     ),
                   ),
-                  SizedBox(width: 12),
+                  const SizedBox(width: 12),
                   Expanded(
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         Text(
-                          'Wed',
+                          DateFormat('EEE').format(selectedDate),
                           style: TextStyle(
                             fontSize: 16,
                             color: Colors.grey[500],
                           ),
                         ),
                         Text(
-                          'Jan 2025',
+                          DateFormat('MMM yyyy').format(selectedDate),
                           style: TextStyle(
                             fontSize: 16,
                             color: Colors.grey[500],
@@ -95,12 +95,12 @@ class _CalendarSchedulePageState extends State<CalendarSchedulePage> {
                     ),
                   ),
                   Container(
-                    padding: EdgeInsets.symmetric(horizontal: 16, vertical: 8),
+                    padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
                     decoration: BoxDecoration(
                       color: Color(0xFFE6F7F1),
                       borderRadius: BorderRadius.circular(8),
                     ),
-                    child: Text(
+                    child: const Text(
                       'Today',
                       style: TextStyle(
                         color: Color(0xFF4CD080),
@@ -110,7 +110,7 @@ class _CalendarSchedulePageState extends State<CalendarSchedulePage> {
                   ),
                 ],
               ),
-              SizedBox(height: 30),
+              const SizedBox(height: 30),
 
               // Week Calendar
               Container(
@@ -122,7 +122,7 @@ class _CalendarSchedulePageState extends State<CalendarSchedulePage> {
                     BoxShadow(
                       color: Colors.black.withAlpha(13), // 0.05 * 255 = 12.75, rounded to 13
                       blurRadius: 10,
-                      offset: Offset(0, 4),
+                      offset: const Offset(0, 4),
                     ),
                   ],
                 ),
@@ -130,46 +130,53 @@ class _CalendarSchedulePageState extends State<CalendarSchedulePage> {
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: _generateWeekDays().map((date) {
                     bool isSelected = date.day == selectedDate.day;
-                    return Column(
-                      children: [
-                        Text(
-                          DateFormat('E').format(date)[0],
-                          style: TextStyle(
-                            color: Colors.grey[500],
-                            fontSize: 14,
-                          ),
-                        ),
-                        SizedBox(height: 8),
-                        Container(
-                          padding: EdgeInsets.symmetric(
-                            horizontal: 12,
-                            vertical: 6,
-                          ),
-                          decoration: BoxDecoration(
-                            color: isSelected ? Color(0xFFFF7F57) : Colors.transparent,
-                            borderRadius: BorderRadius.circular(12),
-                          ),
-                          child: Text(
-                            '${date.day}',
+                    return GestureDetector(
+                      onTap: () {
+                        setState(() {
+                          selectedDate = date;
+                        });
+                      },
+                      child: Column(
+                        children: [
+                          Text(
+                            DateFormat('E').format(date)[0],
                             style: TextStyle(
-                              color: isSelected ? Colors.white : Colors.black87,
-                              fontWeight: FontWeight.w500,
-                              fontSize: 16,
+                              color: Colors.grey[500],
+                              fontSize: 14,
                             ),
                           ),
-                        ),
-                      ],
+                          const SizedBox(height: 8),
+                          Container(
+                            padding: const EdgeInsets.symmetric(
+                              horizontal: 12,
+                              vertical: 6,
+                            ),
+                            decoration: BoxDecoration(
+                              color: isSelected ? const Color(0xFFFF7F57) : Colors.transparent,
+                              borderRadius: BorderRadius.circular(12),
+                            ),
+                            child: Text(
+                              '${date.day}',
+                              style: TextStyle(
+                                color: isSelected ? Colors.white : Colors.black87,
+                                fontWeight: FontWeight.w500,
+                                fontSize: 16,
+                              ),
+                            ),
+                          ),
+                        ],
+                      ),
                     );
                   }).toList(),
                 ),
               ),
-              SizedBox(height: 20),
+              const SizedBox(height: 20),
 
               // Schedule Items
               ...scheduleItems.map((item) => Padding(
-                padding: EdgeInsets.only(bottom: 16),
+                padding: const EdgeInsets.only(bottom: 16),
                 child: Container(
-                  padding: EdgeInsets.all(20),
+                  padding: const EdgeInsets.all(20),
                   decoration: BoxDecoration(
                     color: Colors.white,
                     borderRadius: BorderRadius.circular(20),
@@ -177,7 +184,7 @@ class _CalendarSchedulePageState extends State<CalendarSchedulePage> {
                       BoxShadow(
                         color: Colors.black.withAlpha(13), // 0.05 * 255 = 12.75, rounded to 13
                         blurRadius: 10,
-                        offset: Offset(0, 4),
+                        offset: const Offset(0, 4),
                       ),
                     ],
                   ),
@@ -188,7 +195,7 @@ class _CalendarSchedulePageState extends State<CalendarSchedulePage> {
                         color: item['iconColor'],
                         size: 24,
                       ),
-                      SizedBox(width: 16),
+                      const SizedBox(width: 16),
                       Expanded(
                         child: Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
@@ -201,15 +208,15 @@ class _CalendarSchedulePageState extends State<CalendarSchedulePage> {
                                 fontWeight: FontWeight.w600,
                               ),
                             ),
-                            SizedBox(height: 4),
+                            const SizedBox(height: 4),
                             Text(
                               item['subtitle'],
-                              style: TextStyle(
+                              style: const TextStyle(
                                 color: Colors.black87,
                                 fontSize: 14,
                               ),
                             ),
-                            SizedBox(height: 8),
+                            const SizedBox(height: 8),
                             Row(
                               children: [
                                 Icon(
@@ -217,7 +224,7 @@ class _CalendarSchedulePageState extends State<CalendarSchedulePage> {
                                   size: 16,
                                   color: Colors.grey[400],
                                 ),
-                                SizedBox(width: 4),
+                                const SizedBox(width: 4),
                                 Text(
                                   item['time'],
                                   style: TextStyle(

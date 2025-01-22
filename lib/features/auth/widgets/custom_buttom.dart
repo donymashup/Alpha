@@ -3,9 +3,11 @@ import 'package:alpha/constants/app_constants.dart';
 import 'package:alpha/features/auth/screen/login.dart'; // Import the login screen
 
 class CustomButton extends StatelessWidget {
-  final VoidCallback onPressed;
+  //final VoidCallback onPressed;
 
-  const CustomButton({required this.onPressed, Key? key}) : super(key: key);
+  const CustomButton({
+    //required this.onPressed,
+     Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {

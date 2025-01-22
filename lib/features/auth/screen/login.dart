@@ -1,4 +1,5 @@
 import 'package:alpha/constants/app_constants.dart';
+import 'package:alpha/features/auth/screen/otp_screen.dart';
 import 'package:alpha/features/auth/widgets/custom_elavatedbutton.dart';
 import 'package:flutter/material.dart';
 import 'package:intl_phone_field/intl_phone_field.dart';
@@ -80,7 +81,11 @@ class PhoneNumberVerificationPage extends StatelessWidget {
                   SizedBox(
                     width: double.infinity,
                     height: 56,
-                    child: CustomElavatedButton(text:'Sent OTP' , onPressed: () {}),
+                    child: CustomElavatedButton(text:'Sent OTP' , onPressed: () {
+                      // Navigate to the OTP verification page
+                      Navigator.push(context, 
+                      MaterialPageRoute(builder: (context) => OtpScreen()));
+                    }),
                   ),
                 ],
               ),
