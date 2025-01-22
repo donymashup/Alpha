@@ -19,4 +19,14 @@ class AppConstant {
   static const orangedot = Color(0xFFFFA500);
   static const bluedot = Color(0xFF005DA3);
   static const yellowdot = Color(0xFFFFD700);
+
+
+  //
+
+  static const Gradient redWhiteGradient = LinearGradient(
+    colors: [AppConstant.backgroundColor,Color(0xFFF8A2A5)],
+    begin: Alignment.topCenter,
+    end: Alignment.bottomCenter,
+  );
 }
+
