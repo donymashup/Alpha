@@ -16,12 +16,14 @@ class CustomButton extends StatelessWidget {
           MaterialPageRoute(builder: (context) => PhoneNumberVerificationPage()) // Navigate to the login screen
         );
       },
+
       style: ElevatedButton.styleFrom(
         minimumSize: Size(MediaQuery.of(context).size.width * 0.9,50),
         backgroundColor: AppConstant.lightGradient, // Set the background color of the button
         shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.circular(10),// Optional: rounded corners
         ),
+
       ),
       child: const Text(
         'Register',

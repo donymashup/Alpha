@@ -2,6 +2,7 @@ import 'package:alpha/common%20widgets/welcome_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:alpha/constants/app_constants.dart'; // Correct import statement
 
+
 class OnboardingScreen extends StatefulWidget {
   @override
   _OnboardingScreenState createState() => _OnboardingScreenState();
