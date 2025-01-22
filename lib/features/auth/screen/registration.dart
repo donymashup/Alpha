@@ -31,7 +31,7 @@ class RegistrationScreen extends StatelessWidget {
                     padding: EdgeInsets.symmetric(horizontal: 100),
                     child: Center(
                       child: Text(
-                        'WE WOULD LIKE TO KNOW MORE ABOUT YOU',
+                        'WE WOULD LIKE TO KNOW/nMORE ABOUT YOU',
                         textAlign: TextAlign.center,
                         style: TextStyle(
                           color: AppConstant.cardBackground,
@@ -67,10 +67,7 @@ class RegistrationScreen extends StatelessWidget {
                     CustomTextField(labelText: "Phone Number", hintText: ""),
                     const SizedBox(height: 30),
                     Center(
-                      child: CustomButtom(),
-                      
-
-
+                      child: CustomButton(),
                     ),
                     const SizedBox(height: 40),
                   ],
