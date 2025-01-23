@@ -17,8 +17,8 @@ class HomeScreen extends StatelessWidget {
         'Hello, Dora',
         style: TextStyle(
           color: AppConstant.titlecolor,
-          fontSize: 17,
-          fontWeight: FontWeight.w700,
+          fontSize: 18,
+          fontWeight: FontWeight.bold,
           
         ),
       ),

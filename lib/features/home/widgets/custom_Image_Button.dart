@@ -12,8 +12,8 @@ class CustonImageButtom extends StatelessWidget {
     return IconButton(
       icon: Image.asset(
         path, 
-        height: 24,
-        width: 24,
+        height: 40,
+        width: 40,
       ),
       onPressed: () {
         // Add your menu functionality here
