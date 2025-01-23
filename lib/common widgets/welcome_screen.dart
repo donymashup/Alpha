@@ -50,11 +50,11 @@ class _WelcomePageState extends State<WelcomePage> {
           children: [
             // Background dots
 
-            const colorDot(top: -50, right: -50, width: 150, height: 150, Color: AppConstant.orangedot),
-            const colorDot(top: 20, right: 360, width: 100, height: 100, Color: AppConstant.reddot),
-            const colorDot(top: 150, right: 150, width: 30, height: 30, Color: AppConstant.bluedot),
-            colorDot(top: MediaQuery.of(context).size.height / 3, right: -30, width: 150, height: 150, Color: AppConstant.bluedot),
-            colorDot(top: MediaQuery.of(context).size.height / 2 , right: 420, width: 40, height: 40, Color: Colors.lightBlue),
+            const colorDot(top: 30, right: -40, width: 150, height: 150, Color: AppConstant.bluedot),
+            const colorDot(top: 20, right: 420, width: 100, height: 100, Color: AppConstant.orangedot),
+            const colorDot(top: 150, right: 350, width: 30, height: 30, Color: AppConstant.bluedot),
+            colorDot(top: MediaQuery.of(context).size.height / 3, right: 220, width: 150, height: 150, Color: AppConstant.reddot),
+            colorDot(top: MediaQuery.of(context).size.height / 2 , right: 80, width: 20, height: 20, Color: Colors.lightBlue),
 
             // Main content inside SingleChildScrollView
             SingleChildScrollView(
