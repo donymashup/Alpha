@@ -42,5 +42,25 @@ class AppConstant {
     static const List<String> items = [
     "All Courses", "NEET", "JEE", "UPSC", "PSC", "SSC"
   ]; 
+
+
+   static const List<Map<String, dynamic>> item = [
+    {
+      "title": "Bumper Olympiard",
+      "imagePath": "assets/images/course1.png",
+      "rating": 4.5,
+    },
+    {
+      "title": "USS",
+      "imagePath": "assets/images/course2.png",
+      "rating": 4.8,
+    },
+    {
+      "title": "NMMS",
+      "imagePath": "assets/images/course3.png",
+      "rating": 4.2,
+    },
+  ];
 }
+
 
