@@ -33,7 +33,7 @@ class _CustomBottomNavigationState extends State<CustomBottomNavigation> {
       body: _widgetOptions.elementAt(_selectedIndex),
       bottomNavigationBar: Container(
         color: AppConstant.backgroundColor,
-        padding: const EdgeInsets.symmetric(horizontal: 15, vertical: 10),
+        padding: const EdgeInsets.symmetric(horizontal: 15, vertical: 08),
         child: GNav(
           gap: 8,
           activeColor: AppConstant.primaryColor2,

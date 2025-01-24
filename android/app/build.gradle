@@ -29,12 +29,14 @@ android {
     ndkVersion = flutter.ndkVersion
 
     compileOptions {
+
         sourceCompatibility = JavaVersion.VERSION_17 // Updated to Java 17
         targetCompatibility = JavaVersion.VERSION_17 // Updated to Java 17
     }
 
     kotlinOptions { // Add this block to set Kotlin's JVM target
         jvmTarget = "17" // Match Kotlin JVM target to Java version
+
     }
 
     defaultConfig {
