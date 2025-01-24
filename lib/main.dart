@@ -9,6 +9,7 @@ import 'package:alpha/features/auth/screen/registration.dart';
 import 'package:alpha/features/home/screen/home_screen.dart';
 
 import 'package:alpha/features/auth/widgets/bottom_navigation_bar.dart';
+import 'package:alpha/features/my_courses/screens/sample.dart';
 import 'package:alpha/features/timeline/calendar_schedule_page.dart';
 import 'package:flutter/material.dart';
 
@@ -31,7 +32,7 @@ class MyApp extends StatelessWidget {
         useMaterial3: true,
       ),
 
-      home:  CustomBottomNavigation(),
+      home:  SplashScreen(),
 
     );
   }
