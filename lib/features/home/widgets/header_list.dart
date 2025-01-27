@@ -1,5 +1,5 @@
-import 'package:alpha/constants/app_constants.dart';
 import 'package:flutter/material.dart';
+import 'package:alpha/constants/app_constants.dart';
 
 class HeaderList extends StatelessWidget {
   const HeaderList({super.key});
@@ -10,7 +10,7 @@ class HeaderList extends StatelessWidget {
       height: 50, // Set a fixed height for the horizontal list
       child: ListView.builder(
         scrollDirection: Axis.horizontal, // Make the list scroll horizontally
-        itemCount: AppConstant.items.length, // Number of items in the list
+        itemCount: AppConstant.items.length, // Use the correct property
         itemBuilder: (context, index) {
           return Padding(
             padding: const EdgeInsets.symmetric(horizontal: 8.0), // Adjust padding for spacing
@@ -24,19 +24,19 @@ class HeaderList extends StatelessWidget {
                   borderRadius: BorderRadius.circular(25), // Rounded corners
                 ),
                 child: Container(
-                  padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 20),
+                  padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
                   decoration: BoxDecoration(
                     borderRadius: BorderRadius.circular(25), // Rounded corners
-                    color: AppConstant.primaryColor, // Card color
+                    color: AppConstant.primaryColor2, // Card color
                   ),
                   child: Center(
                     child: Text(
-                      AppConstant.items[index], // Display item name
+                      AppConstant.items[index], // Use the correct property
                       textAlign: TextAlign.center,
                       style: const TextStyle(
                         fontSize: 14,
                         fontWeight: FontWeight.bold,
-                        color: Colors.white, // Text color
+                        color: AppConstant.cardBackground, // Text color
                       ),
                     ),
                   ),

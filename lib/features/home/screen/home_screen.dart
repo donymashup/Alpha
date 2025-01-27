@@ -1,6 +1,5 @@
 import 'package:alpha/constants/app_constants.dart';
 import 'package:alpha/features/home/widgets/carousel.dart';
-import 'package:alpha/features/home/widgets/course_list.dart';
 import 'package:alpha/features/home/widgets/custom_Image_Button.dart';
 import 'package:alpha/features/home/widgets/header_list.dart';
 import 'package:alpha/features/home/widgets/search_field.dart';
@@ -42,37 +41,41 @@ class HomeScreen extends StatelessWidget {
           CustonImageButtom(path: 'assets/icons/profile.png'), // Correct class name
         ],
       ),
-      body: SingleChildScrollView(
-        child: Padding(
-          padding: const EdgeInsets.all(10.0),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              const Row(
-                children: [
-                  Text(
-                    "Let's Learn",
-                    style: TextStyle(
-                      fontSize: 30,
-                      fontWeight: FontWeight.w100,
-                      color: AppConstant.primaryColor,
+      body: Container(
+        color: AppConstant.backgroundColor, // Set background color here
+        child: SingleChildScrollView(
+          child: Padding(
+            padding: const EdgeInsets.all(10.0),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                const Row(
+                  children: [
+                    Text(
+                      "Let's Learn",
+                      style: TextStyle(
+                        fontSize: 30,
+                        fontWeight: FontWeight.w100,
+                        color: AppConstant.primaryColor2,
+                      ),
                     ),
-                  ),
-                  SizedBox(width: 10),
-                  Image(
-                    image: AssetImage('assets/icons/cap.png'),
-                    height: 50,
-                    width: 50,
-                  ),
-                ],
-              ),
-              const Text(
-                'Something new',
-                style: TextStyle(
-                  fontSize: 30,
-                  color: AppConstant.primaryColor,
-                  fontWeight: FontWeight.bold,
+                    SizedBox(width: 10),
+                    Image(
+                      image: AssetImage('assets/icons/cap.png'),
+                      height: 50,
+                      width: 50,
+                    ),
+                  ],
                 ),
+                const Text(
+                  'Something new',
+                  style: TextStyle(
+                    fontSize: 30,
+                    color: AppConstant.primaryColor2,
+                    fontWeight: FontWeight.bold,
+                  ),
+                ),
+
               ),
 
               const SizedBox(height: 10),
@@ -87,10 +90,10 @@ class HomeScreen extends StatelessWidget {
               const SizedBox(height: 20),
               CourseLists(),
             ],
+
           ),
         ),
       ),
-
     );
   }
 }
