@@ -30,6 +30,7 @@ environment:
 dependencies:
   flutter:
     sdk: flutter
+  
 
 
   # The following adds the Cupertino Icons font to your application.
@@ -42,6 +43,8 @@ dependencies:
   intl: ^0.17.0
   font_awesome_flutter: ^10.1.0
   google_nav_bar: ^5.0.6
+  rive: ^0.13.20
+  rive_common: ^0.4.15
 
 dev_dependencies:
   flutter_test:
@@ -69,6 +72,7 @@ flutter:
   assets:
     - assets/images/
     - assets/icons/
+    # - assets/RiveAssets/icons.riv
   #   - images/a_dot_ham.jpeg
 
   # An image asset can refer to one or more resolution-specific "variants", see

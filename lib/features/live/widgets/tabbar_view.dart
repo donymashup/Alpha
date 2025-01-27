@@ -1,3 +1,4 @@
+import 'package:alpha/constants/app_constants.dart';
 import 'package:flutter/material.dart';
 
 class CustomTabBarView extends StatefulWidget {
@@ -34,7 +35,7 @@ class _CustomTabBarViewState extends State<CustomTabBarView> {
                   child: Container(
                     alignment: Alignment.center,
                     decoration: BoxDecoration(
-                      color: selectedIndex == 0 ? Colors.green : Colors.transparent,
+                      color: selectedIndex == 0 ? AppConstant.primaryColor2 : Colors.transparent,
                       borderRadius: BorderRadius.circular(25),
                     ),
                     child: Text(
@@ -58,7 +59,7 @@ class _CustomTabBarViewState extends State<CustomTabBarView> {
                   child: Container(
                     alignment: Alignment.center,
                     decoration: BoxDecoration(
-                      color: selectedIndex == 1 ? Colors.green : Colors.transparent,
+                      color: selectedIndex == 1 ? AppConstant.primaryColor2 : Colors.transparent,
                       borderRadius: BorderRadius.circular(25),
                     ),
                     child: Text(
@@ -82,7 +83,7 @@ class _CustomTabBarViewState extends State<CustomTabBarView> {
                   child: Container(
                     alignment: Alignment.center,
                     decoration: BoxDecoration(
-                      color: selectedIndex == 2 ? Colors.green : Colors.transparent,
+                      color: selectedIndex == 2 ? AppConstant.primaryColor2 : Colors.transparent,
                       borderRadius: BorderRadius.circular(25),
                     ),
                     child: Text(
