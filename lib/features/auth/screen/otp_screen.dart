@@ -126,6 +126,7 @@ class _OtpScreenState extends State<OtpScreen> {
                       onPressed: () {
                         if (_otpCode != null && _otpCode!.length == 6) {
                           print('Verifying OTP: $_otpCode');
+                          
                         } else {
                           ScaffoldMessenger.of(context).showSnackBar(
                             const SnackBar(content: Text('Please enter a valid OTP')),
