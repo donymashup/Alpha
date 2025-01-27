@@ -75,15 +75,14 @@ class _CarouselImageState extends State<CarouselImage> {
           children: AppConstant.carouselImages.asMap().entries.map((entry) {
             return GestureDetector(
               onTap: () => _controller.jumpToPage(entry.key),
-              child: Container(
-                width: 8.0,
-                height: 8.0,
-                margin: const EdgeInsets.symmetric(horizontal: 4.0),
+              child: AnimatedContainer(
+                duration: const Duration(milliseconds: 300),
+                margin: const EdgeInsets.symmetric(horizontal: 4),
+                width: _currentIndex == entry.key ? 12 : 8,
+                height: 8,
                 decoration: BoxDecoration(
-                  shape: BoxShape.circle,
-                  color: _currentIndex == entry.key
-                      ? AppConstant.primaryColor
-                      : AppConstant.hindColor,
+                  color: _currentIndex == entry.key ? AppConstant.primaryColor3 : Colors.grey,
+                  borderRadius: BorderRadius.circular(4),
                 ),
               ),
             );

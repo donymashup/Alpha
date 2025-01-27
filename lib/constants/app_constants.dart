@@ -13,6 +13,7 @@ class AppConstant {
   static const titlecolor = Color(0xFF000000); // Correct black color
   static const subtitlecolor = Color(0xFF989EA7);
   static const shadowColor = Color.fromARGB(255, 202, 188, 188);
+  static const buttonupdate = Color(0xFFF6921E);
   
 
 
@@ -33,10 +34,11 @@ class AppConstant {
 
 
   static const List<String> carouselImages = [
-       'assets/images/alphalogo.png',
-       'assets/images/banner2.png',
+       //'assets/images/alphalogo.png',
+       'assets/images/etutorslider5.png',
+       'assets/images/banner1.png',
        'assets/images/banner3.png',
-        'assets/images/banner4.png',
+       'assets/images/banner4.png',
     ];
 
     static const List<String> items = [

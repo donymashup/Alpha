@@ -18,7 +18,7 @@ class profile extends StatelessWidget {
         children: [
           CircleAvatar(
             radius: 45,
-            backgroundImage: AssetImage('assets/images/profile.png'),
+            backgroundImage: AssetImage('assets/icons/profile.png'),
           ),
           EditPen(),
         ],

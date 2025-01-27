@@ -1,6 +1,9 @@
+import 'package:alpha/common%20widgets/side_menu.dart';
 import 'package:alpha/common%20widgets/splash_screen.dart';
 import 'package:alpha/constants/app_constants.dart';
 import 'package:alpha/features/auth/screen/login.dart';
+
+
 
 import 'package:alpha/features/auth/screen/otp_screen.dart';
 
@@ -10,6 +13,7 @@ import 'package:alpha/features/home/screen/home_screen.dart';
 
 import 'package:alpha/features/auth/widgets/bottom_navigation_bar.dart';
 import 'package:alpha/features/my_courses/screens/sample.dart';
+import 'package:alpha/features/profile/my_profile.dart';
 import 'package:alpha/features/timeline/calendar_schedule_page.dart';
 import 'package:flutter/material.dart';
 

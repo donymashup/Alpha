@@ -2,6 +2,8 @@ import 'package:alpha/constants/app_constants.dart';
 import 'package:alpha/features/auth/widgets/custom_elavatedbutton.dart';
 import 'package:flutter/material.dart';
 import 'package:pinput/pinput.dart';
+import 'package:alpha/features/home/screen/home_screen.dart'; // Corrected import path
+import 'package:alpha/features/auth/widgets/bottom_navigation_bar.dart';
 
 class OtpScreen extends StatefulWidget {
   @override
@@ -52,9 +54,7 @@ class _OtpScreenState extends State<OtpScreen> {
     );
 
     final submittedPinTheme = defaultPinTheme.copyWith(
-      decoration: defaultPinTheme.decoration?.copyWith(
-        //color: Colors.grey.shade300,
-      ),
+      decoration: defaultPinTheme.decoration?.copyWith(),
     );
 
     return Scaffold(
@@ -126,6 +126,10 @@ class _OtpScreenState extends State<OtpScreen> {
                       onPressed: () {
                         if (_otpCode != null && _otpCode!.length == 6) {
                           print('Verifying OTP: $_otpCode');
+                          Navigator.pushReplacement(
+                            context,
+                            MaterialPageRoute(builder: (context) => CustomBottomNavigation()),
+                          );
                         } else {
                           ScaffoldMessenger.of(context).showSnackBar(
                             const SnackBar(content: Text('Please enter a valid OTP')),
@@ -169,6 +173,6 @@ class _OtpScreenState extends State<OtpScreen> {
           ),
         ],
       ),
-    );
+    ); 
   }
 }

@@ -1,5 +1,7 @@
 import 'package:alpha/constants/app_constants.dart';
 import 'package:alpha/features/live/screen/live_courses.dart';
+import 'package:alpha/features/profile/my_profile.dart';
+import 'package:alpha/features/timeline/calendar_schedule_page.dart';
 import 'package:flutter/material.dart';
 import 'package:alpha/features/home/screen/home_screen.dart'; // Import HomeScreen
 import 'package:google_nav_bar/google_nav_bar.dart';
@@ -16,9 +18,9 @@ class _CustomBottomNavigationState extends State<CustomBottomNavigation> {
 
   static final List<Widget> _widgetOptions = <Widget>[
     const HomeScreen(),
-    const Center(child: Text('My Courses Screen')),
+    CalendarSchedulePage(),
     const LiveClassesScreen(),
-    const Center(child: Text('Profile Screen')),
+    ProfileScreen()
   ];
 
   void _onItemTapped(int index) {
