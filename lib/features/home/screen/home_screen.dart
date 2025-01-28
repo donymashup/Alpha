@@ -1,6 +1,8 @@
+import 'package:alpha/common%20widgets/customappbar.dart';
+import 'package:alpha/common%20widgets/drawermenu/drawer.dart';
 import 'package:alpha/constants/app_constants.dart';
 import 'package:alpha/features/home/widgets/carousel.dart';
-import 'package:alpha/features/home/widgets/custom_Image_Button.dart';
+import 'package:alpha/features/home/widgets/course_list.dart';
 import 'package:alpha/features/home/widgets/header_list.dart';
 import 'package:alpha/features/home/widgets/search_field.dart';
 import 'package:flutter/material.dart';
@@ -11,36 +13,8 @@ class HomeScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: const Text(
-          'Hello, Dora',
-          style: TextStyle(
-            color: AppConstant.titlecolor,
-            fontSize: 18,
-            fontWeight: FontWeight.bold,
-          ),
-        ),
-        backgroundColor: AppConstant.backgroundColor,
-        leading: CustonImageButtom(path: 'assets/icons/menu.png'), // Correct class name
-        actions: [
-          IconButton(
-            icon: Container(
-              decoration: const BoxDecoration(
-                color: Colors.white, // Background color of the circle
-                shape: BoxShape.circle, // Circular shape
-              ),
-              padding: const EdgeInsets.all(8), // Adjust padding for the icon size
-              child: Image.asset(
-                'assets/icons/bell.png',
-                height: 24,
-                width: 24,
-              ),
-            ),
-            onPressed: () {},
-          ),
-          CustonImageButtom(path: 'assets/icons/profile.png'), // Correct class name
-        ],
-      ),
+      appBar: CustomAppBar(appbarTitle: "Hello, Dora"),
+      drawer: DrawerScreen(),
       body: Container(
         color: AppConstant.backgroundColor, // Set background color here
         child: SingleChildScrollView(
@@ -75,22 +49,19 @@ class HomeScreen extends StatelessWidget {
                     fontWeight: FontWeight.bold,
                   ),
                 ),
-
-              ),
-
-              const SizedBox(height: 10),
-              const SearchField(),
-              const SizedBox(height: 20),
-              const CarouselImage(),
-              const SizedBox(height: 20),
-              const SizedBox(
-                height: 30,
-                child: HeaderList(),
-              ),
-              const SizedBox(height: 20),
-              CourseLists(),
-            ],
-
+                const SizedBox(height: 10),
+                const SearchField(),
+                const SizedBox(height: 20),
+                const CarouselImage(),
+                const SizedBox(height: 20),
+                const SizedBox(
+                  height: 50,
+                  child: HeaderList(),
+                ),
+                const SizedBox(height: 20),
+                const CourseLists(), // Assuming CourseLists is another widget in your project
+              ],
+            ),
           ),
         ),
       ),
