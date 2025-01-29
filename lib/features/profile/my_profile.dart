@@ -1,3 +1,5 @@
+import 'package:alpha/common%20widgets/customappbar.dart';
+import 'package:alpha/common%20widgets/drawermenu/drawer.dart';
 import 'package:alpha/features/home/widgets/custom_Image_Button.dart';
 import 'package:flutter/material.dart';
 import 'package:alpha/constants/app_constants.dart';
@@ -6,39 +8,8 @@ class ProfileScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: const Text(
-          'My Profile',
-          style: TextStyle(
-            color: AppConstant.titlecolor,
-            fontSize: 18,
-            fontWeight: FontWeight.bold,
-          ),
-        ),
-        backgroundColor: AppConstant.backgroundColor,
-        leading: IconButton(
-          icon: Image.asset('assets/icons/menu.png', height: 24, width: 24),
-          onPressed: () {},
-        ),
-        actions: [
-          IconButton(
-            icon: Container(
-              decoration: const BoxDecoration(
-                color: AppConstant.cardBackground,
-                shape: BoxShape.circle,
-              ),
-              padding: const EdgeInsets.all(12),
-              child: Image.asset(
-                'assets/icons/bell.png',
-                height: 30,
-                width: 30,
-              ),
-            ),
-            onPressed: () {},
-          ),
-          CustonImageButtom(path: 'assets/icons/profile.png'),
-        ],
-      ),
+      appBar: CustomAppBar(appbarTitle: "My Profile"),
+      drawer: DrawerScreen(),
       backgroundColor: AppConstant.backgroundColor,
       body: Container(
         color: AppConstant.backgroundColor, // Set the background color here
