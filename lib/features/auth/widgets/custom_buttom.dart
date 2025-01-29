@@ -1,3 +1,4 @@
+import 'package:alpha/features/auth/widgets/bottom_navigation_bar.dart';
 import 'package:flutter/material.dart';
 import 'package:alpha/constants/app_constants.dart';
 import 'package:alpha/features/auth/screen/login.dart'; // Import the login screen
@@ -15,10 +16,10 @@ class CustomButton extends StatelessWidget {
   Widget build(BuildContext context) {
     return ElevatedButton(
       onPressed: () {
-        Navigator.push(
-          context,
-          MaterialPageRoute(builder: (context) => PhoneNumberVerificationPage()) // Navigate to the login screen
-        );
+         Navigator.pushReplacement(
+                            context,
+                            MaterialPageRoute(builder: (context) => CustomBottomNavigation()),
+                          );
       },
 
       style: ElevatedButton.styleFrom(

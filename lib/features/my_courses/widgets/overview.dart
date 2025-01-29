@@ -7,6 +7,7 @@ class OverviewCard extends StatelessWidget {
 # Course Overview
 
 Welcome to the **Flutter Development** course!
+![Flutter Course](assets/images/flutter_courses.png)
 
 In this course, we will cover the following topics:
 
