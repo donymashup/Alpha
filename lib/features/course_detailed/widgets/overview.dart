@@ -28,7 +28,7 @@ In this course, we will cover the following topics:
    - Communicating with APIs
 
 ### Key Takeaways:
-
+ 
 - You will learn how to build mobile apps with a rich user interface.
 - You will become proficient in Dart and Flutter tools.
   

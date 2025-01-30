@@ -1,4 +1,5 @@
 import 'package:alpha/constants/app_constants.dart';
+import 'package:alpha/features/courses/my_courses.dart';
 import 'package:alpha/features/live/screen/live_courses.dart';
 import 'package:alpha/features/profile/my_profile.dart';
 import 'package:alpha/features/test_series/test_series.dart';
@@ -20,7 +21,7 @@ class _CustomBottomNavigationState extends State<CustomBottomNavigation> {
 
   static final List<Widget> _widgetOptions = <Widget>[
     const HomeScreen(),
-    CalendarSchedulePage(),
+    MyCourses(),
     const LiveClassesScreen(),
     TestSeriesScreen()
   ];

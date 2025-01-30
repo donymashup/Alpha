@@ -3,7 +3,9 @@ import 'package:alpha/common%20widgets/drawermenu/drawer.dart';
 import 'package:alpha/constants/app_constants.dart';
 import 'package:alpha/features/home/widgets/carousel.dart';
 import 'package:alpha/features/home/widgets/course_list.dart';
+
 import 'package:alpha/features/home/widgets/custom_Image_Button.dart';
+
 import 'package:alpha/features/home/widgets/header_list.dart';
 import 'package:alpha/features/home/widgets/search_field.dart';
 import 'package:flutter/material.dart';
@@ -34,6 +36,7 @@ class HomeScreen extends StatelessWidget {
                         color: AppConstant.primaryColor2,
                       ),
                     ),
+
                     const SizedBox(width: 10),
                     const Image(
                       image: AssetImage('assets/icons/cap.png'),
@@ -51,6 +54,7 @@ class HomeScreen extends StatelessWidget {
                     fontWeight: FontWeight.bold,
                   ),
                 ),
+
                 const SizedBox(height: 10),
                 const SearchField(),
                 const SizedBox(height: 20),
@@ -70,3 +74,5 @@ class HomeScreen extends StatelessWidget {
     );
   }
 }
+
+
