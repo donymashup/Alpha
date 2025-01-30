@@ -1,5 +1,7 @@
 import 'package:alpha/common%20widgets/drawermenu/aboutus.dart';
 import 'package:alpha/constants/app_constants.dart';
+import 'package:alpha/features/timeline/calendar_schedule_page.dart';
+import 'package:fluentui_system_icons/fluentui_system_icons.dart';
 import 'package:flutter/material.dart';
 
 class DrawerScreen extends StatelessWidget {
@@ -26,6 +28,32 @@ class DrawerScreen extends StatelessWidget {
                 ),
               ),
             ),
+            ListTile(
+              leading: const Icon(FluentIcons.data_trending_24_regular),
+              title: const Text('Student Performance Index'),
+              onTap: () {
+                // Navigate to Student Performance Index
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(builder: (context) => CalendarSchedulePage()),
+                );
+              },
+            ),
+            ListTile(
+              leading: const Icon(FluentIcons.timeline_24_regular),
+              title: const Text('Timeline'),
+              onTap: () {
+                // Navigate to Timeline Page
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(builder: (context) => CalendarSchedulePage()),
+                );
+              },
+            ),
+
+            const Divider(),
+
+
             // List of menu options in the drawer
             ListTile(
               leading: const Icon(Icons.info_outline),
