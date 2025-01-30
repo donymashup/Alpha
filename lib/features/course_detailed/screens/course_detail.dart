@@ -1,10 +1,13 @@
 import 'package:alpha/constants/app_constants.dart';
-import 'package:alpha/features/my_courses/widgets/classes_list.dart';
-import 'package:alpha/features/my_courses/widgets/overview.dart';
-import 'package:alpha/features/my_courses/widgets/reviews.dart';
+import 'package:alpha/features/course_detailed/widgets/classes_list.dart';
+import 'package:alpha/features/course_detailed/widgets/overview.dart';
+import 'package:alpha/features/course_detailed/widgets/reviews.dart';
 import 'package:flutter/material.dart';
 
 class AnimatedTabBarScreen extends StatefulWidget {
+  final Map<String, dynamic> course; // Accept course data
+
+  const AnimatedTabBarScreen({super.key, required this.course});
   @override
   _AnimatedTabBarScreenState createState() => _AnimatedTabBarScreenState();
 }
@@ -48,13 +51,16 @@ class _AnimatedTabBarScreenState extends State<AnimatedTabBarScreen>
                         mainAxisSize: MainAxisSize.min,
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
-                          Container(
-                            height: MediaQuery.of(context).size.height * 0.25,
-                            width: double.infinity,
-                            decoration: BoxDecoration(
-                              image: DecorationImage(
-                                image: AssetImage('assets/images/banner1.png'),
-                                fit: BoxFit.cover,
+                          Hero(
+                            tag: "imageCourse_${widget.course['title']}",
+                            child: Container(
+                              height: MediaQuery.of(context).size.height * 0.25,
+                              width: double.infinity,
+                              decoration: BoxDecoration(
+                                image: DecorationImage(
+                                  image: AssetImage('assets/images/banner1.png'),
+                                  fit: BoxFit.cover,
+                                ),
                               ),
                             ),
                           ),
