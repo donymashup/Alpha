@@ -3,6 +3,9 @@ import 'package:alpha/common%20widgets/drawermenu/drawer.dart';
 import 'package:alpha/constants/app_constants.dart';
 import 'package:alpha/features/home/widgets/carousel.dart';
 import 'package:alpha/features/home/widgets/course_list.dart';
+
+import 'package:alpha/features/home/widgets/custom_Image_Button.dart';
+
 import 'package:alpha/features/home/widgets/header_list.dart';
 import 'package:alpha/features/home/widgets/search_field.dart';
 import 'package:flutter/material.dart';
@@ -13,7 +16,7 @@ class HomeScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: CustomAppBar(appbarTitle: "Hello, Dora"),
+      appBar: const CustomAppBar(appbarTitle: "Hello, Dora"),
       drawer: const DrawerScreen(),
       body: Container(
         color: AppConstant.backgroundColor, // Set background color here
@@ -33,17 +36,16 @@ class HomeScreen extends StatelessWidget {
                         color: AppConstant.primaryColor2,
                       ),
                     ),
-                    const SizedBox(width: 10), // Move SizedBox inside Row
-                    Image.asset(
-                      'assets/icons/cap.png',
+
+                    const SizedBox(width: 10),
+                    const Image(
+                      image: AssetImage('assets/icons/cap.png'),
                       height: 50,
                       width: 50,
                     ),
                   ],
-                ), // Closed Row properly
-                
-                const SizedBox(height: 10),
-                
+                ),
+                const SizedBox(height: 10), // Moved outside Row
                 const Text(
                   'Something new',
                   style: TextStyle(
@@ -53,7 +55,7 @@ class HomeScreen extends StatelessWidget {
                   ),
                 ),
 
-                const SizedBox(height: 10), // Fixed misplaced `SizedBox`
+                const SizedBox(height: 10),
                 const SearchField(),
                 const SizedBox(height: 20),
                 const CarouselImage(),

@@ -2,7 +2,9 @@ import 'package:alpha/constants/app_constants.dart';
 import 'package:alpha/features/courses/my_courses.dart';
 import 'package:alpha/features/live/screen/live_courses.dart';
 import 'package:alpha/features/profile/my_profile.dart';
+import 'package:alpha/features/test_series/test_series.dart';
 import 'package:alpha/features/timeline/calendar_schedule_page.dart';
+import 'package:fluentui_system_icons/fluentui_system_icons.dart';
 import 'package:flutter/material.dart';
 import 'package:alpha/features/home/screen/home_screen.dart'; // Import HomeScreen
 import 'package:google_nav_bar/google_nav_bar.dart';
@@ -21,7 +23,7 @@ class _CustomBottomNavigationState extends State<CustomBottomNavigation> {
     const HomeScreen(),
     MyCourses(),
     const LiveClassesScreen(),
-    ProfileScreen()
+    TestSeriesScreen()
   ];
 
   void _onItemTapped(int index) {
@@ -59,9 +61,13 @@ class _CustomBottomNavigationState extends State<CustomBottomNavigation> {
               icon: Icons.live_tv,
               text: 'Live',
             ),
+            // GButton(
+            //   icon: Icons.person,
+            //   text: 'Profile',
+            // ),
             GButton(
-              icon: Icons.person,
-              text: 'Profile',
+              icon: FluentIcons.clipboard_task_list_16_regular, // Test Series Icon
+              text: 'Test Series',
             ),
           ],
         ),

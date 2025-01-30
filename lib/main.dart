@@ -37,12 +37,19 @@ class MyApp extends StatelessWidget {
         useMaterial3: true,
       ),
 
+
       //home: HomeScreen(),
       //home: AnimatedTabBarScreen(),
       //home: SplashScreen(),
      // home: RatingScreen(),
      // home: ReviewScreen(),
-        home: MyCourses(),
+      //  home: MyCourses(),
+      //home: HomeScreen(),
+      //home: SplashScreen(),
+     // home: RatingScreen(),
+     // home: ReviewScreen(),
+     home: CustomBottomNavigation(),
+
     );
   }
 }
