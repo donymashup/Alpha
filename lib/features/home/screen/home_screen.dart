@@ -3,9 +3,7 @@ import 'package:alpha/common%20widgets/drawermenu/drawer.dart';
 import 'package:alpha/constants/app_constants.dart';
 import 'package:alpha/features/home/widgets/carousel.dart';
 import 'package:alpha/features/home/widgets/course_list.dart';
-
 import 'package:alpha/features/home/widgets/custom_Image_Button.dart';
-
 import 'package:alpha/features/home/widgets/header_list.dart';
 import 'package:alpha/features/home/widgets/search_field.dart';
 import 'package:flutter/material.dart';
@@ -16,8 +14,8 @@ class HomeScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: CustomAppBar(appbarTitle: "Hello, Dora"),
-      drawer: DrawerScreen(),
+      appBar: const CustomAppBar(appbarTitle: "Hello, Dora"),
+      drawer: const DrawerScreen(),
       body: Container(
         color: AppConstant.backgroundColor, // Set background color here
         child: SingleChildScrollView(
@@ -26,34 +24,33 @@ class HomeScreen extends StatelessWidget {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                const Row(
+                Row(
                   children: [
-                    Text(
+                    const Text(
                       "Let's Learn",
                       style: TextStyle(
                         fontSize: 30,
                         fontWeight: FontWeight.w100,
                         color: AppConstant.primaryColor2,
                       ),
-
                     ),
-                  ),
-                  SizedBox(width: 10),
-                  Image(
-                    image: AssetImage('assets/icons/cap.png'),
-                    height: 50,
-                    width: 50,
-                  ),
-                ],
-              ),
-              const Text(
-                'Something new',
-                style: TextStyle(
-                  fontSize: 30,
-                  color: AppConstant.primaryColor,
-                  fontWeight: FontWeight.bold,
+                    const SizedBox(width: 10),
+                    const Image(
+                      image: AssetImage('assets/icons/cap.png'),
+                      height: 50,
+                      width: 50,
+                    ),
+                  ],
                 ),
-
+                const SizedBox(height: 10), // Moved outside Row
+                const Text(
+                  'Something new',
+                  style: TextStyle(
+                    fontSize: 30,
+                    color: AppConstant.primaryColor,
+                    fontWeight: FontWeight.bold,
+                  ),
+                ),
                 const SizedBox(height: 10),
                 const SearchField(),
                 const SizedBox(height: 20),
@@ -67,12 +64,9 @@ class HomeScreen extends StatelessWidget {
                 const CourseLists(), // Assuming CourseLists is another widget in your project
               ],
             ),
-
           ),
         ),
       ),
-
     );
   }
 }
-

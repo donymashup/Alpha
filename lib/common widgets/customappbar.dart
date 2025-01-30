@@ -1,5 +1,6 @@
 import 'package:alpha/constants/app_constants.dart';
 import 'package:alpha/features/home/widgets/custom_Image_Button.dart';
+import 'package:alpha/features/profile/my_profile.dart'; // Import the profile screen
 import 'package:flutter/material.dart';
 
 class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
@@ -23,16 +24,6 @@ class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
       ),
       backgroundColor: AppConstant.backgroundColor,
       
-      // leading: GestureDetector(
-      //   onTap: () {
-      //     // Navigate to a new screen when the menu icon is tapped
-      //     Navigator.push(
-      //       context,
-      //       MaterialPageRoute(builder: (context) => DrawerScreen()),
-      //     );
-      //   },
-      //   child: CustonImageButtom(path: 'assets/icons/menu.png'), // Correct class name
-      // ),
       actions: [
         IconButton(
           icon: Container(
@@ -40,7 +31,6 @@ class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
               color: Colors.white, // Background color of the circle
               shape: BoxShape.circle, // Circular shape
             ),
-            
             padding: const EdgeInsets.all(8), // Adjust padding for the icon size
             child: Image.asset(
               'assets/icons/bell.png',
@@ -48,14 +38,22 @@ class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
               width: 24,
             ),
           ),
-          onPressed: () {},
+          onPressed: () {
+            // You can add a notification screen here, if needed.
+          },
         ),
-        CustonImageButtom(path: 'assets/icons/profile.png'), // Correct class name
+        // Navigate to MyProfile() when the profile button is tapped
+        GestureDetector(
+          onTap: () {
+            Navigator.push(
+              context,
+              MaterialPageRoute(builder: (context) => ProfileScreen()), // Navigate to MyProfile screen
+            );
+          },
+          child: CustonImageButtom(path: 'assets/icons/profile.png'), // Correct class name
+        ),
       ],
     );
-    
-    
-
   }
 
   @override
