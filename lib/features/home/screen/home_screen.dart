@@ -3,6 +3,7 @@ import 'package:alpha/common%20widgets/drawermenu/drawer.dart';
 import 'package:alpha/constants/app_constants.dart';
 import 'package:alpha/features/home/widgets/carousel.dart';
 import 'package:alpha/features/home/widgets/course_list.dart';
+import 'package:alpha/features/home/widgets/custom_Image_Button.dart';
 import 'package:alpha/features/home/widgets/header_list.dart';
 import 'package:alpha/features/home/widgets/search_field.dart';
 import 'package:flutter/material.dart';
@@ -23,8 +24,10 @@ class HomeScreen extends StatelessWidget {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
+                
                 Row(
                   children: [
+                  
                     const Text(
                       "Let's Learn",
                       style: TextStyle(
