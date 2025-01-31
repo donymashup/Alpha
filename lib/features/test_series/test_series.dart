@@ -1,3 +1,5 @@
+import 'package:alpha/common%20widgets/customappbar.dart';
+import 'package:alpha/common%20widgets/drawermenu/drawer.dart';
 import 'package:flutter/material.dart';
 import 'package:fluentui_system_icons/fluentui_system_icons.dart';
 
@@ -7,10 +9,8 @@ class TestSeriesScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: const Text("Test Series"),
-        backgroundColor: Colors.orange, // Customize as needed
-      ),
+      appBar: CustomAppBar(appbarTitle: "Test Series"),
+      drawer: const DrawerScreen(),
       body: ListView(
         padding: const EdgeInsets.all(16),
         children: const [
