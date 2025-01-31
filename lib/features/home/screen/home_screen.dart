@@ -36,17 +36,16 @@ class HomeScreen extends StatelessWidget {
                         color: AppConstant.primaryColor2,
                       ),
                     ),
-                    const SizedBox(width: 10), // Move SizedBox inside Row
-                    Image.asset(
-                      'assets/icons/cap.png',
+
+                    const SizedBox(width: 10),
+                    const Image(
+                      image: AssetImage('assets/icons/cap.png'),
                       height: 50,
                       width: 50,
                     ),
                   ],
-                ), // Closed Row properly
-                
-                const SizedBox(height: 10),
-                
+                ),
+                const SizedBox(height: 10), // Moved outside Row
                 const Text(
                   'Something new',
                   style: TextStyle(

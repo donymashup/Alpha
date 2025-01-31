@@ -43,15 +43,16 @@ class MyApp extends StatelessWidget {
       //home: SplashScreen(),
      // home: RatingScreen(),
      // home: ReviewScreen(),
-        home: MyCourses(),
+      //  home: MyCourses(),
 
-
+      //  home: MyCourses(),
       //home: HomeScreen(),
       //home: SplashScreen(),
      // home: RatingScreen(),
      // home: ReviewScreen(),
     // home: CustomBottomNavigation(),
-     
+
+     home: CustomBottomNavigation(),
     );
   }
 }
