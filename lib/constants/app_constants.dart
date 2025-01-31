@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
 class AppConstant {
-  static const backgroundColor = Color.fromARGB(255, 250, 242, 243);
+  static const backgroundColor2 = Color.fromARGB(255, 250, 246, 247);
   static const primaryColor = Color(0xFFD70000);
   static const lightGradient = Color.fromARGB(255, 214, 63, 69);
   static const darkGradient = Color.fromARGB(255, 138, 3, 3);
@@ -14,6 +14,7 @@ class AppConstant {
   static const subtitlecolor = Color(0xFF989EA7);
   static const shadowColor = Color.fromARGB(255, 202, 188, 188);
   static const buttonupdate = Color(0xFFF6921E);
+ static const backgroundColor = Color.fromARGB(255, 247, 246, 250);
   
 
 
@@ -30,6 +31,12 @@ class AppConstant {
     colors: [AppConstant.backgroundColor,Color(0xFFF8A2A5)],
     begin: Alignment.topCenter,
     end: Alignment.bottomCenter,
+  );
+
+  static const Gradient redDarkeGradient = LinearGradient(
+    colors: [primaryColor,darkGradient],
+    begin: Alignment.topLeft,
+    end: Alignment.topRight,
   );
 
 

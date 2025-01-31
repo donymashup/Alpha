@@ -1,6 +1,7 @@
 import 'package:alpha/common%20widgets/customappbar.dart';
 import 'package:alpha/common%20widgets/drawermenu/drawer.dart';
 import 'package:alpha/constants/app_constants.dart';
+import 'package:alpha/features/course_detailed/screens/course_detail.dart';
 import 'package:flutter/material.dart';
 
 class MyCourses extends StatelessWidget {

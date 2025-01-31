@@ -34,9 +34,9 @@ class _AnimatedTabBarScreenState extends State<AnimatedTabBarScreen>
       body: NestedScrollView(
         headerSliverBuilder: (context, innerBoxIsScrolled) => [
           SliverAppBar(
-            expandedHeight: MediaQuery.of(context).size.height * 0.4,
-            toolbarHeight: 3.0, // Set your desired height
-            collapsedHeight: 3.0,
+            expandedHeight: MediaQuery.of(context).size.height * 0.35,
+            toolbarHeight: 15.0, // Set your desired height
+            collapsedHeight: 15.0,
             pinned: true,
             flexibleSpace: LayoutBuilder(
               builder: (context, constraints) {
@@ -46,7 +46,7 @@ class _AnimatedTabBarScreenState extends State<AnimatedTabBarScreen>
                   background: Card(
                     color: AppConstant.cardBackground,
                     child: Padding(
-                      padding: const EdgeInsets.all(8.0),
+                      padding: const EdgeInsets.all(12.0),
                       child: Column(
                         mainAxisSize: MainAxisSize.min,
                         crossAxisAlignment: CrossAxisAlignment.start,
