@@ -50,7 +50,7 @@ class CourseLists extends StatelessWidget {
                   ),
                 ),
                 
-                const SizedBox(width: 10),
+                const SizedBox(width: 5),
           
                 // Text and rating section (Flexible with flex: 2)
                 Flexible(
@@ -58,12 +58,13 @@ class CourseLists extends StatelessWidget {
                   child: Padding(
                     padding: const EdgeInsets.all(8.0),
                     child: Column(
+                      mainAxisAlignment: MainAxisAlignment.start,
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         Text(
                           item["title"],
                           style: const TextStyle(
-                            fontSize: 18,
+                            fontSize: 16,
                             fontWeight: FontWeight.bold,
                           ),
                         ),

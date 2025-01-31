@@ -1,6 +1,7 @@
 import 'package:alpha/common%20widgets/customappbar.dart';
 import 'package:alpha/common%20widgets/drawermenu/drawer.dart';
 import 'package:alpha/constants/app_constants.dart';
+import 'package:alpha/features/course_detailed/screens/course_detail.dart';
 import 'package:flutter/material.dart';
 
 class MyCourses extends StatelessWidget {
@@ -11,12 +12,18 @@ class MyCourses extends StatelessWidget {
     return Scaffold(
       appBar: CustomAppBar(appbarTitle: "My Subscribed Courses"),
       drawer: const DrawerScreen(),
-      body:SingleChildScrollView(
-        child: ListView.builder(
-          itemCount: AppConstant.item.length,
-          itemBuilder: (context, index) {
-            final item = AppConstant.item[index];
-            return Card(
+      body: ListView.builder(
+        itemCount: AppConstant.item.length,
+        itemBuilder: (context, index) {
+          final item = AppConstant.item[index];
+          return GestureDetector(
+            onTap: () {
+           Navigator.push(
+           context,
+           MaterialPageRoute(builder: (context) => AnimatedTabBarScreen(course: item,)),
+          );
+          },
+            child: Card(
                margin: const EdgeInsets.all(10),
               shape: RoundedRectangleBorder(
                 borderRadius: BorderRadius.circular(10),
@@ -31,11 +38,14 @@ class MyCourses extends StatelessWidget {
                           borderRadius: const BorderRadius.horizontal(
                             left: Radius.circular(10),
                           ),
-                          child: Image.asset(
-                            item["imagePath"],
-                            height:   150,
-                            width : double.infinity,
-                            fit: BoxFit.cover,
+                          child: Hero(
+                            tag: "imageCourse_${item["title"]}",
+                            child: Image.asset(
+                              item["imagePath"],
+                              height:   150,
+                              width : double.infinity,
+                              fit: BoxFit.cover,
+                            ),
                           ),
                         ),
                     const SizedBox(height: 5),
@@ -68,9 +78,9 @@ class MyCourses extends StatelessWidget {
                   ],
                 ),
               ),
-            ); 
-          },
-        ),
+            ),
+          ); 
+        },
       ),
     );
 

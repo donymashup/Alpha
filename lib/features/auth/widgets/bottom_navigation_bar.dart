@@ -1,5 +1,5 @@
 import 'package:alpha/constants/app_constants.dart';
-import 'package:alpha/features/courses/my_courses.dart';
+import 'package:alpha/features/courses/screen/my_courses.dart';
 import 'package:alpha/features/live/screen/live_courses.dart';
 import 'package:alpha/features/profile/my_profile.dart';
 import 'package:alpha/features/test_series/test_series.dart';

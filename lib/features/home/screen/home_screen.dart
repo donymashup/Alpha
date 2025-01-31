@@ -17,7 +17,7 @@ class HomeScreen extends StatelessWidget {
       appBar: CustomAppBar(appbarTitle: "Hello, Dora"),
       drawer: const DrawerScreen(),
       body: Container(
-        color: AppConstant.backgroundColor, // Set background color here
+        color: const Color.fromARGB(255, 247, 246, 250), // Set background color here
         child: SingleChildScrollView(
           child: Padding(
             padding: const EdgeInsets.all(10.0),
@@ -45,7 +45,7 @@ class HomeScreen extends StatelessWidget {
                     ),
                   ],
                 ),
-                const SizedBox(height: 10), // Moved outside Row
+                const SizedBox(height: 5), // Moved outside Row
                 const Text(
                   'Something new',
                   style: TextStyle(
@@ -55,16 +55,16 @@ class HomeScreen extends StatelessWidget {
                   ),
                 ),
 
-                const SizedBox(height: 10), // Fixed misplaced `SizedBox`
+                const SizedBox(height: 5),// Fixed misplaced `SizedBox`
                 const SearchField(),
-                const SizedBox(height: 20),
+                const SizedBox(height: 10),
                 const CarouselImage(),
                 const SizedBox(height: 20),
                 const SizedBox(
                   height: 50,
                   child: HeaderList(),
                 ),
-                const SizedBox(height: 20),
+                const SizedBox(height: 10),
                 const CourseLists(), // Assuming CourseLists is another widget in your project
               ],
             ),
