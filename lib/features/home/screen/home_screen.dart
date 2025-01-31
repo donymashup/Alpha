@@ -36,7 +36,6 @@ class HomeScreen extends StatelessWidget {
                         color: AppConstant.primaryColor2,
                       ),
                     ),
-
                     const SizedBox(width: 10),
                     const Image(
                       image: AssetImage('assets/icons/cap.png'),
@@ -54,6 +53,7 @@ class HomeScreen extends StatelessWidget {
                     fontWeight: FontWeight.bold,
                   ),
                 ),
+
 
                 const SizedBox(height: 5),// Fixed misplaced `SizedBox`
                 const SearchField(),

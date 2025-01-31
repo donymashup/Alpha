@@ -11,6 +11,7 @@ import 'package:alpha/features/auth/widgets/bottom_navigation_bar.dart';
 import 'package:alpha/features/course_detailed/screens/course_detail.dart';
 //import 'package:alpha/features/my_courses/widgets/rating.dart';
 import 'package:alpha/features/course_detailed/widgets/reviews.dart';
+import 'package:alpha/features/performance/student_performance_index.dart';
 import 'package:alpha/features/profile/my_profile.dart';
 import 'package:alpha/features/quiz/screen/quiz_info.dart';
 import 'package:alpha/features/timeline/calendar_schedule_page.dart';
@@ -52,6 +53,8 @@ class MyApp extends StatelessWidget {
      // home: RatingScreen(),
      // home: ReviewScreen(),
     // home: CustomBottomNavigation(),
+    //  home: CustomBottomNavigation(),
+    // home: StudentPerformanceIndex(),
 
      home: QuizInfo(),
     );

@@ -1,5 +1,6 @@
 import 'package:alpha/common%20widgets/drawermenu/aboutus.dart';
 import 'package:alpha/constants/app_constants.dart';
+import 'package:alpha/features/performance/student_performance_index.dart';
 import 'package:alpha/features/timeline/calendar_schedule_page.dart';
 import 'package:fluentui_system_icons/fluentui_system_icons.dart';
 import 'package:flutter/material.dart';
@@ -11,7 +12,7 @@ class DrawerScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return Drawer(
       child: Container(
-        color: AppConstant.cardBackground, // Set background color for the entire drawer
+        color: AppConstant.backgroundColor, // Set background color for the entire drawer
         child: ListView(
           padding: EdgeInsets.zero,
           children: <Widget>[
@@ -23,8 +24,8 @@ class DrawerScreen extends StatelessWidget {
               child: Center(
                 child: Image.asset(
                   'assets/images/alphalogo.png', // Replace with your logo image path
-                  height: 150,
-                  width: 150,
+                  height: 250,
+                  width: 250,
                 ),
               ),
             ),
@@ -35,7 +36,7 @@ class DrawerScreen extends StatelessWidget {
                 // Navigate to Student Performance Index
                 Navigator.push(
                   context,
-                  MaterialPageRoute(builder: (context) => CalendarSchedulePage()),
+                  MaterialPageRoute(builder: (context) => StudentPerformanceIndex()),
                 );
               },
             ),
