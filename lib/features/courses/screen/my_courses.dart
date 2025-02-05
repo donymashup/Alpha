@@ -16,7 +16,14 @@ class MyCourses extends StatelessWidget {
         itemCount: AppConstant.item.length,
         itemBuilder: (context, index) {
           final item = AppConstant.item[index];
-          return Card(
+          return GestureDetector(
+          onTap: () {
+           Navigator.push(
+           context,
+           MaterialPageRoute(builder: (context) => AnimatedTabBarScreen(course: item,isSubscribed: true,)),
+          );
+          },
+          child: Card(
              margin: const EdgeInsets.all(10),
             shape: RoundedRectangleBorder(
               borderRadius: BorderRadius.circular(10),
@@ -68,7 +75,8 @@ class MyCourses extends StatelessWidget {
                 ],
               ),
             ),
-          ); 
+          ),
+          );
         },
       ),
     );
