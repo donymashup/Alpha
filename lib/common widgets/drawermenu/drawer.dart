@@ -8,22 +8,86 @@ import 'package:flutter/material.dart';
 class DrawerScreen extends StatelessWidget {
   const DrawerScreen({super.key});
 
+  void _showConfirmationDialog(
+    BuildContext context, {
+    required String title,
+    required String content,
+    required VoidCallback onConfirm,
+  }) {
+    showDialog(
+      context: context,
+      builder: (BuildContext context) {
+        return AlertDialog(
+          title: Text(title),
+          content: Text(content),
+          actions: [
+            TextButton(
+              onPressed: () => Navigator.pop(context), // Close dialog
+              child: const Text('Cancel'),
+            ),
+            TextButton(
+              onPressed: () {
+                Navigator.pop(context); // Close dialog
+                onConfirm(); // Execute the action
+              },
+              child: Text(
+                title, // Button text matches action (Logout/Delete)
+                style: const TextStyle(color: Colors.red),
+              ),
+            ),
+          ],
+        );
+      },
+    );
+  }
+
+  void _showCustomerSupportDialog(BuildContext context) {
+    showDialog(
+      context: context,
+      builder: (BuildContext context) {
+        return AlertDialog(
+          title: const Text('Contact Us'),
+          content: Column(
+            mainAxisSize: MainAxisSize.min,
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: const [
+              Text(
+                'Phone:',
+                style: TextStyle(fontWeight: FontWeight.bold),
+              ),
+              Text('+91 80785 59319'),
+              SizedBox(height: 8),
+              Text(
+                'Email:',
+                style: TextStyle(fontWeight: FontWeight.bold),
+              ),
+              Text('viratkohili@gmail.com'),
+            ],
+          ),
+          actions: [
+            TextButton(
+              onPressed: () => Navigator.pop(context), // Close dialog
+              child: const Text('OK'),
+            ),
+          ],
+        );
+      },
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     return Drawer(
       child: Container(
-        color: AppConstant.backgroundColor, // Set background color for the entire drawer
+        color: AppConstant.backgroundColor,
         child: ListView(
           padding: EdgeInsets.zero,
           children: <Widget>[
-            // Drawer Header with logo
             DrawerHeader(
-              decoration: BoxDecoration(
-                color: AppConstant.cardBackground, // Match background color
-              ),
+              decoration: BoxDecoration(color: AppConstant.cardBackground),
               child: Center(
                 child: Image.asset(
-                  'assets/images/alphalogo.png', // Replace with your logo image path
+                  'assets/images/alphalogo.png',
                   height: 250,
                   width: 250,
                 ),
@@ -33,10 +97,10 @@ class DrawerScreen extends StatelessWidget {
               leading: const Icon(FluentIcons.data_trending_24_regular),
               title: const Text('Student Performance Index'),
               onTap: () {
-                // Navigate to Student Performance Index
                 Navigator.push(
                   context,
-                  MaterialPageRoute(builder: (context) => StudentPerformanceIndex()),
+                  MaterialPageRoute(
+                      builder: (context) => StudentPerformanceIndex()),
                 );
               },
             ),
@@ -44,23 +108,17 @@ class DrawerScreen extends StatelessWidget {
               leading: const Icon(FluentIcons.timeline_24_regular),
               title: const Text('Timeline'),
               onTap: () {
-                // Navigate to Timeline Page
                 Navigator.push(
                   context,
                   MaterialPageRoute(builder: (context) => CalendarSchedulePage()),
                 );
               },
             ),
-
             const Divider(),
-
-
-            // List of menu options in the drawer
             ListTile(
               leading: const Icon(Icons.info_outline),
               title: const Text('About Us'),
               onTap: () {
-                // Navigate to About Us page
                 Navigator.push(
                   context,
                   MaterialPageRoute(builder: (context) => AboutUsPage()),
@@ -71,7 +129,6 @@ class DrawerScreen extends StatelessWidget {
               leading: const Icon(Icons.article_outlined),
               title: const Text('Terms And Conditions'),
               onTap: () {
-                // Navigate to Terms and Conditions page
                 Navigator.pushNamed(context, '/terms_conditions');
               },
             ),
@@ -79,7 +136,6 @@ class DrawerScreen extends StatelessWidget {
               leading: const Icon(Icons.privacy_tip_outlined),
               title: const Text('Privacy Policy'),
               onTap: () {
-                // Navigate to Privacy Policy page
                 Navigator.pushNamed(context, '/privacy_policy');
               },
             ),
@@ -87,8 +143,7 @@ class DrawerScreen extends StatelessWidget {
               leading: const Icon(Icons.support_agent),
               title: const Text('Customer Support'),
               onTap: () {
-                // Navigate to Customer Support page
-                Navigator.pushNamed(context, '/customer_support');
+                _showCustomerSupportDialog(context);
               },
             ),
             const Divider(),
@@ -96,8 +151,15 @@ class DrawerScreen extends StatelessWidget {
               leading: const Icon(Icons.delete_forever),
               title: const Text('Delete Account'),
               onTap: () {
-                // Perform delete account action
-                Navigator.pushNamed(context, '/delete_account');
+                _showConfirmationDialog(
+                  context,
+                  title: 'Delete Account',
+                  content:
+                      'Are you sure you want to delete your account? This action cannot be undone.',
+                  onConfirm: () {
+                    Navigator.pushNamed(context, '/delete_account');
+                  },
+                );
               },
             ),
             const Divider(),
@@ -105,8 +167,14 @@ class DrawerScreen extends StatelessWidget {
               leading: const Icon(Icons.logout),
               title: const Text('Logout'),
               onTap: () {
-                // Perform logout action
-                Navigator.pop(context);
+                _showConfirmationDialog(
+                  context,
+                  title: 'Logout',
+                  content: 'Are you sure you want to log out?',
+                  onConfirm: () {
+                    Navigator.pop(context); // Close drawer
+                  },
+                );
               },
             ),
           ],

@@ -38,21 +38,24 @@ class _StudentPerformanceIndexState extends State<StudentPerformanceIndex> {
           const SizedBox(height: 10),
 
           // Tab Button Row with Horizontal Scrolling
-          SingleChildScrollView(
-            scrollDirection: Axis.horizontal, // Enable horizontal scrolling
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.start,
-              children: [
-                _buildTabButton("Mental Ability", 0),
-                const SizedBox(width: 10),
-                _buildTabButton("English", 1),
-                const SizedBox(width: 10),
-                _buildTabButton("Malayalam", 2),
-                const SizedBox(width: 10),
-                _buildTabButton("Biology", 3),
-                const SizedBox(width: 10),
-                _buildTabButton("Social Science", 4),
-              ],
+          Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 16.0),
+            child: SingleChildScrollView(
+              scrollDirection: Axis.horizontal, // Enable horizontal scrolling
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.start,
+                children: [
+                  _buildTabButton("Mental Ability", 0),
+                  const SizedBox(width: 10),
+                  _buildTabButton("English", 1),
+                  const SizedBox(width: 10),
+                  _buildTabButton("Malayalam", 2),
+                  const SizedBox(width: 10),
+                  _buildTabButton("Biology", 3),
+                  const SizedBox(width: 10),
+                  _buildTabButton("Social Science", 4),
+                ],
+              ),
             ),
           ),
 

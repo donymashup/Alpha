@@ -52,11 +52,11 @@ class MyApp extends StatelessWidget {
       //home: SplashScreen(),
      // home: RatingScreen(),
      // home: ReviewScreen(),
-    // home: CustomBottomNavigation(),
+     home: CustomBottomNavigation(),
     //  home: CustomBottomNavigation(),
     // home: StudentPerformanceIndex(),
 
-     home: QuizInfo(),
+     //home: QuizInfo(),
     );
   }
 }

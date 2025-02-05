@@ -8,7 +8,7 @@ class CalendarSchedulePage extends StatefulWidget {
 }
 
 class _CalendarSchedulePageState extends State<CalendarSchedulePage> {
-  DateTime selectedDate = DateTime(2025, 1, 24); // January 24, 2025
+  DateTime selectedDate = DateTime.now(); // Automatically selects today's date
 
   final List<Map<String, dynamic>> scheduleItems = [
     {
@@ -35,12 +35,21 @@ class _CalendarSchedulePageState extends State<CalendarSchedulePage> {
   ];
 
   List<DateTime> _generateWeekDays() {
-    final DateTime startDate = DateTime(2025, 1, 21); // January 21, 2025
-    List<DateTime> days = [];
-    for (int i = 0; i < 7; i++) {
-      days.add(startDate.add(Duration(days: i)));
+    final DateTime startDate = DateTime.now().subtract(Duration(days: 3));
+    return List.generate(14, (index) => startDate.add(Duration(days: index)));
+  }
+
+  String getDateLabel() {
+    DateTime today = DateTime.now();
+    DateTime tomorrow = today.add(Duration(days: 1));
+
+    if (DateFormat('yyyy-MM-dd').format(selectedDate) == DateFormat('yyyy-MM-dd').format(today)) {
+      return 'Today';
+    } else if (DateFormat('yyyy-MM-dd').format(selectedDate) == DateFormat('yyyy-MM-dd').format(tomorrow)) {
+      return 'Tomorrow';
+    } else {
+      return DateFormat('EEEE').format(selectedDate);
     }
-    return days;
   }
 
   @override
@@ -100,9 +109,9 @@ class _CalendarSchedulePageState extends State<CalendarSchedulePage> {
                       color: Color(0xFFE6F7F1),
                       borderRadius: BorderRadius.circular(8),
                     ),
-                    child: const Text(
-                      'Today',
-                      style: TextStyle(
+                    child: Text(
+                      getDateLabel(),
+                      style: const TextStyle(
                         color: Color(0xFF4CD080),
                         fontWeight: FontWeight.w500,
                       ),
@@ -112,62 +121,69 @@ class _CalendarSchedulePageState extends State<CalendarSchedulePage> {
               ),
               const SizedBox(height: 30),
 
-              // Week Calendar
+              // Scrollable Week Calendar
               Container(
-                padding: EdgeInsets.all(20),
+                padding: const EdgeInsets.all(20),
                 decoration: BoxDecoration(
                   color: Colors.white,
                   borderRadius: BorderRadius.circular(20),
                   boxShadow: [
                     BoxShadow(
-                      color: Colors.black.withAlpha(13), // 0.05 * 255 = 12.75, rounded to 13
+                      color: Colors.black.withAlpha(13),
                       blurRadius: 10,
                       offset: const Offset(0, 4),
                     ),
                   ],
                 ),
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: _generateWeekDays().map((date) {
-                    bool isSelected = date.day == selectedDate.day;
-                    return GestureDetector(
-                      onTap: () {
-                        setState(() {
-                          selectedDate = date;
-                        });
-                      },
-                      child: Column(
-                        children: [
-                          Text(
-                            DateFormat('E').format(date)[0],
-                            style: TextStyle(
-                              color: Colors.grey[500],
-                              fontSize: 14,
-                            ),
-                          ),
-                          const SizedBox(height: 8),
-                          Container(
-                            padding: const EdgeInsets.symmetric(
-                              horizontal: 12,
-                              vertical: 6,
-                            ),
-                            decoration: BoxDecoration(
-                              color: isSelected ? const Color(0xFFFF7F57) : Colors.transparent,
-                              borderRadius: BorderRadius.circular(12),
-                            ),
-                            child: Text(
-                              '${date.day}',
-                              style: TextStyle(
-                                color: isSelected ? Colors.white : Colors.black87,
-                                fontWeight: FontWeight.w500,
-                                fontSize: 16,
+                child: SingleChildScrollView(
+                  scrollDirection: Axis.horizontal,
+                  child: Row(
+                    children: _generateWeekDays().map((date) {
+                      bool isSelected = date.day == selectedDate.day &&
+                          date.month == selectedDate.month &&
+                          date.year == selectedDate.year;
+                      return GestureDetector(
+                        onTap: () {
+                          setState(() {
+                            selectedDate = date;
+                          });
+                        },
+                        child: Padding(
+                          padding: const EdgeInsets.symmetric(horizontal: 8.0),
+                          child: Column(
+                            children: [
+                              Text(
+                                DateFormat('E').format(date)[0],
+                                style: TextStyle(
+                                  color: Colors.grey[500],
+                                  fontSize: 14,
+                                ),
                               ),
-                            ),
+                              const SizedBox(height: 8),
+                              Container(
+                                padding: const EdgeInsets.symmetric(
+                                  horizontal: 12,
+                                  vertical: 6,
+                                ),
+                                decoration: BoxDecoration(
+                                  color: isSelected ? const Color(0xFFFF7F57) : Colors.transparent,
+                                  borderRadius: BorderRadius.circular(12),
+                                ),
+                                child: Text(
+                                  '${date.day}',
+                                  style: TextStyle(
+                                    color: isSelected ? Colors.white : Colors.black87,
+                                    fontWeight: FontWeight.w500,
+                                    fontSize: 16,
+                                  ),
+                                ),
+                              ),
+                            ],
                           ),
-                        ],
-                      ),
-                    );
-                  }).toList(),
+                        ),
+                      );
+                    }).toList(),
+                  ),
                 ),
               ),
               const SizedBox(height: 20),
@@ -182,7 +198,7 @@ class _CalendarSchedulePageState extends State<CalendarSchedulePage> {
                     borderRadius: BorderRadius.circular(20),
                     boxShadow: [
                       BoxShadow(
-                        color: Colors.black.withAlpha(13), // 0.05 * 255 = 12.75, rounded to 13
+                        color: Colors.black.withAlpha(13),
                         blurRadius: 10,
                         offset: const Offset(0, 4),
                       ),
