@@ -1,6 +1,8 @@
 import 'package:alpha/constants/app_constants.dart';
+import 'package:alpha/controllers/is_subscribed_controller.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
+import 'package:get/get.dart';
 
 class ReviewTab extends StatelessWidget {
   const ReviewTab({Key? key}) : super(key: key);
@@ -18,7 +20,12 @@ class ReviewTab extends StatelessWidget {
                 child: const _ReviewList(),
               ),
             ),
-            const _SwipeableAddReviewSection(),
+             Obx(() {
+                            final controller = Get.find<IsSubscribedController>();
+                            return controller.isSubscribed.value
+                                ?  _SwipeableAddReviewSection()
+                                : SizedBox(); // Hide lock icon when state is false
+                          }),
           ],
         ),
       ),

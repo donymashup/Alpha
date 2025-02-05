@@ -53,6 +53,7 @@ dependencies:
   rive_common: ^0.4.15
   fluentui_system_icons: ^1.1.271
   fl_chart: ^0.70.2
+  get: ^4.6.6
 
 
 dev_dependencies:
