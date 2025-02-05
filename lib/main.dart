@@ -2,6 +2,7 @@
 //import 'package:alpha/common%20widgets/side_menu.dart';
 import 'package:alpha/common%20widgets/splash_screen.dart';
 import 'package:alpha/constants/app_constants.dart';
+import 'package:alpha/controllers/is_subscribed_controller.dart';
 import 'package:alpha/features/auth/screen/login.dart';
 import 'package:alpha/features/auth/screen/otp_screen.dart';
 import 'package:alpha/features/auth/screen/registration.dart';
@@ -21,8 +22,11 @@ import 'package:alpha/features/home/screen/home_screen.dart';
 
 import 'package:flutter/material.dart';
 import 'package:alpha/constants/app_constants.dart';
+import 'package:get/get.dart';
+import 'package:get/get_core/src/get_main.dart';
 
 void main() {
+   Get.put(IsSubscribedController());
   runApp(const MyApp());
 }
 
@@ -38,25 +42,7 @@ class MyApp extends StatelessWidget {
         colorScheme: ColorScheme.fromSeed(seedColor: AppConstant.primaryColor),
         useMaterial3: true,
       ),
-
-
-      //home: HomeScreen(),
-      //home: AnimatedTabBarScreen(),
-      //home: SplashScreen(),
-     // home: RatingScreen(),
-     // home: ReviewScreen(),
-      //  home: MyCourses(),
-
-      //  home: MyCourses(),
-      //home: HomeScreen(),
-      //home: SplashScreen(),
-     // home: RatingScreen(),
-     // home: ReviewScreen(),
-    // home: CustomBottomNavigation(),
-    //  home: CustomBottomNavigation(),
-    // home: StudentPerformanceIndex(),
-
-     home: QuizInfo(),
+     home: CustomBottomNavigation(),
     );
   }
 }

@@ -17,7 +17,7 @@ class CourseLists extends StatelessWidget {
           onTap: () {
            Navigator.push(
            context,
-           MaterialPageRoute(builder: (context) => AnimatedTabBarScreen(course: item,)),
+           MaterialPageRoute(builder: (context) => AnimatedTabBarScreen(course: item,isSubscribed: false,)),
           );
           },
           child: Card(
