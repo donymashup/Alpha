@@ -7,11 +7,14 @@ class CustomTextField extends StatefulWidget {
   final String labelText;
   final String hintText;
   final bool isPassword;
+  final TextEditingController? Controller;
+
 
   const CustomTextField({
     required this.labelText,
     required this.hintText,
     this.isPassword = false,
+    this.Controller,
     super.key,
   });
 
@@ -25,6 +28,7 @@ class _CustomTextFieldState extends State<CustomTextField> {
   @override
   Widget build(BuildContext context) {
     return TextFormField(
+      controller: widget.Controller,
       obscureText: widget.isPassword ? _isObscured : false, // Conditionally obscure text
       decoration: InputDecoration(
         labelText: widget.labelText,
@@ -38,6 +42,7 @@ class _CustomTextFieldState extends State<CustomTextField> {
             color: AppConstant.strokeColor,
           ),
         ),
+
         suffixIcon: widget.isPassword
             ? IconButton(
                 icon: Icon(
@@ -51,6 +56,36 @@ class _CustomTextFieldState extends State<CustomTextField> {
               )
             : null, 
       ),
+      validator: (value) {
+        if (value == null || value.isEmpty) {
+          return "${widget.labelText} is required";
+        }
+
+        // Email validation
+        if (widget.labelText == "Email") {
+          final emailRegex =RegExp(r'^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$');
+          if (!emailRegex.hasMatch(value)) {
+            return "Enter a valid email";
+          }
+        }
+
+        // Password validation (Minimum 6 characters)
+        if (widget.labelText == "Password") {
+          if (value.length < 6) {
+            return "Password must be at least 6 characters";
+          }
+        }
+
+        // Phone Number validation (10 digits)
+        if (widget.labelText == "Phone Number") {
+          final phoneRegex = RegExp(r'^[0-9]{10}$');
+          if (!phoneRegex.hasMatch(value)) {
+            return "Enter a valid 10-digit phone number";
+          }
+        }
+
+        return null; // Return null if no validation errors
+      },
     );
   }
 }

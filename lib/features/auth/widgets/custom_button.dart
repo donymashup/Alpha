@@ -4,10 +4,10 @@ import 'package:alpha/constants/app_constants.dart';
 import 'package:alpha/features/auth/screen/login.dart'; // Import the login screen
 
 class CustomButton extends StatelessWidget {
-  //final VoidCallback onPressed;
+  final VoidCallback onPressed;
 
   const CustomButton({
-    //required this.onPressed,
+    required this.onPressed,
 
    Key? key}) : super(key: key);
 
@@ -15,12 +15,7 @@ class CustomButton extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return ElevatedButton(
-      onPressed: () {
-         Navigator.pushReplacement(
-                            context,
-                            MaterialPageRoute(builder: (context) => CustomBottomNavigation()),
-                          );
-      },
+      onPressed: onPressed,
 
       style: ElevatedButton.styleFrom(
         minimumSize: Size(MediaQuery.of(context).size.width * 0.9,50),
