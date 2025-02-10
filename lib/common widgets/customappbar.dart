@@ -1,6 +1,7 @@
 import 'package:alpha/constants/app_constants.dart';
 import 'package:alpha/features/home/widgets/custom_Image_Button.dart';
-import 'package:alpha/features/profile/my_profile.dart'; // Import the profile screen
+import 'package:alpha/features/notification/notifications.dart';
+import 'package:alpha/features/profile/my_profile.dart';
 import 'package:flutter/material.dart';
 
 class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
@@ -17,21 +18,20 @@ class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
       title: Text(
         appbarTitle,
         style: TextStyle(
-          color: AppConstant.titlecolor, // Correct constant name
+          color: AppConstant.titlecolor,
           fontSize: 18,
           fontWeight: FontWeight.bold,
         ),
       ),
       backgroundColor: AppConstant.backgroundColor,
-      
       actions: [
         IconButton(
           icon: Container(
             decoration: const BoxDecoration(
-              color: Colors.white, // Background color of the circle
-              shape: BoxShape.circle, // Circular shape
+              color: Colors.white,
+              shape: BoxShape.circle,
             ),
-            padding: const EdgeInsets.all(8), // Adjust padding for the icon size
+            padding: const EdgeInsets.all(8),
             child: Image.asset(
               'assets/icons/bell.png',
               height: 24,
@@ -39,18 +39,21 @@ class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
             ),
           ),
           onPressed: () {
-            // You can add a notification screen here, if needed.
+            // Navigate to the NotificationsPage when the bell icon is tapped
+            Navigator.push(
+              context,
+              MaterialPageRoute(builder: (context) => NotificationsPage()),
+            );
           },
         ),
-        // Navigate to MyProfile() when the profile button is tapped
         GestureDetector(
           onTap: () {
             Navigator.push(
               context,
-              MaterialPageRoute(builder: (context) => ProfileScreen()), // Navigate to MyProfile screen
+              MaterialPageRoute(builder: (context) => ProfileScreen()),
             );
           },
-          child: CustonImageButtom(path: 'assets/icons/profile.png'), // Correct class name
+          child: CustonImageButtom(path: 'assets/icons/profile.png'),
         ),
       ],
     );

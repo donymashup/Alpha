@@ -8,30 +8,35 @@ class UpcomingCourses extends StatelessWidget {
   Widget build(BuildContext context) {
     return Padding(
       padding: const EdgeInsets.all(16.0),
-      child: ListView(
-        children: const [
-          ClassCard(
-            title: "Basics of Algebra",
-            subject: "Mathematics",
-            imageUrl: "assets/images/ongoingcourse.png",
-            date: "Feb 10, 2025",
-            startTime: "10:00 AM",
-          ),
-          ClassCard(
-            title: "Basics of Lights",
-            subject: "Science",
-            imageUrl: "assets/images/ongoingcourse1.png",
-            date: "Feb 12, 2025",
-            startTime: "2:00 PM",
-          ),
-          ClassCard(
-            title: "Basics of Trigonometry",
-            subject: "Mathematics",
-            imageUrl: "assets/images/ongoingcourse2.png",
-            date: "Feb 15, 2025",
-            startTime: "4:30 PM",
-          ),
-        ],
+      child: SizedBox(
+        width: double.infinity,
+        child: ListView(
+          shrinkWrap: true,
+          physics: const BouncingScrollPhysics(),
+          children: const [
+            ClassCard(
+              title: "Basics of Algebra",
+              subject: "Mathematics",
+              imageUrl: "assets/images/ongoingcourse.png",
+              date: "Feb 10, 2025",
+              startTime: "10:00 AM",
+            ),
+            ClassCard(
+              title: "Basics of Lights",
+              subject: "Science",
+              imageUrl: "assets/images/ongoingcourse1.png",
+              date: "Feb 12, 2025",
+              startTime: "2:00 PM",
+            ),
+            ClassCard(
+              title: "Basics of Trigonometry",
+              subject: "Mathematics",
+              imageUrl: "assets/images/ongoingcourse2.png",
+              date: "Feb 15, 2025",
+              startTime: "4:30 PM",
+            ),
+          ],
+        ),
       ),
     );
   }
@@ -62,19 +67,19 @@ class ClassCard extends StatelessWidget {
         child: Row(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            /// Image section - 1/3 of the row
-            Expanded(
-              flex: 1,
-              child: ClipRRect(
-                borderRadius: BorderRadius.circular(8),
-                child: Image.asset(imageUrl, width: double.infinity, height: 80, fit: BoxFit.cover),
+            /// Image section - Fixed width
+            ClipRRect(
+              borderRadius: BorderRadius.circular(8),
+              child: SizedBox(
+                width: 80, // Fixed width for image
+                height: 80,
+                child: Image.asset(imageUrl, fit: BoxFit.cover),
               ),
             ),
             const SizedBox(width: 12),
 
-            /// Text section - 2/3 of the row
-            Expanded(
-              flex: 2,
+            /// Text section - Flexible width
+            Flexible(
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
@@ -91,14 +96,14 @@ class ClassCard extends StatelessWidget {
                     style: TextStyle(fontSize: 16, color: Colors.grey[700]),
                   ),
                   const SizedBox(height: 8),
-                  
+
                   /// Date and Start Time Row
                   Row(
                     children: [
                       Icon(FluentIcons.calendar_ltr_24_regular, size: 18, color: Colors.blue),
                       const SizedBox(width: 4),
                       Text(date, style: const TextStyle(fontSize: 14, fontWeight: FontWeight.bold)),
-                      const SizedBox(width: 16),
+                      const Spacer(),
                       Icon(FluentIcons.clock_24_regular, size: 18, color: Colors.green),
                       const SizedBox(width: 4),
                       Text(startTime, style: const TextStyle(fontSize: 14, fontWeight: FontWeight.bold)),

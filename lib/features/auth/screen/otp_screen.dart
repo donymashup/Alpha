@@ -2,9 +2,10 @@ import 'package:alpha/constants/app_constants.dart';
 import 'package:alpha/features/auth/screen/registration.dart';
 import 'package:alpha/features/auth/widgets/custom_elavatedbutton.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:pinput/pinput.dart';
-import 'package:alpha/features/home/screen/home_screen.dart'; // Corrected import path
-import 'package:alpha/features/auth/widgets/bottom_navigation_bar.dart';
+import 'package:alpha/features/home/screen/home_screen.dart';
+import 'package:alpha/common%20widgets/bottom_navigation_bar.dart';
 
 class OtpScreen extends StatefulWidget {
   @override
@@ -38,10 +39,10 @@ class _OtpScreenState extends State<OtpScreen> {
         borderRadius: BorderRadius.circular(30),
         boxShadow: const [
           BoxShadow(
-            color: AppConstant.shadowColor, // Shadow color
-            blurRadius: 4, // Blur radius
-            spreadRadius: 2, // Spread radius
-            offset: Offset(-2, 3), // Offset of the shadow
+            color: AppConstant.shadowColor,
+            blurRadius: 4,
+            spreadRadius: 2,
+            offset: Offset(-2, 3),
           ),
         ],
       ),
@@ -98,9 +99,11 @@ class _OtpScreenState extends State<OtpScreen> {
                   ),
                   const SizedBox(height: 40),
                   Pinput(
-                    length: 6, // Length of OTP
+                    length: 6,
                     controller: _otpController,
                     focusNode: _otpFocusNode,
+                    keyboardType: TextInputType.number, // Numeric keyboard
+                    inputFormatters: [FilteringTextInputFormatter.digitsOnly], // Only numbers allowed
                     defaultPinTheme: defaultPinTheme,
                     focusedPinTheme: focusedPinTheme,
                     submittedPinTheme: submittedPinTheme,
@@ -127,15 +130,15 @@ class _OtpScreenState extends State<OtpScreen> {
                       onPressed: () {
                         if (_otpCode != null && _otpCode!.length == 6) {
                           print('Verifying OTP: $_otpCode');
-
                           Navigator.pushReplacement(
                             context,
-                            MaterialPageRoute(builder: (context) => RegistrationScreen()),
+                            MaterialPageRoute(
+                                builder: (context) => RegistrationScreen()),
                           );
-
                         } else {
                           ScaffoldMessenger.of(context).showSnackBar(
-                            const SnackBar(content: Text('Please enter a valid OTP')),
+                            const SnackBar(
+                                content: Text('Please enter a valid OTP')),
                           );
                         }
                       },
@@ -146,7 +149,8 @@ class _OtpScreenState extends State<OtpScreen> {
                     padding: EdgeInsets.symmetric(horizontal: 20),
                     child: Text(
                       'Didn\'t receive the OTP?',
-                      style: TextStyle(fontSize: 15, color: AppConstant.strokeColor),
+                      style: TextStyle(
+                          fontSize: 15, color: AppConstant.strokeColor),
                       textAlign: TextAlign.center,
                     ),
                   ),
@@ -155,7 +159,8 @@ class _OtpScreenState extends State<OtpScreen> {
                     padding: EdgeInsets.symmetric(horizontal: 20),
                     child: Text(
                       'Resend OTP',
-                      style: TextStyle(fontSize: 15, color: AppConstant.primaryColor),
+                      style: TextStyle(
+                          fontSize: 15, color: AppConstant.primaryColor),
                       textAlign: TextAlign.center,
                     ),
                   ),
@@ -168,7 +173,7 @@ class _OtpScreenState extends State<OtpScreen> {
             left: 0,
             right: 0,
             child: Container(
-              height: 200, // Adjust the height as needed
+              height: 200,
               decoration: BoxDecoration(
                 gradient: AppConstant.redWhiteGradient,
               ),
@@ -176,6 +181,6 @@ class _OtpScreenState extends State<OtpScreen> {
           ),
         ],
       ),
-    ); 
+    );
   }
 }

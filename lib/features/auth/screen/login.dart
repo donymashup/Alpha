@@ -7,20 +7,20 @@ import 'package:intl_phone_field/intl_phone_field.dart';
 class PhoneNumberVerificationPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    return SingleChildScrollView(
-      child: Scaffold(
-        appBar: AppBar(
-          leading: IconButton(
-            icon: Icon(Icons.arrow_back, color: Colors.black),
-            onPressed: () => Navigator.pop(context),
-          ),
-          backgroundColor: AppConstant.backgroundColor, // Use the static backgroundColor
-          elevation: 0,
+    return Scaffold(
+      appBar: AppBar(
+        leading: IconButton(
+          icon: const Icon(Icons.arrow_back, color: Colors.black),
+          onPressed: () => Navigator.pop(context),
         ),
-        body: Stack(
-          children: [
-            Container(
-              color: AppConstant.backgroundColor,
+        backgroundColor: AppConstant.backgroundColor,
+        elevation: 0,
+      ),
+      body: Stack(
+        children: [
+          Container(
+            color: AppConstant.backgroundColor,
+            child: SafeArea(
               child: Padding(
                 padding: const EdgeInsets.symmetric(horizontal: 24.0),
                 child: Column(
@@ -48,8 +48,7 @@ class PhoneNumberVerificationPage extends StatelessWidget {
                     ),
                     const SizedBox(height: 40),
                     Container(
-                      decoration: BoxDecoration(
-                        // color: Colors.white,
+                      decoration: BoxDecoration(  
                         borderRadius: BorderRadius.circular(30),
                         boxShadow: [
                           BoxShadow(
@@ -72,9 +71,9 @@ class PhoneNumberVerificationPage extends StatelessWidget {
                           hintText: 'Enter phone number',
                           hintStyle: const TextStyle(color: Colors.grey),
                         ),
-                        initialCountryCode: 'IN', // Default country code
+                        initialCountryCode: 'IN',
                         onChanged: (phone) {
-                          print(phone.completeNumber); // Handle phone number change
+                          print(phone.completeNumber);
                         },
                       ),
                     ),
@@ -82,31 +81,34 @@ class PhoneNumberVerificationPage extends StatelessWidget {
                     SizedBox(
                       width: double.infinity,
                       height: 56,
-                      child: CustomElavatedButton(text:'Sent OTP' , onPressed: () {
-                        // Navigate to the OTP verification page
-                        Navigator.push(context, 
-                        MaterialPageRoute(builder: (context) => OtpScreen()));
-                      }),
+                      child: CustomElavatedButton(
+                        text: 'Send OTP',
+                        onPressed: () {
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(builder: (context) => OtpScreen()),
+                          );
+                        },
+                      ),
                     ),
                   ],
                 ),
               ),
             ),
-            Positioned(
-              bottom: 0,
-              left: 0,
-              right: 0,
-              child: Container(
-                height: 200, // Adjust the height as needed
-                decoration: BoxDecoration(
-                  gradient: AppConstant.redWhiteGradient,
-                ),
+          ),
+          Positioned(
+            bottom: 0,
+            left: 0,
+            right: 0,
+            child: Container(
+              height: 200,
+              decoration: BoxDecoration(
+                gradient: AppConstant.redWhiteGradient,
               ),
             ),
-          ],
-        ),
+          ),
+        ],
       ),
     );
   }
 }
-
