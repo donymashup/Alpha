@@ -145,7 +145,8 @@ class _AnimatedTabBarScreenState extends State<AnimatedTabBarScreen>
           body: TabBarView(
             controller: _tabController,
             children: [
-              OverviewCard(),
+            
+              OverviewTab(),
               ClassesList(),
               ReviewTab(),
             ],

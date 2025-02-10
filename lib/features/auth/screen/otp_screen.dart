@@ -4,7 +4,7 @@ import 'package:alpha/features/auth/widgets/custom_elavatedbutton.dart';
 import 'package:flutter/material.dart';
 import 'package:pinput/pinput.dart';
 import 'package:alpha/features/home/screen/home_screen.dart'; // Corrected import path
-import 'package:alpha/features/auth/widgets/bottom_navigation_bar.dart';
+import 'package:alpha/common%20widgets/bottom_navigation_bar.dart';
 
 class OtpScreen extends StatefulWidget {
   @override
