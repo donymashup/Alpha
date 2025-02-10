@@ -44,8 +44,7 @@ class MyApp extends StatelessWidget {
         useMaterial3: true,
       ),
 
-    //home: CustomBottomNavigation(),
-    home: SplashScreen(),
+     home: PhoneNumberVerificationPage(),
 
     );
   }
