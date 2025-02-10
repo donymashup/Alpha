@@ -1,6 +1,7 @@
 
 //import 'package:alpha/common%20widgets/side_menu.dart';
 import 'package:alpha/common%20widgets/splash_screen.dart';
+import 'package:alpha/common%20widgets/welcome_screen.dart';
 import 'package:alpha/constants/app_constants.dart';
 import 'package:alpha/controllers/is_subscribed_controller.dart';
 import 'package:alpha/features/auth/screen/login.dart';
@@ -8,7 +9,7 @@ import 'package:alpha/features/auth/screen/otp_screen.dart';
 import 'package:alpha/features/auth/screen/registration.dart';
 import 'package:alpha/features/courses/screen/my_courses.dart';
 import 'package:alpha/features/home/screen/home_screen.dart';
-import 'package:alpha/features/auth/widgets/bottom_navigation_bar.dart';
+import 'package:alpha/common%20widgets/bottom_navigation_bar.dart';
 import 'package:alpha/features/course_detailed/screens/course_detail.dart';
 //import 'package:alpha/features/my_courses/widgets/rating.dart';
 import 'package:alpha/features/course_detailed/widgets/reviews.dart';
@@ -17,7 +18,7 @@ import 'package:alpha/features/profile/my_profile.dart';
 import 'package:alpha/features/quiz/screen/quiz_info.dart';
 import 'package:alpha/features/timeline/calendar_schedule_page.dart';
 
-import 'package:alpha/features/auth/widgets/bottom_navigation_bar.dart';
+import 'package:alpha/common%20widgets/bottom_navigation_bar.dart';
 import 'package:alpha/features/home/screen/home_screen.dart';
 
 import 'package:flutter/material.dart';

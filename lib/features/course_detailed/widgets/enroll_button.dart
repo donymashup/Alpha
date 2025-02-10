@@ -26,7 +26,7 @@ class EnrollButton extends StatelessWidget {
                   Text(
                     "Enroll Course",
                     style: TextStyle(
-                      fontSize: 16,
+                      fontSize: 18,
                       fontWeight: FontWeight.w600,
                       color: Colors.white,
                     ),
@@ -35,7 +35,7 @@ class EnrollButton extends StatelessWidget {
                   Text(
                     "499/-",
                     style: TextStyle(
-                      fontSize: 16,
+                      fontSize: 18,
                       fontWeight: FontWeight.w600,
                       color: Colors.white,
                     ),
@@ -44,7 +44,7 @@ class EnrollButton extends StatelessWidget {
               ),
             ),
             CircleAvatar(
-              radius: 15,
+              radius: 16,
               backgroundColor: AppConstant.cardBackground,
               child: Icon(Icons.arrow_forward, color: AppConstant.primaryColor),
             ),

@@ -1,18 +1,20 @@
+
 import 'package:flutter/material.dart';
 
 class colorDot extends StatelessWidget {
   final top;
-  final right;
+  final double? right;
+  final double? left;
   final width;
   final height;
   final Color;
   const colorDot({
     required this.top,
-    required this.right,
+    this.right,
     required this.width,
     required this.height,
     required this.Color,
-    super.key,
+    super.key, this.left,
   });
 
   @override
@@ -20,6 +22,7 @@ class colorDot extends StatelessWidget {
     return Positioned(
       top: top,
       right: right,
+      left: left,
       child: Container(
         width: width,
         height: height,

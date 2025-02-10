@@ -1,5 +1,6 @@
 import 'package:alpha/common%20widgets/customappbar.dart';
 import 'package:alpha/common%20widgets/drawermenu/drawer.dart';
+import 'package:alpha/constants/app_constants.dart';
 import 'package:flutter/material.dart';
 import 'package:fluentui_system_icons/fluentui_system_icons.dart';
 
@@ -11,6 +12,7 @@ class TestSeriesScreen extends StatelessWidget {
     return Scaffold(
       appBar: CustomAppBar(appbarTitle: "Test Series"),
       drawer: const DrawerScreen(),
+      backgroundColor: AppConstant.backgroundColor,
       body: ListView(
         padding: const EdgeInsets.all(16),
         children: const [

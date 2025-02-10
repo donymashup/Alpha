@@ -1,4 +1,4 @@
-import 'package:alpha/features/auth/widgets/bottom_navigation_bar.dart';
+import 'package:alpha/common%20widgets/bottom_navigation_bar.dart';
 import 'package:flutter/material.dart';
 import 'package:alpha/constants/app_constants.dart';
 import 'package:alpha/features/auth/screen/login.dart'; // Import the login screen

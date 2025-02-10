@@ -1,6 +1,8 @@
+import 'package:alpha/features/auth/screen/login.dart';
 import 'package:flutter/material.dart';
 import 'package:alpha/constants/app_constants.dart'; // Adjust this import as needed
-import 'package:alpha/common%20widgets/welcome_screen.dart'; // Adjust this import as needed
+import 'package:alpha/common%20widgets/welcome_screen.dart';
+import 'package:swipeable_button_view/swipeable_button_view.dart'; // Adjust this import as needed
 
 class OnboardingScreen extends StatefulWidget {
   @override
@@ -10,6 +12,7 @@ class OnboardingScreen extends StatefulWidget {
 class _OnboardingScreenState extends State<OnboardingScreen> {
   final PageController _pageController = PageController();
   int currentIndex = 0;
+  bool isFinished = false;
 
   final List<OnboardingPageModel> pages = [
     OnboardingPageModel(
@@ -59,6 +62,7 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
               }
             },
           ),
+          
           if (currentIndex < pages.length)
             Positioned(
               bottom: 20,
@@ -75,6 +79,38 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
                   ),
                 ),
               ),
+            ),
+
+            if (currentIndex == pages.length)
+            Positioned(
+              bottom: 40,
+              child: Padding(
+                      padding: const EdgeInsets.symmetric(horizontal: 20.0),
+                      child: SwipeableButtonView(
+                        buttonText: 'Login with Phone',
+                        buttonWidget: const Icon(
+                          Icons.phone,
+                          color: Color.fromARGB(255, 86, 90, 216),
+                        ),
+                        activeColor: AppConstant.primaryColor2,
+                        isFinished: isFinished,
+                        onWaitingProcess: () {
+                          Future.delayed(const Duration(seconds: 1), () {
+                            setState(() {
+                              isFinished = true;
+                            });
+                          });
+                        },
+                        onFinish: () {
+                          Navigator.pushReplacement(
+                            context,
+                            MaterialPageRoute(
+                              builder: (context) => PhoneNumberVerificationPage(),
+                            ),
+                          );
+                        },
+                      ),
+                    ),
             ),
         ],
       ),

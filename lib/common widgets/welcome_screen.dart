@@ -1,3 +1,4 @@
+import 'package:alpha/features/auth/screen/login.dart';
 import 'package:flutter/material.dart';
 import 'package:alpha/constants/app_constants.dart';
 import 'package:alpha/features/auth/screen/registration.dart';
@@ -21,20 +22,6 @@ class WelcomePage extends StatefulWidget {
 class _WelcomePageState extends State<WelcomePage> {
   bool isFinished = false;
 
-  void onSwipeComplete() {
-    setState(() {
-      isFinished = true;
-    });
-    Future.delayed(const Duration(seconds: 1), () {
-      Navigator.pushReplacement(
-        context,
-        MaterialPageRoute(
-          builder: (context) => RegistrationScreen(),
-        ),
-      );
-    });
-  }
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -46,7 +33,7 @@ class _WelcomePageState extends State<WelcomePage> {
           children: [
             // Background dots
             const colorDot(top: 30.0, right: -40.0, width: 150.0, height: 150.0, Color: AppConstant.bluedot),
-            const colorDot(top: 20.0, right: 420.0, width: 100.0, height: 100.0, Color: AppConstant.orangedot),
+            const colorDot(top: 20.0, left: -20.0, width: 100.0, height: 100.0, Color: AppConstant.orangedot),
             const colorDot(top: 150.0, right: 350.0, width: 30.0, height: 30.0, Color: AppConstant.bluedot),
             colorDot(
               top: MediaQuery.of(context).size.height / 3,
@@ -74,7 +61,6 @@ class _WelcomePageState extends State<WelcomePage> {
                       height: 720.0,
                     ),
                   ),
-                  // Content below image
                   const SizedBox(height: 10),
                   Row(
                     mainAxisAlignment: MainAxisAlignment.center,
@@ -94,7 +80,7 @@ class _WelcomePageState extends State<WelcomePage> {
                   ),
                   const SizedBox(height: 20.0),
                   const Text(
-                    'Welcome To Etutor',
+                    'Welcome To Alpha',
                     style: TextStyle(
                       fontSize: 24.0,
                       fontWeight: FontWeight.bold,
@@ -114,20 +100,33 @@ class _WelcomePageState extends State<WelcomePage> {
                     ),
                   ),
                   const SizedBox(height: 30.0),
-                  Padding(
-                    padding: const EdgeInsets.symmetric(horizontal: 20.0),
-                    child: SwipeableButtonView(
-                      buttonText: 'Login with Phone',
-                      buttonWidget: const Icon(
-                        Icons.phone,
-                        color: AppConstant.primaryColor3,
-                      ),
-                      activeColor: AppConstant.primaryColor2,
-                      isFinished: isFinished,
-                      onWaitingProcess: onSwipeComplete,
-                      onFinish: onSwipeComplete,
-                    ),
-                  ),
+                  // Padding(
+                  //   padding: const EdgeInsets.symmetric(horizontal: 20.0),
+                  //   child: SwipeableButtonView(
+                  //     buttonText: 'Login with Phone',
+                  //     buttonWidget: const Icon(
+                  //       Icons.phone,
+                  //       color: Color.fromARGB(255, 86, 90, 216),
+                  //     ),
+                  //     activeColor: AppConstant.primaryColor2,
+                  //     isFinished: isFinished,
+                  //     onWaitingProcess: () {
+                  //       Future.delayed(const Duration(seconds: 1), () {
+                  //         setState(() {
+                  //           isFinished = true;
+                  //         });
+                  //       });
+                  //     },
+                  //     onFinish: () {
+                  //       Navigator.pushReplacement(
+                  //         context,
+                  //         MaterialPageRoute(
+                  //           builder: (context) => PhoneNumberVerificationPage(),
+                  //         ),
+                  //       );
+                  //     },
+                  //   ),
+                  // ),
                 ],
               ),
             ),

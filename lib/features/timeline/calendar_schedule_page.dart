@@ -61,6 +61,14 @@ class _CalendarSchedulePageState extends State<CalendarSchedulePage> {
           icon: const Icon(Icons.arrow_back, color: AppConstant.titlecolor),
           onPressed: () => Navigator.pop(context),
         ),
+        title: const Text(
+          "Calendar Schedule",
+          style: TextStyle(
+            fontWeight: FontWeight.bold,
+            color: AppConstant.titlecolor,
+          ),
+        ),
+        centerTitle: false,
         backgroundColor: Colors.transparent,
         elevation: 0,
       ),
