@@ -1,6 +1,7 @@
 
 //import 'package:alpha/common%20widgets/side_menu.dart';
 import 'package:alpha/common%20widgets/splash_screen.dart';
+import 'package:alpha/common%20widgets/welcome_screen.dart';
 import 'package:alpha/constants/app_constants.dart';
 import 'package:alpha/controllers/is_subscribed_controller.dart';
 import 'package:alpha/features/auth/screen/login.dart';

@@ -21,7 +21,7 @@ class CourseLists extends StatelessWidget {
           );
           },
           child: Card(
-            margin: const EdgeInsets.all(10),
+            margin: const EdgeInsets.all(8),
             shape: RoundedRectangleBorder(
               borderRadius: BorderRadius.circular(10),
             ),

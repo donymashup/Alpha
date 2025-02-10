@@ -1,3 +1,4 @@
+import 'package:alpha/common%20widgets/bottom_navigation_bar.dart';
 import 'package:alpha/constants/app_constants.dart';
 import 'package:alpha/common%20widgets/bottom_navigation_bar.dart';
 import 'package:alpha/features/auth/widgets/custom_button.dart'; // Correct import statement
