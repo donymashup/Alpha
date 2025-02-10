@@ -31,6 +31,7 @@ class _CustomTextFieldState extends State<CustomTextField> {
       controller: widget.Controller,
       obscureText: widget.isPassword ? _isObscured : false, // Conditionally obscure text
       decoration: InputDecoration(
+        fillColor: AppConstant.cardBackground,
         labelText: widget.labelText,
         hintText: widget.hintText,
         border: const OutlineInputBorder(

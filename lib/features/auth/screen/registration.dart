@@ -1,5 +1,6 @@
 import 'package:alpha/common%20widgets/bottom_navigation_bar.dart';
 import 'package:alpha/constants/app_constants.dart';
+import 'package:alpha/common%20widgets/bottom_navigation_bar.dart';
 import 'package:alpha/features/auth/widgets/custom_button.dart'; // Correct import statement
 import 'package:alpha/features/auth/widgets/custom_textfield.dart';
 import 'package:alpha/features/auth/widgets/profile.dart';
@@ -13,7 +14,7 @@ class RegistrationScreen extends StatefulWidget {
 
 class _RegistrationScreenState extends State<RegistrationScreen> {
   final _formKey = GlobalKey<FormState>();
-  String dropdownvalue = 'Item 1';   
+  String dropdownvalue = 'class 5';   
 
 final TextEditingController firstNameController = TextEditingController();
 final TextEditingController lastNameController = TextEditingController();
@@ -24,11 +25,14 @@ final TextEditingController passwordController = TextEditingController();
 final TextEditingController phoneController = TextEditingController();
 
  var items = [    
-    'Item 1',
-    'Item 2',
-    'Item 3',
-    'Item 4',
-    'Item 5',
+     'Class 5',
+    'Class 6',
+    'Class 7',
+    'Class 8',
+    'Class 9',
+    'Class 10',
+    'Class 11',
+    'Class 12',
   ];
 
 void submitForm() {
@@ -133,8 +137,6 @@ void submitForm() {
                       ),
                     ),
 
-                    const SizedBox(height: 17),
-                    CustomTextField(labelText: "Select your class", hintText: "class 5",Controller: classController,),
                     const SizedBox(height: 17),
                     CustomTextField(labelText: "School Name", hintText: "Enter your school name",Controller:schoolController ,),
                     const SizedBox(height: 17),

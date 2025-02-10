@@ -5,6 +5,7 @@ import 'package:alpha/common%20widgets/welcome_screen.dart';
 import 'package:alpha/constants/app_constants.dart';
 import 'package:alpha/controllers/is_subscribed_controller.dart';
 import 'package:alpha/features/auth/screen/login.dart';
+import 'package:alpha/features/auth/screen/phone_number.dart';
 import 'package:alpha/features/auth/screen/otp_screen.dart';
 import 'package:alpha/features/auth/screen/registration.dart';
 import 'package:alpha/features/courses/screen/my_courses.dart';
@@ -44,7 +45,7 @@ class MyApp extends StatelessWidget {
         useMaterial3: true,
       ),
 
-     home: PhoneNumberVerificationPage(),
+     home: login(),
 
     );
   }
