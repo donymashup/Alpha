@@ -24,7 +24,7 @@ class HomeScreen extends StatelessWidget {
       ),
       drawer: const DrawerScreen(),
       body: Container(
-        color: const Color.fromARGB(255, 247, 246, 250), // Set background color here
+        color: AppConstant.backgroundColor, // Set background color here
         child: SingleChildScrollView(
           child: Padding(
             padding: const EdgeInsets.all(10.0),

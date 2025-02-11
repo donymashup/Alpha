@@ -4,8 +4,6 @@ import 'package:alpha/features/auth/widgets/custom_elavatedbutton.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:pinput/pinput.dart';
-import 'package:alpha/features/home/screen/home_screen.dart'; // Corrected import path
-import 'package:alpha/common%20widgets/bottom_navigation_bar.dart';
 
 class OtpScreen extends StatefulWidget {
   @override
@@ -55,9 +53,7 @@ class _OtpScreenState extends State<OtpScreen> {
       ),
     );
 
-    final submittedPinTheme = defaultPinTheme.copyWith(
-      decoration: defaultPinTheme.decoration?.copyWith(),
-    );
+    final submittedPinTheme = defaultPinTheme.copyWith();
 
     return Scaffold(
       appBar: AppBar(
@@ -149,30 +145,11 @@ class _OtpScreenState extends State<OtpScreen> {
                           );
                         }
                       },
+
                     ),
                   ),
-                  const SizedBox(height: 20),
-                  const Padding(
-                    padding: EdgeInsets.symmetric(horizontal: 20),
-                    child: Text(
-                      'Didn\'t receive the OTP?',
-                      style: TextStyle(
-                          fontSize: 15, color: AppConstant.strokeColor),
-                      textAlign: TextAlign.center,
-                    ),
-                  ),
-                  const SizedBox(height: 5),
-                  const Padding(
-                    padding: EdgeInsets.symmetric(horizontal: 20),
-                    child: Text(
-                      'Resend OTP',
-                      style: TextStyle(
-                          fontSize: 15, color: AppConstant.primaryColor),
-                      textAlign: TextAlign.center,
-                    ),
-                  ),
-                ],
-              ),
+                ),
+              ],
             ),
           ),
           Positioned(
