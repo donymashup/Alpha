@@ -91,23 +91,36 @@ class _PhoneNumberVerificationPageState
                           },
                         ),
                       ),
-                      const SizedBox(height: 40),
-                      SizedBox(
-                        width: double.infinity,
-                        height: 56,
-                        child: CustomElavatedButton(
-                          text: 'Send OTP',
-                          onPressed: () {
-                            if (phoneNumber == null || phoneNumber!.isEmpty) {
-                              ScaffoldMessenger.of(context).showSnackBar(
-                                SnackBar(
-                                    content: Text(
-                                        'Please enter a valid phone number')),
-                              );
-                              return;
-                            }
-                            String numericPhone =
-                                phoneNumber!.replaceAll(RegExp(r'\D'), '');
+                      initialCountryCode: 'IN',
+                      keyboardType: TextInputType.phone,
+                      onChanged: (phone) {
+                        setState(() {
+                          phoneNumber = phone.completeNumber;
+                        });
+                      },
+                    ),
+                ),
+                const SizedBox(height: 40),
+                SizedBox(
+                  width: double.infinity,
+                  height: 56,
+                  child: CustomElavatedButton(
+                    child: Text(
+                      'send OTP',
+                      style: TextStyle(
+                        fontSize: 16,
+                        fontWeight: FontWeight.w600,
+                        color: Colors.white,
+                      ),
+                    ),
+                    onPressed: () {
+                      if (phoneNumber == null || phoneNumber!.isEmpty) {
+                        ScaffoldMessenger.of(context).showSnackBar(
+                          SnackBar(content: Text('Please enter a valid phone number')),
+                        );
+                        return;
+                      }
+                      String numericPhone = phoneNumber!.replaceAll(RegExp(r'\D'), '');
 
                             if (numericPhone.length < 10) {
                               ScaffoldMessenger.of(context).showSnackBar(

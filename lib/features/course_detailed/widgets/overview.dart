@@ -1,4 +1,5 @@
 
+import 'package:alpha/constants/app_constants.dart';
 import 'package:flutter/material.dart';
 import 'package:webview_flutter/webview_flutter.dart';
 
@@ -40,15 +41,28 @@ class _OverviewTabState extends State<OverviewTab> {
     return
      Expanded(
        child: Card(
+        color: AppConstant.cardBackground,
         margin: EdgeInsets.all(8),
         child: Padding(
           padding: const EdgeInsets.all(8.0),
-          child: WebViewWidget(controller: controller),
+          child: Stack(children:[
+           // SingleChildScrollView(
+             // physics:  NeverScrollableScrollPhysics(),
+             // child:
+               WebViewWidget(controller: controller),
+           //   ),
+            loadindPercentage < 100 ?
+            LinearProgressIndicator(
+              color: AppConstant.primaryColor,
+              value: loadindPercentage/100,
+            ):Container()
+            ] ),
         )
         ),
      );
        
   
   }  
+
 }
 

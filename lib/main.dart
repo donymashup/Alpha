@@ -1,4 +1,3 @@
-
 //import 'package:alpha/common%20widgets/side_menu.dart';
 import 'package:alpha/common%20widgets/bottom_navigation_bar.dart';
 import 'package:alpha/common%20widgets/splash_screen.dart';
@@ -33,8 +32,8 @@ class MyApp extends StatelessWidget {
 
     // home: SplashScreen()
 
+
      home: Login(),
-    // home: PhoneNumberVerificationPage()
 
     );
   }

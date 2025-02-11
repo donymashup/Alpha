@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 
 class CustomElavatedButton extends StatelessWidget {
-  final text;
+ final Widget child;
   final onPressed;
   const CustomElavatedButton({
-    required this.text,
+    required this.child,
     required this.onPressed,
     super.key,
   });
@@ -20,14 +20,7 @@ class CustomElavatedButton extends StatelessWidget {
         ),
         elevation: 0,
       ),
-      child: Text(
-        text,
-        style: TextStyle(
-          fontSize: 16,
-          fontWeight: FontWeight.w600,
-          color: Colors.white,
-        ),
-      ),
+      child:child
     );
   }
 }

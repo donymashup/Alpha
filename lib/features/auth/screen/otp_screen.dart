@@ -68,105 +68,84 @@ class _OtpScreenState extends State<OtpScreen> {
         children: [
           Container(
             color: AppConstant.backgroundColor,
-            child: Column(
-              children: [
-                Expanded(
-                  child: Padding(
-                    padding: const EdgeInsets.symmetric(horizontal: 24.0),
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.center,
-                      children: [
-                        const SizedBox(height: 20),
-                        const Text(
-                          'Phone Number\nAuthentication',
-                          textAlign: TextAlign.center,
-                          style: TextStyle(
-                            fontSize: 28,
-                            fontWeight: FontWeight.bold,
-                            height: 1.2,
-                          ),
-                        ),
-                        const SizedBox(height: 16),
-                        const Text(
-                          'An OTP has been sent to your Phone Number',
-                          textAlign: TextAlign.center,
-                          style: TextStyle(
-                            fontSize: 16,
-                            color: Colors.grey,
-                            height: 1.5,
-                          ),
-                        ),
-                        const SizedBox(height: 40),
-                        Pinput(
-                          length: 6,
-                          controller: _otpController,
-                          focusNode: _otpFocusNode,
-                          keyboardType: TextInputType.number,
-                          inputFormatters: [FilteringTextInputFormatter.digitsOnly],
-                          defaultPinTheme: defaultPinTheme,
-                          focusedPinTheme: focusedPinTheme,
-                          submittedPinTheme: submittedPinTheme,
-                          validator: (value) {
-                            if (value == null || value.length < 6) {
-                              return 'Enter a valid OTP';
-                            }
-                            return null;
-                          },
-                          pinputAutovalidateMode: PinputAutovalidateMode.onSubmit,
-                          onCompleted: (pin) {
-                            setState(() {
-                              _otpCode = pin;
-                            });
-                          },
-                        ),
-                        const SizedBox(height: 50),
-                        SizedBox(
-                          width: double.infinity,
-                          height: 56,
-                          child: CustomElavatedButton(
-                            text: 'Verify OTP',
-                            onPressed: () {
-                              if (_otpCode != null && _otpCode!.length == 6) {
-                                Navigator.pushReplacement(
-                                  context,
-                                  MaterialPageRoute(
-                                    builder: (context) => RegistrationScreen(),
-                                  ),
-                                );
-                              } else {
-                                ScaffoldMessenger.of(context).showSnackBar(
-                                  const SnackBar(content: Text('Please enter a valid OTP')),
-                                );
-                              }
-                            },
-                          ),
-                        ),
-                        const SizedBox(height: 20),
-                        const Padding(
-                          padding: EdgeInsets.symmetric(horizontal: 20),
-                          child: Text(
-                            'Didn\'t receive the OTP?',
-                            style: TextStyle(
-                              fontSize: 15,
-                              color: AppConstant.strokeColor,
-                            ),
-                            textAlign: TextAlign.center,
-                          ),
-                        ),
-                        const SizedBox(height: 5),
-                        const Padding(
-                          padding: EdgeInsets.symmetric(horizontal: 20),
-                          child: Text(
-                            'Resend OTP',
-                            style: TextStyle(
-                              fontSize: 15,
-                              color: AppConstant.primaryColor,
-                            ),
-                            textAlign: TextAlign.center,
-                          ),
-                        ),
-                        //const Spacer(), // Ensures proper spacing before the gradient
-                      ],
+            child: Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 24.0),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.center,
+                children: [
+                  const SizedBox(height: 20),
+                  const Text(
+                    'Phone Number\nAuthentication',
+                    textAlign: TextAlign.center,
+                    style: TextStyle(
+                      fontSize: 28,
+                      fontWeight: FontWeight.bold,
+                      height: 1.2,
+                    ),
+                  ),
+                  const SizedBox(height: 16),
+                  const Text(
+                    'An OTP has been sent to your Phone Number',
+                    textAlign: TextAlign.center,
+                    style: TextStyle(
+                      fontSize: 16,
+                      color: Colors.grey,
+                      height: 1.5,
+                    ),
+                  ),
+                  const SizedBox(height: 40),
+                  Pinput(
+                    length: 6,
+                    controller: _otpController,
+                    focusNode: _otpFocusNode,
+                    keyboardType: TextInputType.number, // Numeric keyboard
+                    inputFormatters: [FilteringTextInputFormatter.digitsOnly], // Only numbers allowed
+                    defaultPinTheme: defaultPinTheme,
+                    focusedPinTheme: focusedPinTheme,
+                    submittedPinTheme: submittedPinTheme,
+                    validator: (value) {
+                      if (value == null || value.length < 6) {
+                        return 'Enter a valid OTP';
+                      }
+                      return null;
+                    },
+                    pinputAutovalidateMode: PinputAutovalidateMode.onSubmit,
+                    onCompleted: (pin) {
+                      setState(() {
+                        _otpCode = pin;
+                      });
+                      print('OTP Entered: $pin');
+                    },
+                  ),
+                  const SizedBox(height: 50),
+                  SizedBox(
+                    width: double.infinity,
+                    height: 56,
+                    child: CustomElavatedButton(
+                     child: Text(
+                      'Verify OTP',
+                      style: TextStyle(
+                        fontSize: 16,
+                        fontWeight: FontWeight.w600,
+                        color: Colors.white,
+                      ),
+                    ),
+                      onPressed: () {
+                        if (_otpCode != null && _otpCode!.length == 6) {
+                          print('Verifying OTP: $_otpCode');
+                          Navigator.pushReplacement(
+                            context,
+                            MaterialPageRoute(
+                                builder: (context) => RegistrationScreen()),
+                          );
+                        } else {
+                          ScaffoldMessenger.of(context).showSnackBar(
+                            const SnackBar(
+                                content: Text('Please enter a valid OTP')),
+                          );
+                        }
+                      },
+
                     ),
                   ),
                 ),

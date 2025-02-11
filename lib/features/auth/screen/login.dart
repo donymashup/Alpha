@@ -4,6 +4,7 @@ import 'package:alpha/features/auth/widgets/custom_elavatedbutton.dart';
 import 'package:alpha/features/auth/widgets/custom_textfield.dart';
 import 'package:flutter/material.dart';
 import 'package:intl_phone_field/intl_phone_field.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class Login extends StatefulWidget {
   const Login({super.key});
@@ -16,15 +17,44 @@ class _LoginState extends State<Login> {
   String? phoneNumber;
   String? countryCode;
   final TextEditingController passwordController = TextEditingController();
+  bool _isLoading = false;
 
-  void login() {
-    AuthService().loginUser(
-      phone: phoneNumber ?? '',
-      code: countryCode ?? '',
-      password: passwordController.text,
-      context: context,
-    );
+  Future<void> handleLogin() async {
+    setState(() {
+      _isLoading = true; // Show loading indicator
+    });
+
+    await AuthService().loginUser(
+    phone: phoneNumber ?? '',  
+    code: countryCode ?? '',  
+    password: passwordController.text, 
+    context: context,
+  );
+
+    setState(() {
+      _isLoading = false; // Hide loading indicator
+    });
   }
+
+
+//  void login() {
+//   AuthService().loginUser(
+//     phone: phoneNumber ?? '',  
+//     code: countryCode ?? '',  
+//     password: passwordController.text, 
+//     context: context,
+//   );
+// }
+// void fetchUserDetails() async{
+//   SharedPreferences prefs = await SharedPreferences.getInstance();
+//   String? userId = prefs.getString('userId');
+//   AuthService().getUserDetails(   
+//     userId: userId ?? '',
+//     context: context,
+//   );
+// }
+
+
 
   @override
   Widget build(BuildContext context) {
@@ -130,7 +160,34 @@ class _LoginState extends State<Login> {
                     const SizedBox(height: 100), // Extra space before gradient
                   ],
                 ),
-              ),
+
+                const SizedBox(height: 40),
+                SizedBox(
+                  width: double.infinity,
+                  height: 56,
+                  child: CustomElavatedButton(
+                    onPressed: _isLoading ? null : handleLogin, // Disable button while loading
+                     child:_isLoading
+                      ? SizedBox(
+                          width: 24,
+                          height: 24,
+                          child: CircularProgressIndicator(
+                            color: Colors.white,
+                            strokeWidth: 2,
+                          ),
+                        )
+                  : Text(
+                      'Login',
+                      style: TextStyle(
+                        fontSize: 16,
+                        fontWeight: FontWeight.w600,
+                        color: Colors.white,
+                      ),
+                    ),
+                  ),
+                ),
+              ],
+
             ),
           ),
           Positioned(
