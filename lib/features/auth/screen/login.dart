@@ -25,36 +25,35 @@ class _LoginState extends State<Login> {
     });
 
     await AuthService().loginUser(
-    phone: phoneNumber ?? '',  
-    code: countryCode ?? '',  
-    password: passwordController.text, 
-    context: context,
-  );
+      phone: phoneNumber ?? '',
+      code: countryCode ?? '',
+      password: passwordController.text,
+      context: context,
+    );
 
     setState(() {
       _isLoading = false; // Hide loading indicator
     });
   }
 
-
-//  void login() {
-//   AuthService().loginUser(
-//     phone: phoneNumber ?? '',  
-//     code: countryCode ?? '',  
-//     password: passwordController.text, 
-//     context: context,
-//   );
-// }
-// void fetchUserDetails() async{
-//   SharedPreferences prefs = await SharedPreferences.getInstance();
-//   String? userId = prefs.getString('userId');
-//   AuthService().getUserDetails(   
-//     userId: userId ?? '',
-//     context: context,
-//   );
-// }
-
-
+  // Uncomment if needed for additional functionality
+  // void login() {
+  //   AuthService().loginUser(
+  //     phone: phoneNumber ?? '',
+  //     code: countryCode ?? '',
+  //     password: passwordController.text,
+  //     context: context,
+  //   );
+  // }
+  //
+  // void fetchUserDetails() async {
+  //   SharedPreferences prefs = await SharedPreferences.getInstance();
+  //   String? userId = prefs.getString('userId');
+  //   AuthService().getUserDetails(
+  //     userId: userId ?? '',
+  //     context: context,
+  //   );
+  // }
 
   @override
   Widget build(BuildContext context) {
@@ -62,7 +61,7 @@ class _LoginState extends State<Login> {
       backgroundColor: AppConstant.backgroundColor,
       appBar: AppBar(
         leading: IconButton(
-          icon: Icon(Icons.arrow_back, color: Colors.black),
+          icon: const Icon(Icons.arrow_back, color: Colors.black),
           onPressed: () => Navigator.pop(context),
         ),
         backgroundColor: AppConstant.backgroundColor,
@@ -151,43 +150,30 @@ class _LoginState extends State<Login> {
                       width: double.infinity,
                       height: 56,
                       child: CustomElavatedButton(
-                        text: 'Login',
-                        onPressed: () {
-                          login();
-                        },
+                        onPressed: _isLoading ? null : handleLogin,
+                        child: _isLoading
+                            ? const SizedBox(
+                                width: 24,
+                                height: 24,
+                                child: CircularProgressIndicator(
+                                  color: Colors.white,
+                                  strokeWidth: 2,
+                                ),
+                              )
+                            : const Text(
+                                'Login',
+                                style: TextStyle(
+                                  fontSize: 16,
+                                  fontWeight: FontWeight.w600,
+                                  color: Colors.white,
+                                ),
+                              ),
                       ),
                     ),
                     const SizedBox(height: 100), // Extra space before gradient
                   ],
                 ),
-
-                const SizedBox(height: 40),
-                SizedBox(
-                  width: double.infinity,
-                  height: 56,
-                  child: CustomElavatedButton(
-                    onPressed: _isLoading ? null : handleLogin, // Disable button while loading
-                     child:_isLoading
-                      ? SizedBox(
-                          width: 24,
-                          height: 24,
-                          child: CircularProgressIndicator(
-                            color: Colors.white,
-                            strokeWidth: 2,
-                          ),
-                        )
-                  : Text(
-                      'Login',
-                      style: TextStyle(
-                        fontSize: 16,
-                        fontWeight: FontWeight.w600,
-                        color: Colors.white,
-                      ),
-                    ),
-                  ),
-                ),
-              ],
-
+              ),
             ),
           ),
           Positioned(
@@ -197,7 +183,7 @@ class _LoginState extends State<Login> {
             child: Container(
               height: 200, // Gradient height
               decoration: BoxDecoration(
-                gradient: AppConstant.redWhiteGradient, // Use your existing gradient
+                gradient: AppConstant.redWhiteGradient,
               ),
             ),
           ),
