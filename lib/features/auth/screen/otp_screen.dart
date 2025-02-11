@@ -98,8 +98,8 @@ class _OtpScreenState extends State<OtpScreen> {
                     length: 6,
                     controller: _otpController,
                     focusNode: _otpFocusNode,
-                    keyboardType: TextInputType.number, // Numeric keyboard
-                    inputFormatters: [FilteringTextInputFormatter.digitsOnly], // Only numbers allowed
+                    keyboardType: TextInputType.number,
+                    inputFormatters: [FilteringTextInputFormatter.digitsOnly],
                     defaultPinTheme: defaultPinTheme,
                     focusedPinTheme: focusedPinTheme,
                     submittedPinTheme: submittedPinTheme,
@@ -122,14 +122,14 @@ class _OtpScreenState extends State<OtpScreen> {
                     width: double.infinity,
                     height: 56,
                     child: CustomElavatedButton(
-                     child: Text(
-                      'Verify OTP',
-                      style: TextStyle(
-                        fontSize: 16,
-                        fontWeight: FontWeight.w600,
-                        color: Colors.white,
+                      child: Text(
+                        'Verify OTP',
+                        style: TextStyle(
+                          fontSize: 16,
+                          fontWeight: FontWeight.w600,
+                          color: Colors.white,
+                        ),
                       ),
-                    ),
                       onPressed: () {
                         if (_otpCode != null && _otpCode!.length == 6) {
                           print('Verifying OTP: $_otpCode');
@@ -145,11 +145,10 @@ class _OtpScreenState extends State<OtpScreen> {
                           );
                         }
                       },
-
                     ),
                   ),
-                ),
-              ],
+                ],
+              ),
             ),
           ),
           Positioned(
