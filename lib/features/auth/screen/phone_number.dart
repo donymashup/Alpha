@@ -92,7 +92,14 @@ class _PhoneNumberVerificationPageState extends State<PhoneNumberVerificationPag
                   width: double.infinity,
                   height: 56,
                   child: CustomElavatedButton(
-                    text: 'Send OTP',
+                    child: Text(
+                      'send OTP',
+                      style: TextStyle(
+                        fontSize: 16,
+                        fontWeight: FontWeight.w600,
+                        color: Colors.white,
+                      ),
+                    ),
                     onPressed: () {
                       if (phoneNumber == null || phoneNumber!.isEmpty) {
                         ScaffoldMessenger.of(context).showSnackBar(

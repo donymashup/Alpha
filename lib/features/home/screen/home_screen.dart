@@ -1,20 +1,27 @@
 import 'package:alpha/common%20widgets/customappbar.dart';
 import 'package:alpha/common%20widgets/drawermenu/drawer.dart';
 import 'package:alpha/constants/app_constants.dart';
+import 'package:alpha/controllers/user_controller.dart';
 import 'package:alpha/features/home/widgets/carousel.dart';
 import 'package:alpha/features/home/widgets/course_list.dart';
 import 'package:alpha/features/home/widgets/custom_Image_Button.dart';
 import 'package:alpha/features/home/widgets/header_list.dart';
 import 'package:alpha/features/home/widgets/search_field.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class HomeScreen extends StatelessWidget {
-  const HomeScreen({super.key});
-
+ HomeScreen({super.key});
+ final UserController userController = Get.put(UserController());
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: CustomAppBar(appbarTitle: "Hello, Dora"),
+      
+      appBar: PreferredSize(
+        preferredSize: Size.fromHeight(kToolbarHeight),
+        child: Obx(() => CustomAppBar(appbarTitle: "Hello, ${userController.username}")),
+      ),
       drawer: const DrawerScreen(),
       body: Container(
         color: const Color.fromARGB(255, 247, 246, 250), // Set background color here

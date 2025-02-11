@@ -20,7 +20,7 @@ class _CustomBottomNavigationState extends State<CustomBottomNavigation> {
   int _selectedIndex = 0;
 
   static final List<Widget> _widgetOptions = <Widget>[
-    const HomeScreen(),
+    HomeScreen(),
     MyCourses(),
     const LiveClassesScreen(),
     TestSeriesScreen()

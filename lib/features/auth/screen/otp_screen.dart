@@ -126,7 +126,14 @@ class _OtpScreenState extends State<OtpScreen> {
                     width: double.infinity,
                     height: 56,
                     child: CustomElavatedButton(
-                      text: 'Verify OTP',
+                     child: Text(
+                      'Verify OTP',
+                      style: TextStyle(
+                        fontSize: 16,
+                        fontWeight: FontWeight.w600,
+                        color: Colors.white,
+                      ),
+                    ),
                       onPressed: () {
                         if (_otpCode != null && _otpCode!.length == 6) {
                           print('Verifying OTP: $_otpCode');
