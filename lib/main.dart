@@ -28,12 +28,12 @@ class MyApp extends StatelessWidget {
         colorScheme: ColorScheme.fromSeed(seedColor: AppConstant.primaryColor),
         useMaterial3: true,
       ),
-    //  home: CustomBottomNavigation()
+     home: CustomBottomNavigation()
 
     // home: SplashScreen()
 
 
-     home: Login(),
+     //home: Login(),
 
     );
   }

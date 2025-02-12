@@ -74,7 +74,7 @@ class AuthService {
   }) async {
     try{
           var headers = {'Cookie': 'alpha_pro_ci_session=r7embt3to5f1c0rcfnim9f4md3nj7qat'};
-          var request = http.MultipartRequest('POST', Uri.parse('https://alphaacademyonline.in/api/getUserDetails'));
+          var request = http.MultipartRequest('POST', Uri.parse('$baseUrl$userDetailsUrl'));
           request.fields.addAll({
             'userid': userId
           });
