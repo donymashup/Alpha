@@ -8,12 +8,12 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
 class AnimatedTabBarScreen extends StatefulWidget {
-  final Map<String, dynamic> course; // Accept course data
+ // final Map<String, dynamic> course; // Accept course data
   final bool isSubscribed;
 
   const AnimatedTabBarScreen({
     super.key,
-    required this.course,
+   // this.course,
     required this.isSubscribed,
     });
   @override
@@ -66,7 +66,7 @@ class _AnimatedTabBarScreenState extends State<AnimatedTabBarScreen>
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
                             Hero(
-                              tag: "imageCourse_${widget.course['title']}",
+                              tag: "imageCourse",
                               child: Container(
                                 height: MediaQuery.of(context).size.height * 0.25,
                                 width: double.infinity,
