@@ -39,14 +39,7 @@ class CourseLists extends StatelessWidget {
                       Get.find<CourseController>().setCourse(course.courseDetails!);
                       Get.to(() => AnimatedTabBarScreen(isSubscribed: false));
                     }
-                  },
-                  child: Card(
-                    margin: const EdgeInsets.all(8),
-                    shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(10),
-                    ),
-                  );
-                },
+                  },                 
                 child: Card(
                   margin: const EdgeInsets.all(8),
                   shape: RoundedRectangleBorder(
