@@ -49,7 +49,6 @@ class CourseLists extends StatelessWidget {
                   elevation: 5,
                   child: Row(
                     children: [
-                      // Image section with rounded corners on both sides
                       Expanded(
                         flex: 4,
                         child: ClipRRect(
@@ -90,16 +89,16 @@ class CourseLists extends StatelessWidget {
                               ),
                               const SizedBox(height: 5),
                               Row(
-                                children: [
-                                  const Icon(
+                                children: const [
+                                  Icon(
                                     Icons.star,
                                     color: Colors.amber,
                                     size: 18,
                                   ),
-                                  const SizedBox(width: 5),
+                                  SizedBox(width: 5),
                                   Text(
                                     "4.5", // Assuming rating exists
-                                    style: const TextStyle(fontSize: 16),
+                                    style: TextStyle(fontSize: 16),
                                   ),
                                 ],
                               ),
