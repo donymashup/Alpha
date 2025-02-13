@@ -45,80 +45,83 @@ class CourseLists extends StatelessWidget {
                     shape: RoundedRectangleBorder(
                       borderRadius: BorderRadius.circular(10),
                     ),
-                    color: AppConstant.cardBackground,
-                    elevation: 5,
-                    child: Row(
-                      children: [
-                        // Image section
-                        Flexible(
-                          flex: 2,
-                          child: Padding(
-                            padding: const EdgeInsets.all(8.0),
-                            child: Hero(
-                              tag: "imageCourse", // Unique Hero tag
-                              child: ClipRRect(
-                                borderRadius: const BorderRadius.horizontal(
-                                  left: Radius.circular(10),
-                                ),
-                                child: course.courseDetails?.image != null
-                                    ? Image.network(
-                                        course.courseDetails!.image!,
-                                        width: 200,
-                                        height: 100,
-                                        fit: BoxFit.cover,
-                                        errorBuilder: (context, error, stackTrace) =>
-                                            const Icon(Icons.broken_image),
-                                      )
-                                    : const Icon(Icons.image),
-                              ),
-                            ),
-                          ),
-                        ),
-
-                        const SizedBox(width: 5),
-
-                        // Course details section
-                        Flexible(
-                          flex: 3,
-                          child: Padding(
-                            padding: const EdgeInsets.all(8.0),
-                            child: Column(
-                              mainAxisAlignment: MainAxisAlignment.start,
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              children: [
-                                Text(
-                                  course.courseDetails?.name ?? "No Name",
-                                  style: const TextStyle(
-                                    fontSize: 16,
-                                    fontWeight: FontWeight.bold,
-                                  ),
-                                ),
-                                const SizedBox(height: 5),
-                                Row(
-                                  children: [
-                                    const Icon(
-                                      Icons.star,
-                                      color: Colors.amber,
-                                      size: 18,
-                                    ),
-                                    const SizedBox(width: 5),
-                                    Text(
-                                      "4.5", // Assuming rating exists
-                                      style: const TextStyle(fontSize: 16),
-                                    ),
-                                  ],
-                                ),
-                              ],
-                            ),
-                          ),
-                        ),
-                      ],
-                    ),
+                  );
+                },
+                child: Card(
+                  margin: const EdgeInsets.all(8),
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(10),
                   ),
-                );
-              },
-            );
-          }
-        });
+                  color: AppConstant.cardBackground,
+                  elevation: 5,
+                  child: Row(
+                    children: [
+                      // Image section with rounded corners on both sides
+                      Expanded(
+                        flex: 4,
+                        child: ClipRRect(
+                          borderRadius: BorderRadius.circular(10), // Rounded on both sides
+                          child: Hero(
+                            tag: "imageCourse",
+                            child: course.courseDetails?.image != null
+                                ? Image.network(
+                                    course.courseDetails!.image!,
+                                    width: double.infinity,
+                                    height: 100,
+                                    fit: BoxFit.cover,
+                                    errorBuilder: (context, error, stackTrace) =>
+                                        const Icon(Icons.broken_image),
+                                  )
+                                : const Icon(Icons.image, size: 80),
+                          ),
+                        ),
+                      ),
+
+                      const SizedBox(width: 5),
+
+                      // Course details section
+                      Expanded(
+                        flex: 5,
+                        child: Padding(
+                          padding: const EdgeInsets.all(8.0),
+                          child: Column(
+                            mainAxisAlignment: MainAxisAlignment.start,
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              Text(
+                                course.courseDetails?.name ?? "No Name",
+                                style: const TextStyle(
+                                  fontSize: 16,
+                                  fontWeight: FontWeight.bold,
+                                ),
+                              ),
+                              const SizedBox(height: 5),
+                              Row(
+                                children: [
+                                  const Icon(
+                                    Icons.star,
+                                    color: Colors.amber,
+                                    size: 18,
+                                  ),
+                                  const SizedBox(width: 5),
+                                  Text(
+                                    "4.5", // Assuming rating exists
+                                    style: const TextStyle(fontSize: 16),
+                                  ),
+                                ],
+                              ),
+                            ],
+                          ),
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
+              );
+            },
+          );
+        }
+      },
+    );
   }
 }
