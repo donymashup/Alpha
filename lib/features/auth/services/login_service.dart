@@ -103,30 +103,7 @@ class AuthService {
                             await prefs.setString("address", userDetailsModel.user!.address!);
                             await prefs.setString("gender", userDetailsModel.user!.gender!);
                             await prefs.setString("school", userDetailsModel.user!.school!);
-                            await prefs.setString("qualification", userDetailsModel.user!.qualification!);
-                            // String? firstName = prefs.getString('firstName');
-                            // String? lastName = prefs.getString('lastName');
-                            // String? email = prefs.getString('email');
-                            // String? phone = prefs.getString('phone');
-                            // String? country = prefs.getString('country');
-                            // String? dob = prefs.getString('dob');
-                            // String? image = prefs.getString('image');
-                            // String? address = prefs.getString('address');
-                            // String? school = prefs.getString('school'); 
-                            // String? qualification = prefs.getString('qualification');
-
-                            // print(firstName);
-                            // print(lastName);  
-                            // print(email);
-                            // print(phone);
-                            // print(country);
-                            // print(dob);
-                            // print(image);
-                            // print(address);
-                            // print(school);
-                            // print(qualification);
-
-
+                            await prefs.setString("qualification", userDetailsModel.user!.qualification!);                    
                               Navigator.push(context, MaterialPageRoute(builder: (context) => CustomBottomNavigation()));
                         } else {
                           showSnackbar( context, 'data fetching failed');
@@ -137,7 +114,8 @@ class AuthService {
       print("Failed to fetch data: ${response.statusCode}");
       return null;
     }
-    }catch(e){
+    }
+    catch(e){
       showSnackbar(
         context,
         e.toString(),

@@ -1,8 +1,10 @@
 import 'package:alpha/constants/app_constants.dart';
+import 'package:alpha/controllers/selected_course_controller.dart';
 import 'package:alpha/features/course_detailed/screens/course_detail.dart';
 import 'package:alpha/features/home/services/home_service.dart';
 import 'package:alpha/models/available_courses_model.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 
 class CourseLists extends StatelessWidget {
   const CourseLists({super.key});
@@ -15,32 +17,33 @@ class CourseLists extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return FutureBuilder<AvailableCoursesModel?>(
-      future: fetchCourses(context),
-      builder: (context, snapshot) {
-        if (snapshot.connectionState == ConnectionState.waiting) {
-          return const Center(child: CircularProgressIndicator());
-        } else if (snapshot.hasError) {
-          return const Center(child: Text('Error fetching courses'));
-        } else if (!snapshot.hasData ||
-            snapshot.data == null ||
-            snapshot.data!.courses == null ||
-            snapshot.data!.courses!.isEmpty) {
-          return const Center(child: Text('No courses available'));
-        } else {
-          final availableCourses = snapshot.data!;
-          return ListView.builder(
-            shrinkWrap: true,
-            physics: const NeverScrollableScrollPhysics(),
-            itemCount: availableCourses.courses?.length ?? 0,
-            itemBuilder: (context, index) {
-              var course = availableCourses.courses![index];
-              return GestureDetector(
-                onTap: () {
-                  Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                      builder: (context) =>
-                          AnimatedTabBarScreen(isSubscribed: false),
+        future: fetchCourses(context),
+        builder: (context, snapshot) {
+          if (snapshot.connectionState == ConnectionState.waiting) {
+            return const Center(child: CircularProgressIndicator());
+          } else if (snapshot.hasError) {
+            return const Center(child: Text('Error fetching courses'));
+          } else if (!snapshot.hasData || snapshot.data == null || snapshot.data!.courses == null || snapshot.data!.courses!.isEmpty) {
+            return const Center(child: Text('No courses available'));
+          } else {
+            final availableCourses = snapshot.data!;
+            return ListView.builder(
+              shrinkWrap: true,
+              physics: const NeverScrollableScrollPhysics(),
+              itemCount: availableCourses.courses?.length ?? 0, // Prevent null issue
+              itemBuilder: (context, index) {
+                var course = availableCourses.courses![index];
+                return GestureDetector(
+                 onTap: () {
+                    if (course.courseDetails != null) {
+                      Get.find<CourseController>().setCourse(course.courseDetails!);
+                      Get.to(() => AnimatedTabBarScreen(isSubscribed: false));
+                    }
+                  },
+                  child: Card(
+                    margin: const EdgeInsets.all(8),
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(10),
                     ),
                   );
                 },
