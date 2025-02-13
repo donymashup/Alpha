@@ -1,5 +1,6 @@
 import 'package:alpha/constants/app_constants.dart';
 import 'package:alpha/controllers/is_subscribed_controller.dart';
+import 'package:alpha/features/quiz/screen/quiz_info.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:lucide_icons/lucide_icons.dart';
@@ -104,19 +105,27 @@ class ClassesList extends StatelessWidget {
           children: items
               .map((item) => Padding(
                     padding: const EdgeInsets.symmetric(vertical: 5.0),
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: [
-                       
-                        Text(item),
-                         Obx(() {
-                          final controller = Get.find<IsSubscribedController>();
-                          return controller.isSubscribed.value
-                          ? SizedBox() // Hide lock icon when state is false
-                          :  Icon(Icons.lock_outline, size: 20, color: Colors.grey);
-                        }),
-                       
-                      ],
+                    child: GestureDetector(
+                       onTap: () {
+                      if (title == "Quizzes") {
+                        // Navigate only for Quizzes
+                        Get.to(() => QuizInfo());
+                      }
+                    },
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                         
+                          Text(item),
+                           Obx(() {
+                            final controller = Get.find<IsSubscribedController>();
+                            return controller.isSubscribed.value
+                            ? SizedBox() // Hide lock icon when state is false
+                            :  Icon(Icons.lock_outline, size: 20, color: Colors.grey);
+                          }),
+                         
+                        ],
+                      ),
                     ),
                   ))
               .toList(),

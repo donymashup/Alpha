@@ -23,7 +23,7 @@ class MyCourses extends StatelessWidget {
                 context,
                 MaterialPageRoute(
                   builder: (context) => AnimatedTabBarScreen(
-                    course: item,
+                  //  course: item,
                     isSubscribed: true,
                   ),
                 ),
