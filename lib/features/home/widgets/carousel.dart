@@ -1,4 +1,5 @@
-import 'package:alpha/constants/app_constants.dart';
+import 'package:alpha/features/home/services/home_service.dart';
+import 'package:alpha/models/slider_images_model.dart';
 import 'package:flutter/material.dart';
 
 class CarouselImage extends StatefulWidget {
@@ -11,24 +12,30 @@ class CarouselImage extends StatefulWidget {
 class _CarouselImageState extends State<CarouselImage> {
   final PageController _controller = PageController();
   int _currentIndex = 0;
+  List<Sliders> _sliderImages = [];
+  final HomeService _homeService = HomeService();
 
   @override
   void initState() {
     super.initState();
-    // Start auto-scroll
-    WidgetsBinding.instance.addPostFrameCallback((_) {
+    _fetchSliderImages();
+  }
+
+  Future<void> _fetchSliderImages() async {
+    final sliderData = await _homeService.getSliderImages(context: context);
+    if (sliderData != null && sliderData.sliders != null) {
+      setState(() {
+        _sliderImages = sliderData.sliders!.take(5).toList(); // ✅ Only first 5 images
+      });
       _startAutoScroll();
-    });
+    }
   }
 
   void _startAutoScroll() async {
-    while (true) {
-      // Wait for the delay duration
+    while (mounted && _sliderImages.isNotEmpty) {
       await Future.delayed(const Duration(seconds: 3));
-
-      // Check if the controller has clients and the widget is mounted
-      if (_controller.hasClients && mounted) {
-        int nextPage = (_currentIndex + 1) % AppConstant.carouselImages.length;
+      if (_controller.hasClients) {
+        int nextPage = (_currentIndex + 1) % _sliderImages.length;
         _controller.animateToPage(
           nextPage,
           duration: const Duration(seconds: 1),
@@ -49,30 +56,43 @@ class _CarouselImageState extends State<CarouselImage> {
 
   @override
   Widget build(BuildContext context) {
+    double screenWidth = MediaQuery.of(context).size.width;
+    double carouselHeight = screenWidth * 0.5; // Dynamic height based on width
+
     return Column(
       children: [
         SizedBox(
-          height: 200, // Height of the carousel
-          child: PageView.builder(
-            controller: _controller,
-            itemCount: AppConstant.carouselImages.length,
-            onPageChanged: (index) {
-              setState(() {
-                _currentIndex = index;
-              });
-            },
-            itemBuilder: (context, index) {
-              return Image.asset(
-                AppConstant.carouselImages[index], // Use asset paths here
-                fit: BoxFit.fill,
-              );
-            },
-          ),
+          width: double.infinity, // Ensures full width
+          height: carouselHeight,
+          child: _sliderImages.isEmpty
+              ? const Center(child: CircularProgressIndicator())
+              : PageView.builder(
+                  controller: _controller,
+                  itemCount: _sliderImages.length,
+                  onPageChanged: (index) {
+                    setState(() {
+                      _currentIndex = index;
+                    });
+                  },
+                  itemBuilder: (context, index) {
+                    return ClipRRect(
+                      borderRadius: BorderRadius.circular(10), // Rounded corners
+                      child: Image.network(
+                        _sliderImages[index].image!,
+                        width: double.infinity,
+                        height: carouselHeight,
+                        fit: BoxFit.cover, // ✅ Ensures full coverage
+                        errorBuilder: (context, error, stackTrace) =>
+                            const Icon(Icons.image_not_supported, size: 100),
+                      ),
+                    );
+                  },
+                ),
         ),
         const SizedBox(height: 8),
         Row(
           mainAxisAlignment: MainAxisAlignment.center,
-          children: AppConstant.carouselImages.asMap().entries.map((entry) {
+          children: _sliderImages.asMap().entries.map((entry) {
             return GestureDetector(
               onTap: () => _controller.jumpToPage(entry.key),
               child: AnimatedContainer(
@@ -81,7 +101,7 @@ class _CarouselImageState extends State<CarouselImage> {
                 width: _currentIndex == entry.key ? 12 : 8,
                 height: 8,
                 decoration: BoxDecoration(
-                  color: _currentIndex == entry.key ? AppConstant.primaryColor3 : Colors.grey,
+                  color: _currentIndex == entry.key ? Colors.blue : Colors.grey,
                   borderRadius: BorderRadius.circular(4),
                 ),
               ),

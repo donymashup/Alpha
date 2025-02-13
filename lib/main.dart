@@ -30,7 +30,8 @@ class MyApp extends StatelessWidget {
       ),
      home: CustomBottomNavigation()
 
-    // home: SplashScreen()
+      //home: SplashScreen()
+     
 
 
      //home: Login(),
