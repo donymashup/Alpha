@@ -1,6 +1,10 @@
-import 'package:alpha/features/auth/screen/phone_number.dart';
+//newalpha
+
+
+import 'package:alpha/features/auth/screen/login.dart';
 import 'package:flutter/material.dart';
 import 'package:alpha/constants/app_constants.dart';
+import 'package:alpha/features/auth/screen/registration.dart';
 import 'package:swipeable_button_view/swipeable_button_view.dart';
 import 'package:alpha/common%20widgets/color_dot.dart';
 
@@ -19,13 +23,12 @@ class WelcomePage extends StatefulWidget {
 }
 
 class _WelcomePageState extends State<WelcomePage> {
-  bool isFinished = false;
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: AppConstant.backgroundColor,
       body: Container(
-        width: double.infinity,
         decoration: const BoxDecoration(
           color: AppConstant.backgroundColor,
         ),
@@ -50,97 +53,85 @@ class _WelcomePageState extends State<WelcomePage> {
               Color: Colors.lightBlue,
             ),
 
-            // Main Content
-            Column(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                const Spacer(),
-                // Image
-                Center(
-                  child: Image.asset(
-                    'assets/images/woman.png',
-                    height: 350.0,
-                    fit: BoxFit.contain,
+            // Main content inside SingleChildScrollView
+            SingleChildScrollView(
+              child: Column(
+                children: [
+                  SizedBox(height: MediaQuery.of(context).size.height * 0.17),
+                  // Image
+                  Center(
+                    child: Image.asset(
+                      'assets/images/woman.png',
+                      height: MediaQuery.of(context).size.height * 0.5,
+                    ),
                   ),
-                ),
-                const SizedBox(height: 20),
-
-                // Page Indicator Dots
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: List.generate(
-                    widget.totalPages,
-                    (index) => AnimatedContainer(
-                      duration: const Duration(milliseconds: 300),
-                      margin: const EdgeInsets.symmetric(horizontal: 4.0),
-                      width: widget.currentIndex == index ? 12.0 : 8.0,
-                      height: 8.0,
-                      decoration: BoxDecoration(
-                        color: widget.currentIndex == index ? Colors.blue : Colors.grey,
-                        borderRadius: BorderRadius.circular(4.0),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: List.generate(
+                      widget.totalPages,
+                      (index) => AnimatedContainer(
+                        duration: const Duration(milliseconds: 300),
+                        margin: const EdgeInsets.symmetric(horizontal: 4.0),
+                        width: widget.currentIndex == index ? 12.0 : 8.0,
+                        height: 8.0,
+                        decoration: BoxDecoration(
+                          color: widget.currentIndex == index ? Colors.blue : Colors.grey,
+                          borderRadius: BorderRadius.circular(4.0),
+                        ),
                       ),
                     ),
                   ),
-                ),
-                const SizedBox(height: 20.0),
-
-                // Title
-                const Text(
-                  'Welcome To Alpha',
-                  style: TextStyle(
-                    fontSize: 24.0,
-                    fontWeight: FontWeight.bold,
-                    color: Colors.black,
-                  ),
-                ),
-                const SizedBox(height: 10.0),
-
-                // Subtitle
-                const Padding(
-                  padding: EdgeInsets.symmetric(horizontal: 30.0),
-                  child: Text(
-                    'Learn something new every day. Start your learning journey with Etutor.',
-                    textAlign: TextAlign.center,
+                  const SizedBox(height: 20.0),
+                  const Text(
+                    'Welcome To Alpha',
                     style: TextStyle(
-                      fontSize: 16.0,
-                      color: Colors.grey,
+                      fontSize: 24.0,
+                      fontWeight: FontWeight.bold,
+                      color: Colors.black,
                     ),
                   ),
-                ),
-                const SizedBox(height: 30.0),
-
-                // Swipeable Button
-                SizedBox(
-                  width: MediaQuery.of(context).size.width * 0.8,
-                  child: SwipeableButtonView(
-                    buttonText: 'Login with Phone',
-                    buttonWidget: const Icon(
-                      Icons.phone,
-                      color: AppConstant.primaryColor3,
+                  const SizedBox(height: 10.0),
+                  const Padding(
+                    padding: EdgeInsets.symmetric(horizontal: 30.0),
+                    child: Text(
+                      'Learn something new every day. Start your learning journey with Etutor.',
+                      textAlign: TextAlign.center,
+                      style: TextStyle(
+                        fontSize: 16.0,
+                        color: Colors.grey,
+                      ),
                     ),
-                    activeColor: AppConstant.primaryColor2,
-                    isFinished: isFinished,
-                    onWaitingProcess: () {
-                      Future.delayed(const Duration(seconds: 1), () {
-                        setState(() {
-                          isFinished = true;
-                        });
-                      });
-                    },
-                    onFinish: () {
-                      Navigator.pushReplacement(
-                        context,
-                        MaterialPageRoute(
-                          builder: (context) => PhoneNumberVerificationPage(),
-                        ),
-                      );
-                    },
                   ),
-                ),
-
-                const SizedBox(height: 50),
-                const Spacer(),
-              ],
+                  const SizedBox(height: 30.0),
+                  // Padding(
+                  //   padding: const EdgeInsets.symmetric(horizontal: 20.0),
+                  //   child: SwipeableButtonView(
+                  //     buttonText: 'Login with Phone',
+                  //     buttonWidget: const Icon(
+                  //       Icons.phone,
+                  //       color: Color.fromARGB(255, 86, 90, 216),
+                  //     ),
+                  //     activeColor: AppConstant.primaryColor2,
+                  //     isFinished: isFinished,
+                  //     onWaitingProcess: () {
+                  //       Future.delayed(const Duration(seconds: 1), () {
+                  //         setState(() {
+                  //           isFinished = true;
+                  //         });
+                  //       });
+                  //     },
+                  //     onFinish: () {
+                  //       Navigator.pushReplacement(
+                  //         context,
+                  //         MaterialPageRoute(
+                  //           builder: (context) => PhoneNumberVerificationPage(),
+                  //         ),
+                  //       );
+                  //     },
+                  //   ),
+                  // ),
+                ],
+              ),
             ),
           ],
         ),
