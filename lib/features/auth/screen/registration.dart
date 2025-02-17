@@ -1,7 +1,6 @@
 import 'package:alpha/common%20widgets/bottom_navigation_bar.dart';
 import 'package:alpha/constants/app_constants.dart';
-import 'package:alpha/common%20widgets/bottom_navigation_bar.dart';
-import 'package:alpha/features/auth/widgets/custom_button.dart'; // Correct import statement
+import 'package:alpha/features/auth/widgets/custom_button.dart'; 
 import 'package:alpha/features/auth/widgets/custom_textfield.dart';
 import 'package:alpha/features/auth/widgets/profile.dart';
 import 'package:alpha/features/auth/widgets/wave_widget.dart';
@@ -14,18 +13,20 @@ class RegistrationScreen extends StatefulWidget {
 
 class _RegistrationScreenState extends State<RegistrationScreen> {
   final _formKey = GlobalKey<FormState>();
-  String dropdownvalue = 'class 5';   
 
-final TextEditingController firstNameController = TextEditingController();
-final TextEditingController lastNameController = TextEditingController();
-final TextEditingController emailController = TextEditingController();
-final TextEditingController classController = TextEditingController();
-final TextEditingController schoolController = TextEditingController();
-final TextEditingController passwordController = TextEditingController();
-final TextEditingController phoneController = TextEditingController();
+  // Ensure initial value matches exactly with the dropdown list values
+  String dropdownvalue = 'Class 5';
 
- var items = [    
-     'Class 5',
+  final TextEditingController firstNameController = TextEditingController();
+  final TextEditingController lastNameController = TextEditingController();
+  final TextEditingController emailController = TextEditingController();
+  final TextEditingController classController = TextEditingController();
+  final TextEditingController schoolController = TextEditingController();
+  final TextEditingController passwordController = TextEditingController();
+  final TextEditingController phoneController = TextEditingController();
+
+  final List<String> items = [
+    'Class 5',
     'Class 6',
     'Class 7',
     'Class 8',
@@ -35,15 +36,16 @@ final TextEditingController phoneController = TextEditingController();
     'Class 12',
   ];
 
-void submitForm() {
-  if (_formKey.currentState!.validate()) {
-    print("Form Submitted Successfully!");
-    Navigator.pushReplacement(
-                           context,
-                           MaterialPageRoute(builder: (context) => CustomBottomNavigation()),
-                           );
+  void submitForm() {
+    if (_formKey.currentState!.validate()) {
+      print("Form Submitted Successfully!");
+      Navigator.pushReplacement(
+        context,
+        MaterialPageRoute(builder: (context) => CustomBottomNavigation()),
+      );
+    }
   }
-}
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -91,19 +93,37 @@ void submitForm() {
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    CustomTextField(labelText: "First Name", hintText: "Enter your first name",Controller: firstNameController,),
+                    CustomTextField(
+                      labelText: "First Name",
+                      hintText: "Enter your first name",
+                      Controller: firstNameController,
+                    ),
                     const SizedBox(height: 17),
-                    CustomTextField(labelText: "Last Name", hintText: "Enter your last name",Controller: lastNameController,),
+                    CustomTextField(
+                      labelText: "Last Name",
+                      hintText: "Enter your last name",
+                      Controller: lastNameController,
+                    ),
                     const SizedBox(height: 17),
-                    CustomTextField(labelText: "Email id", hintText: "Enter your email id",Controller: emailController,),
+                    CustomTextField(
+                      labelText: "Email id",
+                      hintText: "Enter your email id",
+                      Controller: emailController,
+                    ),
                     const SizedBox(height: 17),
-                    CustomTextField(labelText: "Password", hintText: "Enter your password", isPassword: true,Controller: passwordController,),
+                    CustomTextField(
+                      labelText: "Password",
+                      hintText: "Enter your password",
+                      isPassword: true,
+                      Controller: passwordController,
+                    ),
                     const SizedBox(height: 17),
-  
+
+                    // Dropdown Button Form Field
                     DropdownButtonHideUnderline(
                       child: Container(
                         decoration: BoxDecoration(
-                          borderRadius: BorderRadius.circular(25), 
+                          borderRadius: BorderRadius.circular(25),
                         ),
                         child: DropdownButtonFormField<String>(
                           decoration: InputDecoration(
@@ -122,7 +142,7 @@ void submitForm() {
                             return DropdownMenuItem(
                               value: item,
                               child: Padding(
-                                padding: EdgeInsets.symmetric(horizontal: 16), // Adds padding inside the menu
+                                padding: EdgeInsets.symmetric(horizontal: 16),
                                 child: Text(item),
                               ),
                             );
@@ -138,14 +158,22 @@ void submitForm() {
                     ),
 
                     const SizedBox(height: 17),
-                    CustomTextField(labelText: "School Name", hintText: "Enter your school name",Controller:schoolController ,),
+                    CustomTextField(
+                      labelText: "School Name",
+                      hintText: "Enter your school name",
+                      Controller: schoolController,
+                    ),
                     const SizedBox(height: 17),
-                    CustomTextField(labelText: "Phone Number", hintText: "",Controller: phoneController,),
+                    CustomTextField(
+                      labelText: "Phone Number",
+                      hintText: "Enter your phone number",
+                      Controller: phoneController,
+                    ),
                     const SizedBox(height: 30),
                     Center(
                       child: CustomButton(
-                        onPressed:  () {
-                          submitForm();                         
+                        onPressed: () {
+                          submitForm();
                         },
                       ),
                     ),

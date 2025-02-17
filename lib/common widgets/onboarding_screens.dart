@@ -1,4 +1,5 @@
-import 'package:alpha/features/auth/screen/login.dart';
+//newalpha
+
 import 'package:alpha/features/auth/screen/phone_number.dart';
 import 'package:flutter/material.dart';
 import 'package:alpha/constants/app_constants.dart'; // Adjust this import as needed
@@ -13,7 +14,6 @@ class OnboardingScreen extends StatefulWidget {
 class _OnboardingScreenState extends State<OnboardingScreen> {
   final PageController _pageController = PageController();
   int currentIndex = 0;
-  bool isFinished = false;
 
   final List<OnboardingPageModel> pages = [
     OnboardingPageModel(
@@ -34,12 +34,16 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
           'Track your progress till date through graphical analysis of tests, view your progress in terms of percentages accuracy and average time taken.',
     ),
   ];
+  
+  bool isFinished = false;
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: AppConstant.backgroundColor,
       body: Stack(
         children: [
+
           PageView.builder(
             controller: _pageController,
             onPageChanged: (index) {
@@ -63,9 +67,8 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
               }
             },
           ),
-          
-          if (currentIndex < pages.length)
-            Positioned(
+          currentIndex < pages.length
+          ? Positioned(
               bottom: 20,
               right: 20,
               child: TextButton(
@@ -80,12 +83,11 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
                   ),
                 ),
               ),
-            ),
-
-            if (currentIndex == pages.length)
-            Positioned(
-              bottom: 40,
-              child: Padding(
+            )
+          : Column(
+            mainAxisAlignment: MainAxisAlignment.end,
+            children: [
+              Padding(
                       padding: const EdgeInsets.symmetric(horizontal: 20.0),
                       child: SwipeableButtonView(
                         buttonText: 'Login with Phone',
@@ -112,7 +114,9 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
                         },
                       ),
                     ),
-            ),
+                    SizedBox(height: 100),
+            ],
+          ),
         ],
       ),
     );
@@ -181,14 +185,16 @@ class OnboardingPage extends StatelessWidget {
                       width: currentIndex == index ? 12 : 8,
                       height: 8,
                       decoration: BoxDecoration(
-                        color: currentIndex == index ? Colors.blue : Colors.grey,
+                        color:
+                            currentIndex == index ? Colors.blue : Colors.grey,
                         borderRadius: BorderRadius.circular(4),
                       ),
                     ),
                   ),
                 ),
                 Padding(
-                  padding: const EdgeInsets.symmetric(horizontal: 30, vertical: 16),
+                  padding:
+                      const EdgeInsets.symmetric(horizontal: 30, vertical: 16),
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     mainAxisAlignment: MainAxisAlignment.center,
