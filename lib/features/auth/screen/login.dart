@@ -36,24 +36,6 @@ class _LoginState extends State<Login> {
     });
   }
 
-  // Uncomment if needed for additional functionality
-  // void login() {
-  //   AuthService().loginUser(
-  //     phone: phoneNumber ?? '',
-  //     code: countryCode ?? '',
-  //     password: passwordController.text,
-  //     context: context,
-  //   );
-  // }
-  //
-  // void fetchUserDetails() async {
-  //   SharedPreferences prefs = await SharedPreferences.getInstance();
-  //   String? userId = prefs.getString('userId');
-  //   AuthService().getUserDetails(
-  //     userId: userId ?? '',
-  //     context: context,
-  //   );
-  // }
 
   @override
   Widget build(BuildContext context) {

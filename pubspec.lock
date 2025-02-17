@@ -211,6 +211,14 @@ packages:
     description: flutter
     source: sdk
     version: "0.0.0"
+  flutter_tex:
+    dependency: "direct main"
+    description:
+      name: flutter_tex
+      sha256: ef7896946052e150514a2afe10f6e33e4fe0e7e4fc51195b65da811cb33c59ab
+      url: "https://pub.dev"
+    source: hosted
+    version: "4.0.13"
   flutter_web_plugins:
     dependency: transitive
     description: flutter
@@ -733,6 +741,14 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "2.10.0"
+  webview_flutter_plus:
+    dependency: transitive
+    description:
+      name: webview_flutter_plus
+      sha256: f883dfc94d03b1a2a17441c8e8a8e1941558ed3322f2b586cd06486114e18048
+      url: "https://pub.dev"
+    source: hosted
+    version: "0.4.10"
   webview_flutter_wkwebview:
     dependency: transitive
     description:

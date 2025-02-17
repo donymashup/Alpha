@@ -1,4 +1,5 @@
 import 'package:alpha/constants/app_constants.dart';
+import 'package:alpha/controllers/selected_course_controller.dart';
 import 'package:alpha/models/available_courses_model.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';

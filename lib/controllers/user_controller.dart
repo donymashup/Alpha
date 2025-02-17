@@ -2,7 +2,7 @@ import 'package:get/get.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class UserController extends GetxController {
-  var username = 'Dora'.obs;
+  var username = 'User'.obs;
 
   @override
   void onInit() {
