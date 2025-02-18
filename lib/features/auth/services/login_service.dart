@@ -104,7 +104,7 @@ class AuthService {
                             await prefs.setString("gender", userDetailsModel.user!.gender!);
                             await prefs.setString("school", userDetailsModel.user!.school!);
                             await prefs.setString("qualification", userDetailsModel.user!.qualification!);                    
-                              Navigator.push(context, MaterialPageRoute(builder: (context) => CustomBottomNavigation()));
+                           // Navigator.push(context, MaterialPageRoute(builder: (context) => CustomBottomNavigation()));
                         } else {
                           showSnackbar( context, 'data fetching failed');
                         }      
