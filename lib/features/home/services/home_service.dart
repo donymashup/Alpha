@@ -1,5 +1,6 @@
 
 import 'dart:convert';
+import 'package:alpha/constants/config.dart';
 import 'package:alpha/constants/utils.dart';
 import 'package:alpha/models/available_courses_model.dart';
 import 'package:alpha/models/slider_images_model.dart';
@@ -14,16 +15,16 @@ class HomeService {
   }) async {
     try {
       // Retrieve userId from SharedPreferences (Uncomment if needed)
-      // SharedPreferences prefs = await SharedPreferences.getInstance();
-      // String? userId = prefs.getString('userId') ?? '1'; // Default to '1' if null
+      SharedPreferences prefs = await SharedPreferences.getInstance();
+      String? userId = prefs.getString('userId');// Default to '1' if null
 
       var headers = {
         'Cookie': 'etcpro_ci_session=18sjlpb9r1jqtr68p77nfo77ds8qpd2a'
       };
 
       var request = http.MultipartRequest(
-          'POST', Uri.parse('https://demo.etcweb.in/api/getAvailableCourses'));
-      request.fields.addAll({'userid': '1'});
+          'POST', Uri.parse('$baseUrlEtc$availableCourseUrl'));
+      request.fields.addAll({'userid': userId!});
 
       request.headers.addAll(headers);
 
@@ -73,13 +74,15 @@ class HomeService {
     required BuildContext context,
   }) async {
     try {
+      SharedPreferences prefs = await SharedPreferences.getInstance();
+      String? userId = prefs.getString('userId');
       var headers = {
         'Cookie': 'etcpro_ci_session=18sjlpb9r1jqtr68p77nfo77ds8qpd2a'
       };
 
       var request = http.MultipartRequest(
-          'POST', Uri.parse('https://demo.etcweb.in/api/getSliderImages'));
-      request.fields.addAll({'userid': '1'});
+          'POST', Uri.parse('$baseUrlEtc$sliderImagesUrl'));
+      request.fields.addAll({'userid': userId!});
 
       request.headers.addAll(headers);
 

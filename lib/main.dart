@@ -5,7 +5,7 @@ import 'package:alpha/common%20widgets/splash_screen.dart';
 import 'package:alpha/constants/app_constants.dart';
 import 'package:alpha/features/auth/screen/login.dart';
 import 'package:alpha/features/auth/widgets/profile.dart';
-import 'package:alpha/features/profile/my_profile.dart';
+import 'package:alpha/features/profile/screen/my_profile.dart';
 
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';

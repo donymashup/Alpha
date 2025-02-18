@@ -1,5 +1,6 @@
 import 'dart:io';
 import 'package:alpha/features/auth/services/login_service.dart';
+import 'package:alpha/features/profile/services/profile_service.dart';
 import 'package:alpha/models/user_details_model.dart';
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
@@ -16,8 +17,10 @@ class ProfileScreen extends StatefulWidget {
 class _ProfileScreenState extends State<ProfileScreen> {
   File? _image; // Stores the selected image
   final ImagePicker _picker = ImagePicker();
+  final TextEditingController passwordController = TextEditingController();
   UserDetailsModel? userDetails;
   bool isLoading = true;
+  bool isUpdatingPassword = false;
 
   @override
   void initState() {
@@ -28,8 +31,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
   Future<void> fetchUserDetails() async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
     String? userId = prefs.getString("userId"); // Retrieve stored user ID
-    print(userId);
-    print("User Details fetched: ${userDetails != null}");
+
     if (userId != null) {
       UserDetailsModel? details = await AuthService().getUserDetails(
         userId: userId,
@@ -59,6 +61,25 @@ class _ProfileScreenState extends State<ProfileScreen> {
         _image = File(pickedFile.path); // Update the profile picture
       });
     }
+  }
+
+  Future<void> updatePassword() async {
+    setState(() {
+    isUpdatingPassword = true;
+  });
+    if (passwordController.text != null) {
+      await ProfileService().updatePassword(
+        password: passwordController.text,
+        context: context,
+      );
+    }else {
+      print("password is empty");
+    }
+
+    setState(() {
+      passwordController.clear();
+      isUpdatingPassword = false;
+    });
   }
 
  
@@ -149,6 +170,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
               // Editable TextField for Setting New Password
               TextField(
                 obscureText: true, // To hide password input
+                controller: passwordController,
                 decoration: InputDecoration(
                   labelText: 'Set New Password For Web Portal',
                   labelStyle: TextStyle(color: AppConstant.titlecolor),
@@ -167,19 +189,21 @@ class _ProfileScreenState extends State<ProfileScreen> {
 
               // Update Password Button
               ElevatedButton(
-                onPressed: () {},
-                style: ElevatedButton.styleFrom(
-                  backgroundColor: AppConstant.buttonupdate,
-                  shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(10),
-                  ),
-                  minimumSize: const Size(double.infinity, 50),
+              onPressed: isUpdatingPassword ? null : updatePassword,
+              style: ElevatedButton.styleFrom(
+                backgroundColor: AppConstant.buttonupdate,
+                shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(10),
                 ),
-                child: const Text(
-                  'Update Password',
-                  style: TextStyle(color: Colors.white),
-                ),
+                minimumSize: const Size(double.infinity, 50),
               ),
+              child: isUpdatingPassword
+                  ? CircularProgressIndicator(color: Colors.white)
+                  : const Text(
+                      'Update Password',
+                      style: TextStyle(color: Colors.white),
+                    ),
+            ),
             ],
           ),
         ),
