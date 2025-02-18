@@ -1,7 +1,7 @@
 import 'package:alpha/constants/app_constants.dart';
 import 'package:alpha/features/home/widgets/custom_Image_Button.dart';
 import 'package:alpha/features/notification/notifications.dart';
-import 'package:alpha/features/profile/my_profile.dart';
+import 'package:alpha/features/profile/screen/my_profile.dart';
 import 'package:flutter/material.dart';
 
 class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
