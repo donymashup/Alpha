@@ -1,5 +1,6 @@
 import 'dart:io';
 import 'package:alpha/features/auth/services/login_service.dart';
+import 'package:alpha/features/profile/services/profile_service.dart';
 import 'package:alpha/models/user_details_model.dart';
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
@@ -14,10 +15,11 @@ class ProfileScreen extends StatefulWidget {
 }
 
 class _ProfileScreenState extends State<ProfileScreen> {
-  File? _image; // Stores the selected image
+  File? _image;
   final ImagePicker _picker = ImagePicker();
   UserDetailsModel? userDetails;
   bool isLoading = true;
+  bool isUploading = false;
 
   @override
   void initState() {
@@ -27,19 +29,21 @@ class _ProfileScreenState extends State<ProfileScreen> {
 
   Future<void> fetchUserDetails() async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
-    String? userId = prefs.getString("userId"); // Retrieve stored user ID
-    print(userId);
-    print("User Details fetched: ${userDetails != null}");
+    String? userId = prefs.getString("userId");
+    String? savedImageUrl = prefs.getString("profileImage");
+
     if (userId != null) {
       UserDetailsModel? details = await AuthService().getUserDetails(
         userId: userId,
         context: context,
       );
-      
 
       if (details != null) {
         setState(() {
           userDetails = details;
+          if (savedImageUrl != null) {
+            userDetails?.user?.image = savedImageUrl;
+          }
           isLoading = false;
         });
       } else {
@@ -50,22 +54,48 @@ class _ProfileScreenState extends State<ProfileScreen> {
     }
   }
 
-  // Function to pick an image from the gallery
   Future<void> _pickImage() async {
     final pickedFile = await _picker.pickImage(source: ImageSource.gallery);
 
     if (pickedFile != null) {
       setState(() {
-        _image = File(pickedFile.path); // Update the profile picture
+        _image = File(pickedFile.path);
+        isUploading = true;
+      });
+
+      SharedPreferences prefs = await SharedPreferences.getInstance();
+      String? userId = prefs.getString("userId");
+
+      if (userId != null) {
+        var response = await ProfileService().uploadImage(
+          userId: userId,
+          filePath: pickedFile.path,
+          context: context,
+        );
+
+        if (response != null && response.imageUrl != null) {
+          await prefs.setString("profileImage", response.imageUrl);
+
+          setState(() {
+            userDetails?.user?.image =
+                "${response.imageUrl}?timestamp=${DateTime.now().millisecondsSinceEpoch}"; // to avoid cache
+          });
+        }
+      }
+
+      setState(() {
+        isUploading = false;
       });
     }
   }
 
- 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: CustomAppBar(appbarTitle: "My Profile"),
+      appBar: CustomAppBar(
+        appbarTitle: "My Profile",
+       // profileImage: userDetails?.user?.image, // Pass profileImage here
+      ),
       drawer: DrawerScreen(),
       backgroundColor: AppConstant.backgroundColor,
       body: SingleChildScrollView(
@@ -97,11 +127,11 @@ class _ProfileScreenState extends State<ProfileScreen> {
                         children: [
                           ListTile(
                             leading: Icon(Icons.person, color: AppConstant.primaryColor),
-                           title: Text(userDetails?.user?.firstName ?? "Loading..."),
+                            title: Text(userDetails?.user?.firstName ?? "Loading..."),
                           ),
                           ListTile(
                             leading: Icon(Icons.phone, color: AppConstant.primaryColor),
-                            title: Text(userDetails?.user?.phone ?? "Loading..."),  
+                            title: Text(userDetails?.user?.phone ?? "Loading..."),
                           ),
                           ListTile(
                             leading: Icon(Icons.email, color: AppConstant.primaryColor),
@@ -114,24 +144,31 @@ class _ProfileScreenState extends State<ProfileScreen> {
                   Positioned(
                     top: -60,
                     child: GestureDetector(
-                      onTap: _pickImage, // Tap to change image
-                      child: CircleAvatar(
-                        radius: 80,
-                        backgroundImage: _image != null 
-                            ? FileImage(_image!) // Show selected image
-                            :  (userDetails?.user?.image != null && userDetails!.user!.image!.isNotEmpty
-                                ? NetworkImage(userDetails!.user!.image!) as ImageProvider
-                                : AssetImage('assets/images/vkprofile.png')), // Default profile picture // Default profile picture
+                      onTap: _pickImage,
+                      child: Stack(
+                        alignment: Alignment.center,
+                        children: [
+                          CircleAvatar(
+                            radius: 80,
+                            backgroundImage: _image != null
+                                ? FileImage(_image!)
+                                : (userDetails?.user?.image != null && userDetails!.user!.image!.isNotEmpty
+                                    ? NetworkImage(userDetails!.user!.image!) as ImageProvider
+                                    : AssetImage('assets/images/default_profile.png')),
+                          ),
+                          if (isUploading)
+                            Positioned.fill(
+                              child: CircularProgressIndicator(color: Colors.white),
+                            ),
+                        ],
                       ),
                     ),
                   ),
                 ],
               ),
               const SizedBox(height: 30),
-
-              // Upload Image Button
               ElevatedButton(
-                onPressed: _pickImage, // Pick an image
+                onPressed: _pickImage,
                 style: ElevatedButton.styleFrom(
                   backgroundColor: AppConstant.primaryColor2,
                   shape: RoundedRectangleBorder(
@@ -145,10 +182,8 @@ class _ProfileScreenState extends State<ProfileScreen> {
                 ),
               ),
               const SizedBox(height: 40),
-
-              // Editable TextField for Setting New Password
               TextField(
-                obscureText: true, // To hide password input
+                obscureText: true,
                 decoration: InputDecoration(
                   labelText: 'Set New Password For Web Portal',
                   labelStyle: TextStyle(color: AppConstant.titlecolor),
@@ -164,8 +199,6 @@ class _ProfileScreenState extends State<ProfileScreen> {
                 ),
               ),
               const SizedBox(height: 10),
-
-              // Update Password Button
               ElevatedButton(
                 onPressed: () {},
                 style: ElevatedButton.styleFrom(

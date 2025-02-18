@@ -1,16 +1,21 @@
 import 'package:alpha/constants/app_constants.dart';
+import 'package:alpha/controllers/user_controller.dart';
 import 'package:alpha/features/home/widgets/custom_Image_Button.dart';
 import 'package:alpha/features/notification/notifications.dart';
-import 'package:alpha/features/profile/my_profile.dart';
+import 'package:alpha/features/profile/screen/my_profile.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 
 class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
   final String appbarTitle;
+ // final String? profileImage; // Add profileImage parameter
+  final UserController userController;
 
-  const CustomAppBar({
+  CustomAppBar({
     required this.appbarTitle,
+  //  this.profileImage, // Make the profile image optional
     super.key,
-  });
+  }): userController = Get.put(UserController());
 
   @override
   Widget build(BuildContext context) {
@@ -39,7 +44,6 @@ class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
             ),
           ),
           onPressed: () {
-            // Navigate to the NotificationsPage when the bell icon is tapped
             Navigator.push(
               context,
               MaterialPageRoute(builder: (context) => NotificationsPage()),
@@ -53,7 +57,15 @@ class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
               MaterialPageRoute(builder: (context) => ProfileScreen()),
             );
           },
-          child: CustonImageButtom(path: 'assets/icons/profile.png'),
+          child:
+            Obx(() {
+            return userController.profilePictureUrl.value != null
+                ? CircleAvatar(
+                    radius: 20,
+                    backgroundImage: NetworkImage(userController.profilePictureUrl.value!),
+                  )
+                : CustonImageButtom(path: 'assets/icons/profile.png');
+          }),
         ),
       ],
     );

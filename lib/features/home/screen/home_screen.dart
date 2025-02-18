@@ -11,7 +11,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
-class HomeScreen extends StatelessWidget {
+class HomeScreen extends StatelessWidget {  
  HomeScreen({super.key});
  final UserController userController = Get.put(UserController());
   @override
