@@ -43,17 +43,17 @@ class AuthService {
                   SharedPreferences prefs = await SharedPreferences.getInstance();
                   await prefs.setString('userId', loginModel.userid!);
                   String? userId = prefs.getString('userId');
-                  AuthService().getUserDetails(   
+                   AuthService().getUserDetails(   
                     userId: userId ?? '',
                     context: context,
                   );
-
+              
             } else {
               showSnackbar(
                   context, 'login failed');
             }      
       
-      return LoginModel.fromJson(jsonResponse);
+     return LoginModel.fromJson(jsonResponse);
     } else {
       print("Failed to login: ${response.statusCode}");
       return null;

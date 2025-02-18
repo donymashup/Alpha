@@ -1,32 +1,25 @@
+// 
 import 'package:get/get.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class UserController extends GetxController {
   var username = 'User'.obs;
- // var profileImage = ''.obs; // Observable variable for profile image
-  var profilePictureUrl = ''.obs;
-  
-
-  // Method to update the profile picture URL
-  void updateProfilePicture(String newUrl) async {
-    profilePictureUrl.value = newUrl;
-    SharedPreferences prefs = await SharedPreferences.getInstance();
-    await prefs.setString('image', newUrl);
-  }
+  var profilePictureUrl = RxnString(); // Allow null values
 
   @override
   void onInit() {
     super.onInit();
     loadUsername();
     loadProfilePicture();
-    //uploadImage();
   }
 
+  /// Loads the username from SharedPreferences
   Future<void> loadUsername() async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
     username.value = prefs.getString('firstName') ?? 'User';
   }
- // Load profile picture from SharedPreferences
+
+  /// Loads the profile picture from SharedPreferences
   Future<void> loadProfilePicture() async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
     String? savedUrl = prefs.getString('image');
@@ -34,9 +27,13 @@ class UserController extends GetxController {
       profilePictureUrl.value = savedUrl;
     }
   }
-  // Future<void> uploadImage() async {
-  //   SharedPreferences prefs = await SharedPreferences.getInstance();
-  //   profileImage.value = prefs.getString('image') ?? 'default_profile_image_url'; // Set profile image URL
-  //   // Proceed with upload image logic (if any)
-  // }
+
+  /// Updates the profile picture URL and stores it in SharedPreferences
+  Future<void> updateProfilePicture(String newUrl) async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    await prefs.setString('image', newUrl);
+
+    profilePictureUrl.value = newUrl;  // Update state
+    update(); // Force UI update (alternative: profilePictureUrl.refresh())
+  }
 }
