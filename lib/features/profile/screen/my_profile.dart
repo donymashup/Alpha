@@ -17,9 +17,12 @@ class ProfileScreen extends StatefulWidget {
 class _ProfileScreenState extends State<ProfileScreen> {
   File? _image;
   final ImagePicker _picker = ImagePicker();
+   final TextEditingController passwordController = TextEditingController();
   UserDetailsModel? userDetails;
   bool isLoading = true;
   bool isUploading = false;
+  bool isUpdatingPassword = false;
+
 
   @override
   void initState() {
@@ -31,6 +34,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
     SharedPreferences prefs = await SharedPreferences.getInstance();
     String? userId = prefs.getString("userId");
     String? savedImageUrl = prefs.getString("profileImage");
+
 
     if (userId != null) {
       UserDetailsModel? details = await AuthService().getUserDetails(
@@ -54,6 +58,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
     }
   }
 
+  // Function to pick an image from the gallery
   Future<void> _pickImage() async {
     final pickedFile = await _picker.pickImage(source: ImageSource.gallery);
 
@@ -89,13 +94,32 @@ class _ProfileScreenState extends State<ProfileScreen> {
     }
   }
 
+        
+  Future<void> updatePassword() async {
+    setState(() {
+    isUpdatingPassword = true;
+  });
+    if (passwordController.text != null) {
+      await ProfileService().updatePassword(
+        password: passwordController.text,
+        context: context,
+      );
+    }else {
+      print("password is empty");
+    }
+
+    setState(() {
+      passwordController.clear();
+      isUpdatingPassword = false;
+    });
+  }
+
+ 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: CustomAppBar(
-        appbarTitle: "My Profile",
-       // profileImage: userDetails?.user?.image, // Pass profileImage here
-      ),
+      appBar: CustomAppBar(appbarTitle: "My Profile"),
+
       drawer: DrawerScreen(),
       backgroundColor: AppConstant.backgroundColor,
       body: SingleChildScrollView(
@@ -167,8 +191,10 @@ class _ProfileScreenState extends State<ProfileScreen> {
                 ],
               ),
               const SizedBox(height: 30),
+                  
+              // Upload Image Button
               ElevatedButton(
-                onPressed: _pickImage,
+                onPressed: _pickImage, // Pick an image
                 style: ElevatedButton.styleFrom(
                   backgroundColor: AppConstant.primaryColor2,
                   shape: RoundedRectangleBorder(
@@ -182,8 +208,10 @@ class _ProfileScreenState extends State<ProfileScreen> {
                 ),
               ),
               const SizedBox(height: 40),
+              // Editable TextField for Setting New Password
               TextField(
-                obscureText: true,
+                obscureText: true, // To hide password input
+                controller: passwordController,
                 decoration: InputDecoration(
                   labelText: 'Set New Password For Web Portal',
                   labelStyle: TextStyle(color: AppConstant.titlecolor),
@@ -199,20 +227,24 @@ class _ProfileScreenState extends State<ProfileScreen> {
                 ),
               ),
               const SizedBox(height: 10),
+
+              // Update Password Button
               ElevatedButton(
-                onPressed: () {},
-                style: ElevatedButton.styleFrom(
-                  backgroundColor: AppConstant.buttonupdate,
-                  shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(10),
-                  ),
-                  minimumSize: const Size(double.infinity, 50),
+              onPressed: isUpdatingPassword ? null : updatePassword,
+              style: ElevatedButton.styleFrom(
+                backgroundColor: AppConstant.buttonupdate,
+                shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(10),
                 ),
-                child: const Text(
-                  'Update Password',
-                  style: TextStyle(color: Colors.white),
-                ),
+                minimumSize: const Size(double.infinity, 50),
               ),
+              child: isUpdatingPassword
+                  ? CircularProgressIndicator(color: Colors.white)
+                  : const Text(
+                      'Update Password',
+                      style: TextStyle(color: Colors.white),
+                    ),
+            ),
             ],
           ),
         ),
