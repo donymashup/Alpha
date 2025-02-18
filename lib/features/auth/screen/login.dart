@@ -25,7 +25,7 @@ class _LoginState extends State<Login> {
       _isLoading = true; // Show loading indicator
     });
 
-    await AuthService().loginUser(
+    var res = await AuthService().loginUser(
       phone: phoneNumber ?? '',
       code: countryCode ?? '',
       password: passwordController.text,
@@ -35,7 +35,10 @@ class _LoginState extends State<Login> {
     setState(() {
       _isLoading = false; // Hide loading indicator
     });
-    Navigator.push(context, MaterialPageRoute(builder: (context) => CustomBottomNavigation()));
+    if (res?.type == 'success') {
+      Navigator.push(context, MaterialPageRoute(builder: (context) => CustomBottomNavigation()));
+    }
+    //Navigator.push(context, MaterialPageRoute(builder: (context) => CustomBottomNavigation()));
   }
 
 
