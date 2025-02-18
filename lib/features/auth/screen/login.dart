@@ -1,3 +1,4 @@
+import 'package:alpha/common%20widgets/bottom_navigation_bar.dart';
 import 'package:alpha/constants/app_constants.dart';
 import 'package:alpha/features/auth/services/login_service.dart';
 import 'package:alpha/features/auth/widgets/custom_elavatedbutton.dart';
@@ -34,6 +35,7 @@ class _LoginState extends State<Login> {
     setState(() {
       _isLoading = false; // Hide loading indicator
     });
+    Navigator.push(context, MaterialPageRoute(builder: (context) => CustomBottomNavigation()));
   }
 
 

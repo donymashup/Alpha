@@ -1,9 +1,12 @@
 import 'dart:io';
+import 'package:alpha/features/auth/services/login_service.dart';
+import 'package:alpha/models/user_details_model.dart';
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:alpha/common%20widgets/customappbar.dart';
 import 'package:alpha/common%20widgets/drawermenu/drawer.dart';
 import 'package:alpha/constants/app_constants.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class ProfileScreen extends StatefulWidget {
   @override
@@ -13,6 +16,39 @@ class ProfileScreen extends StatefulWidget {
 class _ProfileScreenState extends State<ProfileScreen> {
   File? _image; // Stores the selected image
   final ImagePicker _picker = ImagePicker();
+  UserDetailsModel? userDetails;
+  bool isLoading = true;
+
+  @override
+  void initState() {
+    super.initState();
+    fetchUserDetails();
+  }
+
+  Future<void> fetchUserDetails() async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    String? userId = prefs.getString("userId"); // Retrieve stored user ID
+    print(userId);
+    print("User Details fetched: ${userDetails != null}");
+    if (userId != null) {
+      UserDetailsModel? details = await AuthService().getUserDetails(
+        userId: userId,
+        context: context,
+      );
+      
+
+      if (details != null) {
+        setState(() {
+          userDetails = details;
+          isLoading = false;
+        });
+      } else {
+        setState(() => isLoading = false);
+      }
+    } else {
+      print("User ID not found in SharedPreferences");
+    }
+  }
 
   // Function to pick an image from the gallery
   Future<void> _pickImage() async {
@@ -25,6 +61,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
     }
   }
 
+ 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -57,18 +94,18 @@ class _ProfileScreenState extends State<ProfileScreen> {
                       ),
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
-                        children: const [
+                        children: [
                           ListTile(
                             leading: Icon(Icons.person, color: AppConstant.primaryColor),
-                            title: Text('Virat Kohli'),
+                           title: Text(userDetails?.user?.firstName ?? "Loading..."),
                           ),
                           ListTile(
                             leading: Icon(Icons.phone, color: AppConstant.primaryColor),
-                            title: Text('+91 8078559319'),
+                            title: Text(userDetails?.user?.phone ?? "Loading..."),  
                           ),
                           ListTile(
                             leading: Icon(Icons.email, color: AppConstant.primaryColor),
-                            title: Text('ishaanwer@gmail.com'),
+                            title: Text(userDetails?.user?.email ?? "Loading..."),
                           ),
                         ],
                       ),
@@ -80,9 +117,11 @@ class _ProfileScreenState extends State<ProfileScreen> {
                       onTap: _pickImage, // Tap to change image
                       child: CircleAvatar(
                         radius: 80,
-                        backgroundImage: _image != null
+                        backgroundImage: _image != null 
                             ? FileImage(_image!) // Show selected image
-                            : AssetImage('assets/images/vkprofile.png') as ImageProvider, // Default profile picture
+                            :  (userDetails?.user?.image != null && userDetails!.user!.image!.isNotEmpty
+                                ? NetworkImage(userDetails!.user!.image!) as ImageProvider
+                                : AssetImage('assets/images/vkprofile.png')), // Default profile picture // Default profile picture
                       ),
                     ),
                   ),
