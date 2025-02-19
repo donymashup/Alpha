@@ -34,8 +34,14 @@ class ProfileService {
         String responseData = await response.stream.bytesToString();
         Map<String, dynamic> jsonResponse = jsonDecode(responseData);
         var uploadImageModel = UploadImageModel.fromJson(jsonResponse);
-         String newImageUrl = uploadImageModel.imageUrl;
-         userController.updateProfilePicture(newImageUrl);
+        if (uploadImageModel.status == 'success') 
+        {
+          showSnackbar(context, uploadImageModel.message ?? 'Image uploaded successfully');
+          String newImageUrl = uploadImageModel.imageUrl;
+          userController.updateProfilePicture(newImageUrl);
+        }else{
+          showSnackbar(context, uploadImageModel.message ?? 'Failed to upload image');
+          }        
         return uploadImageModel;
       } else {
         print('Error: ${response.reasonPhrase}');

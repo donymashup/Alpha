@@ -106,7 +106,7 @@ class HomeService {
           // Safely check if sliders list is not null or empty before accessing
           if (sliderImagesModel.sliders != null &&
               sliderImagesModel.sliders!.isNotEmpty) {
-            print("Data received: ${sliderImagesModel.sliders![0].title}");
+            print("Data received: ${sliderImagesModel.sliders![0].title}"); 
           } else {
             print("No slider images available.");
           }
