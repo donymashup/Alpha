@@ -18,7 +18,7 @@ class LiveService {
             var headers = {
           'Cookie': 'etcpro_ci_session=gmrvscad9fs8eud4vs3cb12d9kgtj6ib'
         };
-        var request = http.MultipartRequest('GET', Uri.parse('$baseUrl$liveClass'));
+        var request = http.MultipartRequest('GET', Uri.parse('$baseUrlEtc$liveClass'));
         request.fields.addAll({
           'userid': userId!,
         });
