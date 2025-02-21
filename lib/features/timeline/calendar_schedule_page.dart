@@ -62,7 +62,7 @@ class _CalendarSchedulePageState extends State<CalendarSchedulePage> {
           onPressed: () => Navigator.pop(context),
         ),
         title: const Text(
-          "Calendar Schedule",
+          "Timeline",
           style: TextStyle(
             fontWeight: FontWeight.bold,
             color: AppConstant.titlecolor,

@@ -118,9 +118,17 @@ class _ProfileScreenState extends State<ProfileScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: CustomAppBar(appbarTitle: "My Profile"),
 
-      drawer: DrawerScreen(),
+      appBar: AppBar(
+        title: Text(
+          "My Profile",
+          style: TextStyle(
+            fontWeight: FontWeight.bold,
+            fontSize: 18,
+          ),
+        ),
+        backgroundColor: AppConstant.backgroundColor,
+      ),
       backgroundColor: AppConstant.backgroundColor,
       body: SingleChildScrollView(
         child: Padding(

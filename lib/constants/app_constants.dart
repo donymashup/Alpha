@@ -15,6 +15,7 @@ class AppConstant {
   static const shadowColor = Color.fromARGB(255, 202, 188, 188);
   static const buttonupdate = Color(0xFFF6921E);
  static const backgroundColor = Color.fromARGB(255, 247, 246, 250);
+ static const notificationbackground = Color.fromARGB(255, 230, 225, 225);
   
 
 
