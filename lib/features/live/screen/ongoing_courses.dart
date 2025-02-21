@@ -30,37 +30,6 @@ class _OngoingClassesState extends State<OngoingClasses> {
     });
   }
 
-//   @override
-//   Widget build(BuildContext context) {
-//     return Padding(
-//       padding: const EdgeInsets.all(16.0),
-//       child: SizedBox(
-//         width: double.infinity, // Ensures the ListView doesn't overflow
-//         child: ListView(
-//           shrinkWrap: true, // Prevents infinite height error
-//           physics: BouncingScrollPhysics(), // Smooth scrolling
-//           children: const [
-//             ClassCard(
-//               title: "Basics of Algebra",
-//               subject: "Mathematics",
-//               imageUrl: "assets/images/ongoingcourse.png",
-//             ),
-//             ClassCard(
-//               title: "Basics of Lights",
-//               subject: "Science",
-//               imageUrl: "assets/images/ongoingcourse1.png",
-//             ),
-//             ClassCard(
-//               title: "Basics of Trigonometry",
-//               subject: "Mathematics",
-//               imageUrl: "assets/images/ongoingcourse2.png",
-//             ),
-//           ],
-//         ),
-//       ),
-//     );
-//   }
-// }
 
 @override
   Widget build(BuildContext context) {

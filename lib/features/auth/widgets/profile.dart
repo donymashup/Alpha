@@ -10,7 +10,7 @@ class profile extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Positioned(
-      top: MediaQuery.of(context).size.height * 0.15,
+      top: MediaQuery.of(context).size.height * 0.17,
       left: 0,
       right: 0,
       child: const Stack(

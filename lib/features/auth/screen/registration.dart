@@ -23,7 +23,8 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
   final TextEditingController classController = TextEditingController();
   final TextEditingController schoolController = TextEditingController();
   final TextEditingController passwordController = TextEditingController();
-  final TextEditingController phoneController = TextEditingController();
+  final TextEditingController confirmPasswordController = TextEditingController();
+  //final TextEditingController phoneController = TextEditingController();
 
   final List<String> items = [
     'Class 5',
@@ -34,6 +35,7 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
     'Class 10',
     'Class 11',
     'Class 12',
+
   ];
 
   void submitForm() {
@@ -82,6 +84,7 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
                     ),
                   ),
                 ),
+                const SizedBox(height: 10),
                 profile(),
               ],
             ),
@@ -96,26 +99,33 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
                     CustomTextField(
                       labelText: "First Name",
                       hintText: "Enter your first name",
-                      Controller: firstNameController,
+                      controller: firstNameController,
                     ),
                     const SizedBox(height: 17),
                     CustomTextField(
                       labelText: "Last Name",
                       hintText: "Enter your last name",
-                      Controller: lastNameController,
+                      controller: lastNameController,
                     ),
                     const SizedBox(height: 17),
                     CustomTextField(
                       labelText: "Email id",
                       hintText: "Enter your email id",
-                      Controller: emailController,
+                      controller: emailController,
                     ),
                     const SizedBox(height: 17),
                     CustomTextField(
                       labelText: "Password",
                       hintText: "Enter your password",
                       isPassword: true,
-                      Controller: passwordController,
+                      controller: passwordController,
+                    ),
+                    const SizedBox(height: 17),
+                    CustomTextField(
+                      labelText: "Confirm Password",
+                      hintText: "Enter your password",
+                      isPassword: true,
+                      controller: confirmPasswordController,
                     ),
                     const SizedBox(height: 17),
 
@@ -161,18 +171,19 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
                     CustomTextField(
                       labelText: "School Name",
                       hintText: "Enter your school name",
-                      Controller: schoolController,
+                      controller: schoolController,
                     ),
-                    const SizedBox(height: 17),
-                    CustomTextField(
-                      labelText: "Phone Number",
-                      hintText: "Enter your phone number",
-                      Controller: phoneController,
-                    ),
+                    // const SizedBox(height: 17),
+                    // CustomTextField(
+                    //   labelText: "Phone Number",
+                    //   hintText: "Enter your phone number",
+                    //   Controller: phoneController,
+                    // ),
                     const SizedBox(height: 30),
                     Center(
                       child: CustomButton(
                         onPressed: () {
+                          
                           submitForm();
                         },
                       ),
