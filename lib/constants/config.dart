@@ -5,5 +5,6 @@ const userDetailsUrl = 'getUserDetails';
 const availableCourseUrl = 'getAvailableCourses';
 const sliderImagesUrl = 'getSliderImages';
 const updatePasswordUrl = 'changePassword';
-
+const updateImageUrl = 'uploadImage';
+const liveClass = 'getLiveClasses' ;
 

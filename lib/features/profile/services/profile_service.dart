@@ -22,7 +22,7 @@ class ProfileService {
       };
 
       var request = http.MultipartRequest(
-          'POST', Uri.parse('https://demo.etcweb.in/api/uploadImage'));
+          'POST', Uri.parse('$baseUrlEtc$updateImageUrl'));
 
       request.fields.addAll({'userid': userId});
       request.files.add(await http.MultipartFile.fromPath('file', filePath));
