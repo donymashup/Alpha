@@ -31,43 +31,6 @@ class _UpcomingCoursesState extends State<UpcomingCourses> {
     });
   }
 
-//   @override
-//   Widget build(BuildContext context) {
-//     return Padding(
-//       padding: const EdgeInsets.all(16.0),
-//       child: SizedBox(
-//         width: double.infinity,
-//         child: ListView(
-//           shrinkWrap: true,
-//           physics: const BouncingScrollPhysics(),
-//           children: const [
-//             ClassCard(
-//               title: "Basics of Algebra",
-//               tutor: "Mathematics",
-//               imageUrl: "assets/images/ongoingcourse.png",
-//               date: "Feb 10, 2025",
-//               startTime: "10:00 AM",
-//             ),
-//             ClassCard(
-//               title: "Basics of Lights",
-//               tutor: "Science",
-//               imageUrl: "assets/images/ongoingcourse1.png",
-//               date: "Feb 12, 2025",
-//               startTime: "2:00 PM",
-//             ),
-//             ClassCard(
-//               title: "Basics of Trigonometry",
-//               tutor: "Mathematics",
-//               imageUrl: "assets/images/ongoingcourse2.png",
-//               date: "Feb 15, 2025",
-//               startTime: "4:30 PM",
-//             ),
-//           ],
-//         ),
-//       ),
-//     );
-//   }
-// }
 @override
   Widget build(BuildContext context) {
     return Padding(

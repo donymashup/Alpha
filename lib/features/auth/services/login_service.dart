@@ -50,7 +50,7 @@ class AuthService {
               
             } else {
               showSnackbar(
-                  context, 'login failed');
+                  context, loginModel.message!);
             }      
       
      return LoginModel.fromJson(jsonResponse);
