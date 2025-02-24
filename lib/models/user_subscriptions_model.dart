@@ -1,11 +1,11 @@
-class AvailableCoursesModel {
+class UserSubscriptionsModel {
   String? type;
   List<Courses>? courses;
   String? message;
 
-  AvailableCoursesModel({this.type, this.courses, this.message});
+  UserSubscriptionsModel({this.type, this.courses, this.message});
 
-  AvailableCoursesModel.fromJson(Map<String, dynamic> json) {
+  UserSubscriptionsModel.fromJson(Map<String, dynamic> json) {
     type = json['type'];
     if (json['courses'] != null) {
       courses = <Courses>[];
@@ -16,7 +16,7 @@ class AvailableCoursesModel {
     message = json['message'];
   }
 
-  get data => null;
+  get userid => null;
 
   Map<String, dynamic> toJson() {
     final Map<String, dynamic> data = new Map<String, dynamic>();
@@ -36,9 +36,6 @@ class Courses {
   int? commentsCount;
   List<LikedUserImages>? likedUserImages;
   double? avgStars;
-  bool? subscribed;
-  int? batchid;
-  List<EnrollmentList>? enrollmentList;
 
   Courses(
       {this.courseDetails,
@@ -46,10 +43,7 @@ class Courses {
       this.likesCount,
       this.commentsCount,
       this.likedUserImages,
-      this.avgStars,
-      this.subscribed,
-      this.batchid,
-      this.enrollmentList});
+      this.avgStars});
 
   Courses.fromJson(Map<String, dynamic> json) {
     courseDetails = json['course_details'] != null
@@ -67,14 +61,6 @@ class Courses {
       });
     }
     avgStars = json['avg_stars'];
-    subscribed = json['subscribed'];
-    batchid = json['batchid'];
-    if (json['enrollment_list'] != null) {
-      enrollmentList = <EnrollmentList>[];
-      json['enrollment_list'].forEach((v) {
-        enrollmentList!.add(new EnrollmentList.fromJson(v));
-      });
-    }
   }
 
   Map<String, dynamic> toJson() {
@@ -92,85 +78,63 @@ class Courses {
           this.likedUserImages!.map((v) => v.toJson()).toList();
     }
     data['avg_stars'] = this.avgStars;
-    data['subscribed'] = this.subscribed;
-    data['batchid'] = this.batchid;
-    if (this.enrollmentList != null) {
-      data['enrollment_list'] =
-          this.enrollmentList!.map((v) => v.toJson()).toList();
-    }
     return data;
   }
 }
 
 class CourseDetails {
-  String? id;
-  String? name;
-  String? start;
-  String? end;
-  String? type;
-  String? level;
-  String? duration;
-  String? durationType;
-  String? image;
-  String? price;
-  String? discount;
-  String? description;
-  String? created;
-  String? status;
+  String? courseListId;
+  String? courseListName;
+  String? courseListStart;
+  String? courseListEnd;
+  String? courseListType;
+  String? courseListDuration;
+  String? courseListImage;
+  String? courseListPrice;
+  String? courseListDiscount;
+  String? batchListId;
+  String? courseListStatus;
 
   CourseDetails(
-      {this.id,
-      this.name,
-      this.start,
-      this.end,
-      this.type,
-      this.level,
-      this.duration,
-      this.durationType,
-      this.image,
-      this.price,
-      this.discount,
-      this.description,
-      this.created,
-      this.status});
+      {this.courseListId,
+      this.courseListName,
+      this.courseListStart,
+      this.courseListEnd,
+      this.courseListType,
+      this.courseListDuration,
+      this.courseListImage,
+      this.courseListPrice,
+      this.courseListDiscount,
+      this.batchListId,
+      this.courseListStatus});
 
   CourseDetails.fromJson(Map<String, dynamic> json) {
-    id = json['id'];
-    name = json['name'];
-    start = json['start'];
-    end = json['end'];
-    type = json['type'];
-    level = json['level'];
-    duration = json['duration'];
-    durationType = json['duration_type'];
-    image = json['image'];
-    price = json['price'];
-    discount = json['discount'];
-    description = json['description'];
-    created = json['created'];
-    status = json['status'];
+    courseListId = json['course_list_id'];
+    courseListName = json['course_list_name'];
+    courseListStart = json['course_list_start'];
+    courseListEnd = json['course_list_end'];
+    courseListType = json['course_list_type'];
+    courseListDuration = json['course_list_duration'];
+    courseListImage = json['course_list_image'];
+    courseListPrice = json['course_list_price'];
+    courseListDiscount = json['course_list_discount'];
+    batchListId = json['batch_list_id'];
+    courseListStatus = json['course_list_status'];
   }
-
-  get courseListImage => null;
-
-  get courseListName => null;
 
   Map<String, dynamic> toJson() {
     final Map<String, dynamic> data = new Map<String, dynamic>();
-    data['id'] = this.id;
-    data['name'] = this.name;
-    data['start'] = this.start;
-    data['end'] = this.end;
-    data['type'] = this.type;
-    data['level'] = this.level;
-    data['duration'] = this.duration;
-    data['duration_type'] = this.durationType;
-    data['image'] = this.image;
-    data['price'] = this.price;
-    data['discount'] = this.discount;
-    data['description'] = this.description;
-    data['created'] = this.created;
-    data['status'] = this.status;
+    data['course_list_id'] = this.courseListId;
+    data['course_list_name'] = this.courseListName;
+    data['course_list_start'] = this.courseListStart;
+    data['course_list_end'] = this.courseListEnd;
+    data['course_list_type'] = this.courseListType;
+    data['course_list_duration'] = this.courseListDuration;
+    data['course_list_image'] = this.courseListImage;
+    data['course_list_price'] = this.courseListPrice;
+    data['course_list_discount'] = this.courseListDiscount;
+    data['batch_list_id'] = this.batchListId;
+    data['course_list_status'] = this.courseListStatus;
     return data;
   }
 }
@@ -327,99 +291,6 @@ class LikedUserImages {
     final Map<String, dynamic> data = new Map<String, dynamic>();
     data['userimage'] = this.userimage;
     data['username'] = this.username;
-    return data;
-  }
-}
-
-class EnrollmentList {
-  String? id;
-  String? batchid;
-  String? userid;
-  String? regnNumber;
-  String? created;
-  String? expiry;
-  String? status;
-  String? name;
-  String? course;
-  String? batchType;
-  String? start;
-  String? end;
-  String? type;
-  String? level;
-  String? duration;
-  String? durationType;
-  String? image;
-  String? price;
-  String? discount;
-  String? description;
-
-  EnrollmentList(
-      {this.id,
-      this.batchid,
-      this.userid,
-      this.regnNumber,
-      this.created,
-      this.expiry,
-      this.status,
-      this.name,
-      this.course,
-      this.batchType,
-      this.start,
-      this.end,
-      this.type,
-      this.level,
-      this.duration,
-      this.durationType,
-      this.image,
-      this.price,
-      this.discount,
-      this.description});
-
-  EnrollmentList.fromJson(Map<String, dynamic> json) {
-    id = json['id'];
-    batchid = json['batchid'];
-    userid = json['userid'];
-    regnNumber = json['regn_number'];
-    created = json['created'];
-    expiry = json['expiry'];
-    status = json['status'];
-    name = json['name'];
-    course = json['course'];
-    batchType = json['batch_type'];
-    start = json['start'];
-    end = json['end'];
-    type = json['type'];
-    level = json['level'];
-    duration = json['duration'];
-    durationType = json['duration_type'];
-    image = json['image'];
-    price = json['price'];
-    discount = json['discount'];
-    description = json['description'];
-  }
-
-  Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = new Map<String, dynamic>();
-    data['id'] = this.id;
-    data['batchid'] = this.batchid;
-    data['userid'] = this.userid;
-    data['regn_number'] = this.regnNumber;
-    data['created'] = this.created;
-    data['expiry'] = this.expiry;
-    data['status'] = this.status;
-    data['name'] = this.name;
-    data['course'] = this.course;
-    data['batch_type'] = this.batchType;
-    data['start'] = this.start;
-    data['end'] = this.end;
-    data['type'] = this.type;
-    data['level'] = this.level;
-    data['duration'] = this.duration;
-    data['duration_type'] = this.durationType;
-    data['image'] = this.image;
-    data['price'] = this.price;
-    data['discount'] = this.discount;
-    data['description'] = this.description;
     return data;
   }
 }
