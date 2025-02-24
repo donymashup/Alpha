@@ -1,5 +1,6 @@
 import 'package:alpha/common%20widgets/bottom_navigation_bar.dart';
 import 'package:alpha/constants/app_constants.dart';
+import 'package:alpha/features/auth/screen/phone_number.dart';
 import 'package:alpha/features/auth/widgets/custom_button.dart'; 
 import 'package:alpha/features/auth/widgets/custom_textfield.dart';
 import 'package:alpha/features/auth/widgets/profile.dart';
@@ -43,7 +44,7 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
       print("Form Submitted Successfully!");
       Navigator.pushReplacement(
         context,
-        MaterialPageRoute(builder: (context) => CustomBottomNavigation()),
+        MaterialPageRoute(builder: (context) => PhoneNumberVerificationPage()),
       );
     }
   }
