@@ -33,59 +33,59 @@ class HomeScreen extends StatelessWidget {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 // Card-like UI with Lottie Animation
-                Padding(
-                  padding: const EdgeInsets.symmetric(horizontal: 10.0),
-                  child: Card(
-                    color: AppConstant.cardBackground, // Change the card background color
-                    elevation: 4,
-                    shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(15),
-                    ),
-                    child: Padding(
-                      padding: const EdgeInsets.all(15.0),
-                      child: Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        children: [
-                          Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: const [
-                              Text(
-                                "Welcome!",
-                                style: TextStyle(
-                                  fontSize: 20,
-                                  fontWeight: FontWeight.bold,
-                                  color: Colors.black,
-                                ),
-                              ),
-                              SizedBox(height: 5),
-                              Text(
-                                "Let's Learn",
-                                style: TextStyle(
-                                  fontSize: 20,
-                                  fontWeight: FontWeight.bold,
-                                  color: Colors.black,
-                                ),
-                              ),
-                              SizedBox(height: 5),
-                              Text(
-                                "Something new today",
-                                style: TextStyle(
-                                  fontSize: 18,
-                                  color: Colors.black54,
-                                ),
-                              ),
-                            ],
-                          ),
-                          Lottie.asset(
-                            'assets/lottie/Animation - 1740046298623.json', // Path to your Lottie file
-                            height: 120,
-                            width: 120,
-                          ),
-                        ],
-                      ),
-                    ),
-                  ),
-                ),
+                // Padding(
+                //   padding: const EdgeInsets.symmetric(horizontal: 10.0),
+                //   // child: Card(
+                //   //   color: AppConstant.cardBackground, // Change the card background color
+                //   //   elevation: 4,
+                //   //   shape: RoundedRectangleBorder(
+                //   //     borderRadius: BorderRadius.circular(15),
+                //   //   ),
+                //   //   child: Padding(
+                //   //     padding: const EdgeInsets.all(15.0),
+                //   //     child: Row(
+                //   //       mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                //   //       children: [
+                //   //         Column(
+                //   //           crossAxisAlignment: CrossAxisAlignment.start,
+                //   //           children: const [
+                //   //             Text(
+                //   //               "Welcome!",
+                //   //               style: TextStyle(
+                //   //                 fontSize: 20,
+                //   //                 fontWeight: FontWeight.bold,
+                //   //                 color: Colors.black,
+                //   //               ),
+                //   //             ),
+                //   //             SizedBox(height: 5),
+                //   //             Text(
+                //   //               "Let's Learn",
+                //   //               style: TextStyle(
+                //   //                 fontSize: 20,
+                //   //                 fontWeight: FontWeight.bold,
+                //   //                 color: Colors.black,
+                //   //               ),
+                //   //             ),
+                //   //             SizedBox(height: 5),
+                //   //             Text(
+                //   //               "Something new today",
+                //   //               style: TextStyle(
+                //   //                 fontSize: 18,
+                //   //                 color: Colors.black54,
+                //   //               ),
+                //   //             ),
+                //   //           ],
+                //   //         ),
+                //   //         Lottie.asset(
+                //   //           'assets/lottie/Animation - 1740046298623.json', // Path to your Lottie file
+                //   //           height: 120,
+                //   //           width: 120,
+                //   //         ),
+                //   //       ],
+                //   //     ),
+                //   //   ),
+                //   // ),
+                // ),
 
                 const SizedBox(height: 5),
                 Padding(

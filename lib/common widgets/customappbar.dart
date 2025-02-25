@@ -8,14 +8,12 @@ import 'package:get/get.dart';
 
 class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
   final String appbarTitle;
- // final String? profileImage; // Add profileImage parameter
   final UserController userController;
 
   CustomAppBar({
     required this.appbarTitle,
-  //  this.profileImage, // Make the profile image optional
     super.key,
-  }): userController = Get.put(UserController());
+  }) : userController = Get.put(UserController());
 
   @override
   Widget build(BuildContext context) {
@@ -30,42 +28,47 @@ class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
       ),
       backgroundColor: AppConstant.backgroundColor,
       actions: [
-        IconButton(
-          icon: Container(
-            decoration: const BoxDecoration(
-              color: Colors.white,
-              shape: BoxShape.circle,
+        Padding(
+          padding: const EdgeInsets.only(right: 10.0), // Add padding to the right
+          child: IconButton(
+            icon: Container(
+              decoration: const BoxDecoration(
+                color: Colors.white,
+                shape: BoxShape.circle,
+              ),
+              padding: const EdgeInsets.all(8),
+              child: Image.asset(
+                'assets/icons/bell.png',
+                height: 24,
+                width: 24,
+              ),
             ),
-            padding: const EdgeInsets.all(8),
-            child: Image.asset(
-              'assets/icons/bell.png',
-              height: 24,
-              width: 24,
-            ),
+            onPressed: () {
+              Navigator.push(
+                context,
+                MaterialPageRoute(builder: (context) => NotificationsPage()),
+              );
+            },
           ),
-          onPressed: () {
-            Navigator.push(
-              context,
-              MaterialPageRoute(builder: (context) => NotificationsPage()),
-            );
-          },
         ),
-        GestureDetector(
-          onTap: () {
-            Navigator.push(
-              context,
-              MaterialPageRoute(builder: (context) => ProfileScreen()),
-            );
-          },
-          child:
-            Obx(() {
-            return userController.profilePictureUrl.value != null
-                ? CircleAvatar(
-                    radius: 20,
-                    backgroundImage: NetworkImage(userController.profilePictureUrl.value!),
-                  )
-                : CustonImageButtom(path: 'assets/icons/profile.png');
-          }),
+        Padding(
+          padding: const EdgeInsets.only(right: 15.0), // Added padding for better spacing
+          child: GestureDetector(
+            onTap: () {
+              Navigator.push(
+                context,
+                MaterialPageRoute(builder: (context) => ProfileScreen()),
+              );
+            },
+            child: Obx(() {
+              return userController.profilePictureUrl.value != null
+                  ? CircleAvatar(
+                      radius: 20,
+                      backgroundImage: NetworkImage(userController.profilePictureUrl.value!),
+                    )
+                  : CustonImageButtom(path: 'assets/icons/profile.png');
+            }),
+          ),
         ),
       ],
     );

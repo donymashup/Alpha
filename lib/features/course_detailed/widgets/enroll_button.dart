@@ -1,56 +1,40 @@
 import 'package:alpha/constants/app_constants.dart';
 import 'package:flutter/material.dart';
+import 'package:swipeable_button_view/swipeable_button_view.dart';
 
-class EnrollButton extends StatelessWidget {
+class EnrollButton extends StatefulWidget {
   const EnrollButton({super.key});
 
   @override
+  _EnrollButtonState createState() => _EnrollButtonState();
+}
+
+class _EnrollButtonState extends State<EnrollButton> {
+  bool isFinished = false;
+
+  @override
   Widget build(BuildContext context) {
-    return ElevatedButton(
-      onPressed: () {},
-      style: ElevatedButton.styleFrom(
-        backgroundColor: const Color(0xFFEE3239),
-        shape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.circular(30),
-        ),
-        elevation: 0,
+    return SwipeableButtonView(
+      buttonText: "Enroll Course - 499/-",
+      buttonWidget: Icon(
+        Icons.arrow_forward,
+        color: AppConstant.primaryColor,
       ),
-      child: Padding(
-        padding: const EdgeInsets.all(5.0),
-        child: Row(
-          children: [
-            Expanded(
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.center, // Center the text
-                children: [
-                  Text(
-                    "Enroll Course",
-                    style: TextStyle(
-                      fontSize: 18,
-                      fontWeight: FontWeight.w600,
-                      color: Colors.white,
-                    ),
-                  ),
-                  SizedBox(width: 10),
-                  Text(
-                    "499/-",
-                    style: TextStyle(
-                      fontSize: 18,
-                      fontWeight: FontWeight.w600,
-                      color: Colors.white,
-                    ),
-                  ),
-                ],
-              ),
-            ),
-            CircleAvatar(
-              radius: 16,
-              backgroundColor: AppConstant.cardBackground,
-              child: Icon(Icons.arrow_forward, color: AppConstant.primaryColor),
-            ),
-          ],
-        ),
-      ),
+      activeColor: Color(0xFFEE3239),
+      isFinished: isFinished,
+      onWaitingProcess: () {
+        Future.delayed(Duration(seconds: 1), () {
+          setState(() {
+            isFinished = true;
+          });
+        });
+      },
+      onFinish: () {
+        // Perform action after swipe completion
+        setState(() {
+          isFinished = false;
+        });
+      },
     );
   }
 }

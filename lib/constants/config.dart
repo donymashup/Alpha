@@ -1,7 +1,6 @@
-import 'package:alpha/features/subscribed_courses/screen/chapter_list.dart';
-import 'package:alpha/features/subscribed_courses/screen/subject_list.dart';
 
-const baseUrl = 'https://alphaacademyonline.in/api/';
+//const baseUrl = 'https://alphaacademyonline.in/api/';
+const baseUrl = 'https://dreamthemetutor.in/api/';
 const baseUrlEtc = 'https://demo.etcweb.in/api/';
 const loginUrl = 'userlogin';
 const userDetailsUrl = 'getUserDetails';

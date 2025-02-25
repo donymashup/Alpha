@@ -22,7 +22,7 @@ class ProfileService {
       };
 
       var request = http.MultipartRequest(
-          'POST', Uri.parse('$baseUrlEtc$updateImageUrl'));
+          'POST', Uri.parse('$baseUrl$updateImageUrl'));
 
       request.fields.addAll({'userid': userId});
       request.files.add(await http.MultipartFile.fromPath('file', filePath));
