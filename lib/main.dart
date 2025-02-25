@@ -6,6 +6,7 @@ import 'package:alpha/constants/app_constants.dart';
 import 'package:alpha/features/auth/screen/login.dart';
 import 'package:alpha/features/auth/widgets/profile.dart';
 import 'package:alpha/features/profile/screen/my_profile.dart';
+import 'package:alpha/features/subscribed_courses/screen/my_courses.dart';
 
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -28,7 +29,7 @@ class MyApp extends StatelessWidget {
         useMaterial3: true,
       ),
       initialBinding: AppBindings(), 
-      home:SplashScreen(),
+      home:MyCourses(),
      // home: CustomBottomNavigation()
 
     );
