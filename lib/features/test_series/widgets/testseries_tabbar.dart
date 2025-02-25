@@ -46,7 +46,7 @@ class _TestSeriesTabBarViewState extends State<TestSeriesTabBarView> with Single
             children: [
               _buildTabItem(title: 'Ongoing', index: 0),
               _buildTabItem(title: 'Upcoming', index: 1),
-              _buildTabItem(title: 'Completed', index: 2),
+              _buildTabItem(title: 'Attended', index: 2),
             ],
           ),
         ),
