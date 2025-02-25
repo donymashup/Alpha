@@ -36,7 +36,7 @@ class _LoginState extends State<Login> {
       _isLoading = false; // Hide loading indicator
     });
     if (res?.type == 'success') {
-      Navigator.push(
+      Navigator.pushReplacement(
           context,
           MaterialPageRoute(
               builder: (context) => CustomBottomNavigation()));
@@ -48,10 +48,6 @@ class _LoginState extends State<Login> {
     return Scaffold(
       backgroundColor: AppConstant.backgroundColor,
       appBar: AppBar(
-        leading: IconButton(
-          icon: const Icon(Icons.arrow_back, color: Colors.black),
-          onPressed: () => Navigator.pop(context),
-        ),
         backgroundColor: AppConstant.backgroundColor,
         elevation: 0,
       ),
@@ -175,37 +171,35 @@ class _LoginState extends State<Login> {
                     const SizedBox(height: 20),
 
                     // "Don't have an account?" TextButton
-                    
                   ],
                 ),
               ),
             ),
           ),
           Positioned(
-             bottom: 0,
+            bottom: 0,
             left: 0,
             right: 0,
             child: TextButton(
-                        onPressed: () {
-                          // TODO: Navigate to Signup Page
-                          Navigator.push(
-                            context,
-                            MaterialPageRoute(
-                                builder: (context) =>RegistrationScreen()), // Replace with your signup screen
-                          );
-                        },
-                        child: const Text(
-                          "Don't have an account? Sign Up",
-                          style: TextStyle(
-                            fontSize: 16,
-                            fontWeight: FontWeight.w500,
-                            color: Colors.black // Customize color
-                          ),
-                        ),
-                      ),
+              onPressed: () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                      builder: (context) => RegistrationScreen()),
+                );
+              },
+              child: const Text(
+                "Don't have an account? Sign Up",
+                style: TextStyle(
+                  fontSize: 16,
+                  fontWeight: FontWeight.w500,
+                  color: Colors.black, // Customize color
+                ),
+              ),
+            ),
           ),
 
-         const SizedBox(height: 50), // Extra spacing before gradient
+          const SizedBox(height: 50), // Extra spacing before gradient
         ],
       ),
     );
