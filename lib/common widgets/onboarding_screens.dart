@@ -1,5 +1,6 @@
 //newalpha
 
+import 'package:alpha/features/auth/screen/login.dart';
 import 'package:alpha/features/auth/screen/phone_number.dart';
 import 'package:flutter/material.dart';
 import 'package:alpha/constants/app_constants.dart'; // Adjust this import as needed
@@ -108,7 +109,7 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
                           Navigator.pushReplacement(
                             context,
                             MaterialPageRoute(
-                              builder: (context) => PhoneNumberVerificationPage(),
+                              builder: (context) => Login(),
                             ),
                           );
                         },
