@@ -1,4 +1,5 @@
 import 'dart:io';
+import 'package:alpha/constants/utils.dart';
 import 'package:alpha/features/auth/services/login_service.dart';
 import 'package:alpha/features/profile/services/profile_service.dart';
 import 'package:alpha/models/user_details_model.dart';
@@ -99,13 +100,13 @@ class _ProfileScreenState extends State<ProfileScreen> {
     setState(() {
     isUpdatingPassword = true;
   });
-    if (passwordController.text != null) {
+    if (passwordController.text.isNotEmpty) {
       await ProfileService().updatePassword(
         password: passwordController.text,
         context: context,
       );
     }else {
-      print("password is empty");
+      showSnackbar(context, "Password is empty");
     }
 
     setState(() {
