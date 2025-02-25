@@ -27,77 +27,89 @@ class HomeScreen extends StatelessWidget {
       body: Container(
         color: AppConstant.backgroundColor,
         child: SingleChildScrollView(
-          child: Padding(
-            padding: const EdgeInsets.all(10.0),
+          // child: Padding(
+          //   padding: const EdgeInsets.all(10.0),
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 // Card-like UI with Lottie Animation
-                Card(
-                  color: AppConstant.cardBackground, // Change the card background color
-                  elevation: 4,
-                  shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(15),
-                  ),
-                  child: Padding(
-                    padding: const EdgeInsets.all(15.0),
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: [
-                        Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: const [
-                            Text(
-                              "Welcome!",
-                              style: TextStyle(
-                                fontSize: 20,
-                                fontWeight: FontWeight.bold,
-                                color: Colors.black,
+                Padding(
+                  padding: const EdgeInsets.symmetric(horizontal: 10.0),
+                  child: Card(
+                    color: AppConstant.cardBackground, // Change the card background color
+                    elevation: 4,
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(15),
+                    ),
+                    child: Padding(
+                      padding: const EdgeInsets.all(15.0),
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: const [
+                              Text(
+                                "Welcome!",
+                                style: TextStyle(
+                                  fontSize: 20,
+                                  fontWeight: FontWeight.bold,
+                                  color: Colors.black,
+                                ),
                               ),
-                            ),
-                            SizedBox(height: 5),
-                            Text(
-                              "Let's Learn",
-                              style: TextStyle(
-                                fontSize: 20,
-                                fontWeight: FontWeight.bold,
-                                color: Colors.black,
+                              SizedBox(height: 5),
+                              Text(
+                                "Let's Learn",
+                                style: TextStyle(
+                                  fontSize: 20,
+                                  fontWeight: FontWeight.bold,
+                                  color: Colors.black,
+                                ),
                               ),
-                            ),
-                            SizedBox(height: 5),
-                            Text(
-                              "Something new today",
-                              style: TextStyle(
-                                fontSize: 18,
-                                color: Colors.black54,
+                              SizedBox(height: 5),
+                              Text(
+                                "Something new today",
+                                style: TextStyle(
+                                  fontSize: 18,
+                                  color: Colors.black54,
+                                ),
                               ),
-                            ),
-                          ],
-                        ),
-                        Lottie.asset(
-                          'assets/lottie/Animation - 1740046298623.json', // Path to your Lottie file
-                          height: 120,
-                          width: 120,
-                        ),
-                      ],
+                            ],
+                          ),
+                          Lottie.asset(
+                            'assets/lottie/Animation - 1740046298623.json', // Path to your Lottie file
+                            height: 120,
+                            width: 120,
+                          ),
+                        ],
+                      ),
                     ),
                   ),
                 ),
 
                 const SizedBox(height: 5),
-                const SearchField(),
+                Padding(
+                  padding: const EdgeInsets.symmetric(horizontal: 10.0),
+                  child: const SearchField(),
+                ),
                 const SizedBox(height: 10),
-                const CarouselImage(),
+                Padding(
+                  padding:const EdgeInsets.symmetric(horizontal: 10.0),
+                  child: const CarouselImage(),
+                ),
                 const SizedBox(height: 20),
                 const SizedBox(
                   height: 50,
                   child: HeaderList(),
                 ),
                 const SizedBox(height: 10),
-                const CourseLists(),
+                Padding(
+                  padding:const EdgeInsets.symmetric(horizontal: 10.0),
+                  child: const CourseLists(),
+                ),
               ],
             ),
-          ),
+          //),
         ),
       ),
     );

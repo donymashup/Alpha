@@ -1,3 +1,4 @@
+import 'package:alpha/common%20widgets/bottom_navigation_bar.dart';
 import 'package:alpha/constants/app_constants.dart';
 import 'package:alpha/features/auth/screen/registration.dart';
 import 'package:alpha/features/auth/widgets/custom_elavatedbutton.dart';
@@ -136,7 +137,7 @@ class _OtpScreenState extends State<OtpScreen> {
                           Navigator.pushReplacement(
                             context,
                             MaterialPageRoute(
-                                builder: (context) => RegistrationScreen()),
+                                builder: (context) => CustomBottomNavigation()),
                           );
                         } else {
                           ScaffoldMessenger.of(context).showSnackBar(

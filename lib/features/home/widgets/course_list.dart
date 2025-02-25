@@ -89,7 +89,7 @@ class CourseLists extends StatelessWidget {
                               ),
                               const SizedBox(height: 5),
                               Row(
-                                children: const [
+                                children: [
                                   Icon(
                                     Icons.star,
                                     color: Colors.amber,
@@ -97,7 +97,7 @@ class CourseLists extends StatelessWidget {
                                   ),
                                   SizedBox(width: 5),
                                   Text(
-                                    "4.5", // Assuming rating exists
+                                    course.avgStars.toString(), // Assuming rating exists
                                     style: TextStyle(fontSize: 16),
                                   ),
                                 ],

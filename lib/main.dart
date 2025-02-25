@@ -28,7 +28,7 @@ class MyApp extends StatelessWidget {
         useMaterial3: true,
       ),
       initialBinding: AppBindings(), 
-      home: Login(),
+      home:SplashScreen(),
      // home: CustomBottomNavigation()
 
     );
