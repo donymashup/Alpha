@@ -30,7 +30,7 @@ void showLogoutDialog(BuildContext context) {
     },
   );
 }
-
+  
 // Logout function that clears session and navigates to login
 Future<void> logout() async {
   SharedPreferences prefs = await SharedPreferences.getInstance();
@@ -39,3 +39,4 @@ Future<void> logout() async {
   // Navigate back to login screen (GetX handles multiple pops)
   Get.offAll(() => Login());
 }
+ 
