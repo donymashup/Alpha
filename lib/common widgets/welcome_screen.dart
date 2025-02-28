@@ -1,6 +1,5 @@
 //newalpha
 
-
 import 'package:alpha/features/auth/screen/login.dart';
 import 'package:flutter/material.dart';
 import 'package:alpha/constants/app_constants.dart';
@@ -23,7 +22,6 @@ class WelcomePage extends StatefulWidget {
 }
 
 class _WelcomePageState extends State<WelcomePage> {
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -35,9 +33,24 @@ class _WelcomePageState extends State<WelcomePage> {
         child: Stack(
           children: [
             // Background dots
-            const colorDot(top: 30.0, right: -40.0, width: 150.0, height: 150.0, Color: AppConstant.bluedot),
-            const colorDot(top: 20.0, left: -20.0, width: 100.0, height: 100.0, Color: AppConstant.orangedot),
-            const colorDot(top: 150.0, right: 350.0, width: 30.0, height: 30.0, Color: AppConstant.bluedot),
+            const colorDot(
+                top: 30.0,
+                right: -40.0,
+                width: 150.0,
+                height: 150.0,
+                Color: AppConstant.bluedot),
+            const colorDot(
+                top: 20.0,
+                left: -20.0,
+                width: 100.0,
+                height: 100.0,
+                Color: AppConstant.orangedot),
+            const colorDot(
+                top: 150.0,
+                right: 350.0,
+                width: 30.0,
+                height: 30.0,
+                Color: AppConstant.bluedot),
             colorDot(
               top: MediaQuery.of(context).size.height / 3,
               right: 220.0,
@@ -75,7 +88,9 @@ class _WelcomePageState extends State<WelcomePage> {
                         width: widget.currentIndex == index ? 12.0 : 8.0,
                         height: 8.0,
                         decoration: BoxDecoration(
-                          color: widget.currentIndex == index ? Colors.blue : Colors.grey,
+                          color: widget.currentIndex == index
+                              ? Colors.blue
+                              : Colors.grey,
                           borderRadius: BorderRadius.circular(4.0),
                         ),
                       ),
@@ -94,7 +109,7 @@ class _WelcomePageState extends State<WelcomePage> {
                   const Padding(
                     padding: EdgeInsets.symmetric(horizontal: 30.0),
                     child: Text(
-                      'Learn something new every day. Start your learning journey with Etutor.',
+                      'Learn something new every day. Start your learning journey with Alpha Academy.',
                       textAlign: TextAlign.center,
                       style: TextStyle(
                         fontSize: 16.0,

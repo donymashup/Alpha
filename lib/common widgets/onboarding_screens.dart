@@ -18,24 +18,31 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
 
   final List<OnboardingPageModel> pages = [
     OnboardingPageModel(
-      imagePath: 'assets/images/OnboardingImg1.png',
-      title: 'Engaging Interactive Questions',
-      description:
-          'Crafted to evoke curiosity, this will develop students thinking abilities and strengthen their understanding of core concepts.',
-    ),
-    OnboardingPageModel(
-      imagePath: 'assets/images/OnboardingImg2.png',
+      imagePath: 'assets/images/onboardingA.jpeg',
       title: 'A COMPLETE LEARNING APP FOR CLASS 6 - 12 STUDENTS',
-      description: 'Covers all boards and competitive exams',
+      description:
+          'Comprehensive coverage for all boards and competitive exams',
     ),
     OnboardingPageModel(
-      imagePath: 'assets/images/OnboardingImg3.png',
-      title: 'PERFORMANCE INDEX',
+      imagePath: 'assets/images/onboardingB.jpeg',
+      title: 'Comprehensive Course Library',
       description:
-          'Track your progress till date through graphical analysis of tests, view your progress in terms of percentages accuracy and average time taken.',
+          'Access a Wide Range of Courses Description: Explore a vast collection of courses across various domains, designed by industry experts to help you grow.',
+    ),
+    OnboardingPageModel(
+      imagePath: 'assets/images/onboardingD.jpeg',
+      title: 'Interactive Learning Experience',
+      description:
+          'Engage with Advanced Features Description: Enjoy video lessons, live sessions, quizzes, and gamified learning to make education fun and effective',
+    ),
+    OnboardingPageModel(
+      imagePath: 'assets/images/onboardingE.jpeg',
+      title: 'Smart Progress Tracking',
+      description:
+          'Stay on Top of Your Learning Description: Track your progress with AI-driven insights, personalized recommendations, and automated reminders to keep you motivated.',
     ),
   ];
-  
+
   bool isFinished = false;
 
   @override
@@ -44,7 +51,6 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
       backgroundColor: AppConstant.backgroundColor,
       body: Stack(
         children: [
-
           PageView.builder(
             controller: _pageController,
             onPageChanged: (index) {
@@ -69,26 +75,26 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
             },
           ),
           currentIndex < pages.length
-          ? Positioned(
-              bottom: 20,
-              right: 20,
-              child: TextButton(
-                onPressed: () {
-                  _pageController.jumpToPage(pages.length);
-                },
-                child: Text(
-                  'Skip',
-                  style: TextStyle(
-                    color: Colors.blue,
-                    fontWeight: FontWeight.bold,
+              ? Positioned(
+                  bottom: 20,
+                  right: 20,
+                  child: TextButton(
+                    onPressed: () {
+                      _pageController.jumpToPage(pages.length);
+                    },
+                    child: Text(
+                      'Skip',
+                      style: TextStyle(
+                        color: Colors.blue,
+                        fontWeight: FontWeight.bold,
+                      ),
+                    ),
                   ),
-                ),
-              ),
-            )
-          : Column(
-            mainAxisAlignment: MainAxisAlignment.end,
-            children: [
-              Padding(
+                )
+              : Column(
+                  mainAxisAlignment: MainAxisAlignment.end,
+                  children: [
+                    Padding(
                       padding: const EdgeInsets.symmetric(horizontal: 20.0),
                       child: SwipeableButtonView(
                         buttonText: 'Login with Phone',
@@ -116,8 +122,8 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
                       ),
                     ),
                     SizedBox(height: 100),
-            ],
-          ),
+                  ],
+                ),
         ],
       ),
     );
@@ -158,12 +164,11 @@ class OnboardingPage extends StatelessWidget {
             color: AppConstant.backgroundColor,
             child: ClipPath(
               clipper: BottomRoundedClipper(),
-              child: Container(
-                decoration: BoxDecoration(
-                  color: AppConstant.primaryColor,
-                ),
-                child: Center(
-                  child: Image.asset(page.imagePath, height: 250),
+              child: Center(
+                child: Image.asset(
+                  page.imagePath,
+                  height: double.infinity,
+                  fit: BoxFit.cover,
                 ),
               ),
             ),

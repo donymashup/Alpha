@@ -6,6 +6,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
+<<<<<<< Updated upstream
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
 
@@ -14,6 +15,10 @@ void main() async {
   bool isLoggedIn = prefs.getBool('isLoggedIn') ?? false;
 
   runApp(MyApp(isLoggedIn: isLoggedIn));
+=======
+void main() {
+  runApp(const MyApp());
+>>>>>>> Stashed changes
 }
 
 class MyApp extends StatelessWidget {
@@ -30,7 +35,12 @@ class MyApp extends StatelessWidget {
         useMaterial3: true,
       ),
       initialBinding: AppBindings(),
+<<<<<<< Updated upstream
       home: isLoggedIn ? CustomBottomNavigation() : Login(),
+=======
+      // home:MyCourses(),
+      home: SplashScreen(),
+>>>>>>> Stashed changes
     );
   }
 }
