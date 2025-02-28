@@ -1,5 +1,6 @@
 import 'package:alpha/common%20widgets/drawermenu/aboutus.dart';
 import 'package:alpha/constants/app_constants.dart';
+import 'package:alpha/features/auth/screen/logout.dart';
 import 'package:alpha/features/performance/student_performance_index.dart';
 import 'package:alpha/features/timeline/calendar_schedule_page.dart';
 import 'package:fluentui_system_icons/fluentui_system_icons.dart';
@@ -110,7 +111,8 @@ class DrawerScreen extends StatelessWidget {
               onTap: () {
                 Navigator.push(
                   context,
-                  MaterialPageRoute(builder: (context) => CalendarSchedulePage()),
+                  MaterialPageRoute(
+                      builder: (context) => CalendarSchedulePage()),
                 );
               },
             ),
@@ -167,14 +169,7 @@ class DrawerScreen extends StatelessWidget {
               leading: const Icon(Icons.logout),
               title: const Text('Logout'),
               onTap: () {
-                _showConfirmationDialog(
-                  context,
-                  title: 'Logout',
-                  content: 'Are you sure you want to log out?',
-                  onConfirm: () {
-                    Navigator.pop(context); // Close drawer
-                  },
-                );
+                showLogoutDialog(context); // Using the separate logout dialog
               },
             ),
           ],

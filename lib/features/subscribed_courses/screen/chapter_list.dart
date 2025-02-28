@@ -5,6 +5,7 @@ import 'package:alpha/features/subscribed_courses/widgets/practice_test_section.
 import 'package:alpha/features/subscribed_courses/widgets/videor_section.dart';
 import 'package:alpha/models/chapter_list_model.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get_connect/http/src/utils/utils.dart';
 
 class ChapterList extends StatefulWidget {
   final String sublectImage;
@@ -45,7 +46,7 @@ class _ChapterListState extends State<ChapterList> {
   Widget build(BuildContext context) {
     return Scaffold(
         appBar: AppBar(
-          title: Text(widget.subjectName,style: TextStyle(fontSize: 20),),
+          title: Text(widget.subjectName,style: TextStyle(fontSize: 18,fontWeight: FontWeight.bold),),
           leading: IconButton(
             icon: const Icon(Icons.arrow_back_ios_new, size: 16),
             onPressed: () {
