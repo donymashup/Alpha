@@ -1,7 +1,6 @@
 //newalpha
 
 import 'package:alpha/features/auth/screen/login.dart';
-import 'package:alpha/features/auth/screen/phone_number.dart';
 import 'package:flutter/material.dart';
 import 'package:alpha/constants/app_constants.dart'; // Adjust this import as needed
 import 'package:alpha/common%20widgets/welcome_screen.dart';

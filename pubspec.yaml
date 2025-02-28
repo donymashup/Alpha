@@ -53,18 +53,11 @@ dev_dependencies:
 
 # Flutter launcher icons configuration
 flutter_launcher_icons:
-<<<<<<< Updated upstream
-  android: true   # Enable for Android
-  ios: true       # Enable for iOS
-  image_path: "assets/images/alpha_icon.png"  # Path to your logo
-  adaptive_icon_background: "#ffffff"
-  remove_alpha_ios: true  # White background
-=======
   android: true # Enable for Android
   ios: true # Enable for iOS
-  image_path: "assets/Alpha_Logo_Squircle.png" # Path to your logo
-  adaptive_icon_background: "#ffffff" # White background
->>>>>>> Stashed changes
+  image_path: "assets/images/alpha_icon.png" # Path to your logo
+  adaptive_icon_background: "#ffffff"
+  remove_alpha_ios: true # White background
 
 # Flutter-specific settings
 flutter:

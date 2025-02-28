@@ -7,6 +7,7 @@ import 'package:alpha/constants/config.dart';
 import 'package:alpha/constants/utils.dart';
 import 'package:alpha/models/login_model.dart';
 import 'package:alpha/models/user_details_model.dart';
+import 'package:alpha/features/auth/screen/login.dart';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 import 'package:shared_preferences/shared_preferences.dart';
@@ -96,6 +97,7 @@ class AuthService {
     _showSnackbar(context, 'Login success');
     final prefs = await SharedPreferences.getInstance();
     await prefs.setString('userId', loginModel.userid!);
+    await prefs.setBool('isLoggedIn', true); // Save login status
     final userId = prefs.getString('userId');
     if (userId != null) {
       await getUserDetails(userId: userId, context: context);
@@ -132,5 +134,21 @@ class AuthService {
     await prefs.setString("gender", user.gender!);
     await prefs.setString("school", user.school!);
     await prefs.setString("qualification", user.qualification!);
+  }
+
+  // Logout User and Clear Session
+  Future<void> logout(BuildContext context) async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    await prefs.clear(); // Clear all stored data
+    Navigator.pushReplacement(
+      context,
+      MaterialPageRoute(builder: (context) => Login()),
+    );
+  }
+
+  // Check if User is Logged In
+  Future<bool> isUserLoggedIn() async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    return prefs.getBool('isLoggedIn') ?? false;
   }
 }
