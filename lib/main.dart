@@ -6,9 +6,16 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:alpha/common%20widgets/bottom_navigation_bar.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import 'package:flutter_tex/flutter_tex.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
+  TeXRederingServer.renderingEngine = const TeXViewRenderingEngine.mathjax();
+
+  // if (!kIsWeb) {
+  //   await TeXRederingServer.run();
+  //   await TeXRederingServer.initController();
+  // }
 
   // Check if user is logged in
   SharedPreferences prefs = await SharedPreferences.getInstance();

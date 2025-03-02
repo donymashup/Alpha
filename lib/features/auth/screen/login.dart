@@ -134,9 +134,23 @@ class _LoginState extends State<Login> {
                             initialCountryCode: 'IN',
                             keyboardType: TextInputType.phone,
                             onChanged: (phone) {
+                              debugPrint(
+                                  "completeNumber ${phone.completeNumber}"); //get complete number
+                              debugPrint(
+                                  "countryCode ${phone.countryCode}"); // get country code only
+                              debugPrint(
+                                  "number ${phone.number}"); // only phone number
+                              debugPrint(
+                                  "countryISOCode ${phone.countryISOCode}"); // only phone number
                               setState(() {
                                 countryCode = phone.countryCode;
                                 phoneNumber = phone.number;
+                              });
+                            },
+                            onCountryChanged: (country) {
+                              debugPrint('Country changed to: ${country.dialCode}');
+                              setState(() {
+                                countryCode = country.dialCode;
                               });
                             },
                           ),

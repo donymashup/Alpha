@@ -1,11 +1,14 @@
 import 'package:alpha/constants/app_constants.dart';
 import 'package:alpha/controllers/is_subscribed_controller.dart';
+import 'package:alpha/models/course_details_model.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 import 'package:get/get.dart';
 
 class ReviewTab extends StatelessWidget {
-  const ReviewTab({Key? key}) : super(key: key);
+  final CourseDetailsModel courseDetailsModel;
+
+  ReviewTab({super.key, required this.courseDetailsModel});
 
   @override
   Widget build(BuildContext context) {
@@ -13,20 +16,10 @@ class ReviewTab extends StatelessWidget {
       padding: const EdgeInsets.all(8.0),
       child: Card(
         color: AppConstant.cardBackground,
-        child: Column(
-          children: [
-            Expanded(
-              child: SingleChildScrollView(
-                child: const _ReviewList(),
-              ),
-            ),
-             Obx(() {
-                            final controller = Get.find<IsSubscribedController>();
-                            return controller.isSubscribed.value
-                                ?  _SwipeableAddReviewSection()
-                                : SizedBox(); // Hide lock icon when state is false
-                          }),
-          ],
+        child: Expanded(
+          child: SingleChildScrollView(
+            child: _ReviewList(reviews: courseDetailsModel.reviews!),
+          ),
         ),
       ),
     );
@@ -67,25 +60,34 @@ class _OverallRatingSection extends StatelessWidget {
 }
 
 class _ReviewList extends StatelessWidget {
-  const _ReviewList({Key? key}) : super(key: key);
+  final List<Review> reviews;
+
+  const _ReviewList({Key? key, required this.reviews}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return ListView.builder(
-      physics: const NeverScrollableScrollPhysics(), // Prevent scrolling inside ListView
+      physics:
+          const NeverScrollableScrollPhysics(), // Prevent scrolling inside ListView
       shrinkWrap: true, // Shrink ListView to fit its contents
-      itemCount: 5, // Example count; replace with dynamic count.
+      itemCount: reviews.length,
       itemBuilder: (context, index) {
+        final review = reviews[index];
         return ListTile(
+          // leading: CircleAvatar(
+          //   child: Text(review.image!),
+          // ),
           leading: CircleAvatar(
-            child: Text('U$index'),
+            radius: 30.0,
+            backgroundImage: NetworkImage(review.image!),
+            backgroundColor: Colors.transparent,
           ),
           title: Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
-              Text('User $index'),
+              Text(review.name!),
               RatingBarIndicator(
-                rating: (index % 5 + 1).toDouble(),
+                rating: double.parse(review.rating!),
                 itemBuilder: (context, index) => const Icon(
                   Icons.star,
                   color: Colors.amber,
@@ -95,8 +97,7 @@ class _ReviewList extends StatelessWidget {
               ),
             ],
           ),
-          subtitle: const Text(
-              'This course was amazing! I learned so much and highly recommend it.'),
+          subtitle: Text(review.review!),
         );
       },
     );
@@ -128,7 +129,6 @@ class _SwipeableAddReviewSection extends StatelessWidget {
           child: Column(
             children: [
               Icon(Icons.keyboard_arrow_up, size: 24, color: Colors.black54),
-              //const SizedBox(height: 2),
               Text(
                 'Swipe up to add review',
                 style: TextStyle(fontSize: 14, fontWeight: FontWeight.bold),

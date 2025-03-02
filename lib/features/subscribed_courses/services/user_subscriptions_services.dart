@@ -1,5 +1,4 @@
 import 'dart:convert';
-
 import 'package:alpha/constants/config.dart';
 import 'package:alpha/constants/utils.dart';
 import 'package:alpha/models/chapter_list_model.dart';
@@ -17,124 +16,51 @@ class UserSubscriptionsServices {
   Future<UserSubscriptionsModel?> getUserSubscriptions({
     required BuildContext context,
   }) async {
-    try {
-      SharedPreferences pref = await SharedPreferences.getInstance();
-      String? userId = pref.getString('userId');
-      var headers = {
-        'Cookie': 'etcpro_ci_session=ldne7shd0rend0pvghas0psrs1liid4i'
-      };
-      var request = http.MultipartRequest(
-          'POST', Uri.parse('$baseUrlEtc$userSubscriptions'));
-      request.fields.addAll({
-        'userid': '1',
-      });
-
-      request.headers.addAll(headers);
-
-      http.StreamedResponse response = await request.send();
-      if (response.statusCode == 200) {
-        var responseBody = await response.stream.bytesToString();
-        final jsonResponse = json.decode(responseBody);
-        var userSubscriptionsModel =
-            UserSubscriptionsModel.fromJson(jsonResponse);
-
-        if (userSubscriptionsModel.type == 'success') {
-          showSnackbar(context, userSubscriptionsModel.message!);
-        } else {
-          showSnackbar(context, userSubscriptionsModel.message!);
-        }
-
-        return userSubscriptionsModel;
-      } else {
-        print("Failed to fetch subcribed courses: ${response.statusCode}");
-        return null;
-      }
-    } catch (e) {
-      print(e);
-    }
+    String? userId = await _getUserId();
+    return _fetchData<UserSubscriptionsModel>(
+      context: context,
+      url: '$baseUrl$userSubscriptions',
+      fields: {'userid': userId!},
+      fromJson: (json) => UserSubscriptionsModel.fromJson(json),
+      successMessage: 'User subscriptions fetched successfully',
+      failureMessage: 'Failed to fetch user subscriptions',
+    );
   }
 
-  // function to get list of classes
   Future<ClassListModel?> getClassList({
     required BuildContext context,
     required String courseId,
   }) async {
-    try {
-      var headers = {
-        'Cookie': 'etcpro_ci_session=ob1j1bqivdkr2vbj2decv60nur71v7tm'
-      };
-      var request =
-          http.MultipartRequest('POST', Uri.parse('$baseUrlEtc$classList'));
-      request.fields.addAll({
-        'courseid': courseId,
-      });
-
-      request.headers.addAll(headers);
-
-      http.StreamedResponse response = await request.send();
-      if (response.statusCode == 200) {
-        var responseBody = await response.stream.bytesToString();
-        final jsonResponse = json.decode(responseBody);
-        var classListModel = ClassListModel.fromJson(jsonResponse);
-        if (classListModel.type == 'success') {
-          showSnackbar(context, "class list fetched successfully");
-        } else {
-          showSnackbar(context, "Failed to fetch class list");
-        }
-
-        return classListModel;
-      } else {
-        print("Failed to fetch class list ${response.statusCode}");
-        return null;
-      }
-    } catch (e) {
-      print(e);
-    }
+    return _fetchData<ClassListModel>(
+      context: context,
+      url: '$baseUrl$classList',
+      fields: {'courseid': courseId},
+      fromJson: (json) => ClassListModel.fromJson(json),
+      successMessage: 'Class list fetched successfully',
+      failureMessage: 'Failed to fetch class list',
+    );
   }
 
-  // function to get list of subjects
   Future<SubjectListModel?> getCourseSubjectList({
     required BuildContext context,
     required String classId,
     required String packageId,
     required String batchId,
   }) async {
-    try {
-      var headers = {
-        'Cookie': 'etcpro_ci_session=r0du05sqftbu48n8q9avbj8ojhl156r6'
-      };
-      var request =
-          http.MultipartRequest('POST', Uri.parse('$baseUrlEtc$subjectList'));
-      request.fields.addAll({
+    return _fetchData<SubjectListModel>(
+      context: context,
+      url: '$baseUrl$subjectList',
+      fields: {
         'classid': classId,
         'batchid': batchId,
         'packageid': packageId,
-      });
-
-      request.headers.addAll(headers);
-
-      http.StreamedResponse response = await request.send();
-      if (response.statusCode == 200) {
-        var responseBody = await response.stream.bytesToString();
-        final jsonResponse = json.decode(responseBody);
-        var subjectListModel = SubjectListModel.fromJson(jsonResponse);
-        if (subjectListModel.type == 'success') {
-          showSnackbar(context, "subject list fetched successfully");
-        } else {
-          showSnackbar(context, "Failed to fetch subject list");
-        }
-
-        return subjectListModel;
-      } else {
-        print("Failed to fetch subject list ${response.statusCode}");
-        return null;
-      }
-    } catch (e) {
-      print(e);
-    }
+      },
+      fromJson: (json) => SubjectListModel.fromJson(json),
+      successMessage: 'Subject list fetched successfully',
+      failureMessage: 'Failed to fetch subject list',
+    );
   }
 
-  // function to get list of chapters
   Future<ChapterListModel?> getSubjectChapterList({
     required BuildContext context,
     required String classId,
@@ -142,175 +68,122 @@ class UserSubscriptionsServices {
     required String packageId,
     required String batchId,
   }) async {
-    try {
-      SharedPreferences pref = await SharedPreferences.getInstance();
-      String? userId = pref.getString('userId');
-      var headers = {
-        'Cookie': 'etcpro_ci_session=nrh4r46j6es8v2uqfsm2hd1l7h6f26fc'
-      };
-      var request =
-          http.MultipartRequest('POST', Uri.parse('$baseUrlEtc$chapterList'));
-      request.fields.addAll({
+    String? userId = await _getUserId();
+    return _fetchData<ChapterListModel>(
+      context: context,
+      url: '$baseUrl$chapterList',
+      fields: {
         'classid': classId,
         'batchid': batchId,
         'packageid': packageId,
         'subjectid': subjectId,
-        'userid': '1',
-      });
-
-      request.headers.addAll(headers);
-
-      http.StreamedResponse response = await request.send();
-      if (response.statusCode == 200) {
-        var responseBody = await response.stream.bytesToString();
-        final jsonResponse = json.decode(responseBody);
-        var chapterListModel = ChapterListModel.fromJson(jsonResponse);
-        if (chapterListModel.type == 'success') {
-          showSnackbar(context, "chapter list fetched successfully");
-        } else {
-          showSnackbar(context, "Failed to fetch chapter list");
-        }
-
-        return chapterListModel;
-      } else {
-        print("Failed to fetch chapter list ${response.statusCode}");
-        return null;
-      }
-    } catch (e) {
-      print(e);
-    }
+        'userid': userId!,
+      },
+      fromJson: (json) => ChapterListModel.fromJson(json),
+      successMessage: 'Chapter list fetched successfully',
+      failureMessage: 'Failed to fetch chapter list',
+    );
   }
 
-  // function to get list of videos
   Future<VideoModel?> getChapterVideos({
     required BuildContext context,
     required String chapterId,
     required String batchId,
     required String packageId,
   }) async {
-    try {
-      SharedPreferences pref = await SharedPreferences.getInstance();
-      String? userId = pref.getString('userId');
-      var headers = {
-        'Cookie': 'etcpro_ci_session=u44h10b21a2v8ku1cssq9306ossm2f3a'
-      };
-      var request = http.MultipartRequest(
-          'POST', Uri.parse('$baseUrlEtc$videoList'));
-      request.fields.addAll({
+    String? userId = await _getUserId();
+    return _fetchData<VideoModel>(
+      context: context,
+      url: '$baseUrl$videoList',
+      fields: {
         'chapterid': chapterId,
         'batchid': batchId,
         'packageid': packageId,
-        'userid': '1'
-      });
-
-      request.headers.addAll(headers);
-
-      http.StreamedResponse response = await request.send();
-      if (response.statusCode == 200) {
-        var responseBody = await response.stream.bytesToString();
-        final jsonResponse = json.decode(responseBody);
-        var videoModel = VideoModel.fromJson(jsonResponse);
-        if (videoModel.type == 'success') {
-          showSnackbar(context, "video list fetched successfully");
-        } else {
-          showSnackbar(context, "Failed to fetch video list");
-        }
-
-        return videoModel;
-      } else {
-        print("Failed to fetch video list ${response.statusCode}");
-        return null;
-      }
-    } catch (e) {
-      print(e);
-    }
+        'userid': userId!,
+      },
+      fromJson: (json) => VideoModel.fromJson(json),
+      successMessage: 'Video list fetched successfully',
+      failureMessage: 'Failed to fetch video list',
+    );
   }
 
-  // function to get list of materials
   Future<MaterialsModel?> getChapterMaterials({
     required BuildContext context,
     required String chapterId,
     required String batchId,
     required String packageId,
-  }) async{
-    try{
-      SharedPreferences pref = await SharedPreferences.getInstance();
-      String? userId = pref.getString('userId');
-     var headers = {
-        'Cookie': 'etcpro_ci_session=9c5renlsoc6vbro88194ljf19mauq56u'
-      };
-      var request = http.MultipartRequest('POST', Uri.parse('$baseUrlEtc$materialList'));
-      request.fields.addAll({
+  }) async {
+    String? userId = await _getUserId();
+    return _fetchData<MaterialsModel>(
+      context: context,
+      url: '$baseUrl$materialList',
+      fields: {
         'chapterid': chapterId,
         'batchid': batchId,
         'packageid': packageId,
-        'userid': '1'
-      });
-
-      request.headers.addAll(headers);
-
-      http.StreamedResponse response = await request.send();
-      if (response.statusCode == 200) {
-        var responseBody = await response.stream.bytesToString();
-        final jsonResponse = json.decode(responseBody);
-        var materialsModel = MaterialsModel.fromJson(jsonResponse);
-        if (materialsModel.type == 'success') {
-          showSnackbar(context, "materials list fetched successfully");
-        } else {
-          showSnackbar(context, "Failed to fetch materials list");
-        }
-        return materialsModel;
-      } else {
-        print("Failed to fetch materials list ${response.statusCode}");
-        return null;
-      }
-    }catch(e){
-      print(e);
-    }
+        'userid': userId!,
+      },
+      fromJson: (json) => MaterialsModel.fromJson(json),
+      successMessage: 'Materials list fetched successfully',
+      failureMessage: 'Failed to fetch materials list',
+    );
   }
 
-  // function to get list of practice tests
   Future<PracticeTestModel?> getChapterPracticeTests({
     required BuildContext context,
     required String chapterId,
     required String batchId,
     required String packageId,
   }) async {
-    try {
-      SharedPreferences pref = await SharedPreferences.getInstance();
-      String? userId = pref.getString('userId');
-      var headers = {
-        'Cookie': 'etcpro_ci_session=9c5renlsoc6vbro88194ljf19mauq56u'
-      };
-      var request = http.MultipartRequest(
-          'POST', Uri.parse('$baseUrlEtc$practiceTestList'));
-      request.fields.addAll({
+    String? userId = await _getUserId();
+    return _fetchData<PracticeTestModel>(
+      context: context,
+      url: '$baseUrl$practiceTestList',
+      fields: {
         'chapterid': chapterId,
         'batchid': batchId,
         'packageid': packageId,
-        'userid': '1'
-      });
+        'userid': userId!,
+      },
+      fromJson: (json) => PracticeTestModel.fromJson(json),
+      successMessage: 'Practice test list fetched successfully',
+      failureMessage: 'Failed to fetch practice test list',
+    );
+  }
 
-      request.headers.addAll(headers);
+  Future<T?> _fetchData<T>({
+    required BuildContext context,
+    required String url,
+    required Map<String, String> fields,
+    required T Function(Map<String, dynamic>) fromJson,
+    required String successMessage,
+    required String failureMessage,
+  }) async {
+    try {
+      var request = http.MultipartRequest('POST', Uri.parse(url));
+      request.fields.addAll(fields);
 
       http.StreamedResponse response = await request.send();
       if (response.statusCode == 200) {
         var responseBody = await response.stream.bytesToString();
         final jsonResponse = json.decode(responseBody);
-        var practiceTestModel = PracticeTestModel.fromJson(jsonResponse);
-        if (practiceTestModel.type == 'success') {
-          showSnackbar(context, "practice test list fetched successfully");
-        } else {
-          showSnackbar(context, "Failed to fetch practice test list");
-        }
-
-        return practiceTestModel;
+        var model = fromJson(jsonResponse);
+        showSnackbar(context, successMessage);
+        return model;
       } else {
-        print("Failed to fetch practice test list ${response.statusCode}");
+        print("Failed to fetch data: ${response.statusCode}");
+        showSnackbar(context, failureMessage);
         return null;
       }
     } catch (e) {
       print(e);
+      showSnackbar(context, failureMessage);
+      return null;
     }
+  }
+
+  Future<String?> _getUserId() async {
+    SharedPreferences pref = await SharedPreferences.getInstance();
+    return pref.getString('userId');
   }
 }

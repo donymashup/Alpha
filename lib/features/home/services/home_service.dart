@@ -1,4 +1,3 @@
-
 import 'dart:convert';
 import 'package:alpha/constants/config.dart';
 import 'package:alpha/constants/utils.dart';
@@ -14,41 +13,32 @@ class HomeService {
     required BuildContext context,
   }) async {
     try {
-      // Retrieve userId from SharedPreferences (Uncomment if needed)
       SharedPreferences prefs = await SharedPreferences.getInstance();
-      String? userId = prefs.getString('userId');// Default to '1' if null
+      String? userId = prefs.getString('userId');
 
-      var headers = {
-        'Cookie': 'etcpro_ci_session=18sjlpb9r1jqtr68p77nfo77ds8qpd2a'
-      };
-
-      var request = http.MultipartRequest(
-          'POST', Uri.parse('$baseUrlEtc$availableCourseUrl'));
-      request.fields.addAll({'userid': userId!});
-
-      request.headers.addAll(headers);
-
-      http.StreamedResponse response = await request.send();
+      final response = await _sendPostRequest(
+        url: '$baseUrl$availableCourseUrl',
+        fields: {'userid': userId!},
+      );
 
       if (response.statusCode == 200) {
-        var responseBody = await response.stream.bytesToString();
-        final jsonResponse = json.decode(responseBody);
+        final jsonResponse = json.decode(await response.stream.bytesToString());
 
-        // Validate jsonResponse structure
+        debugPrint("jsonResponse: $jsonResponse");
         if (jsonResponse == null || jsonResponse.isEmpty) {
           showSnackbar(context, 'Invalid response from server');
           return null;
         }
 
-        var availableCoursesModel = AvailableCoursesModel.fromJson(jsonResponse);
+        final availableCoursesModel =
+            AvailableCoursesModel.fromJson(jsonResponse);
 
         if (availableCoursesModel.type == 'success') {
           showSnackbar(context, 'Course fetch success');
 
-          // Safely check if courses list is not null or empty before accessing
-          if (availableCoursesModel.courses != null &&
-              availableCoursesModel.courses!.isNotEmpty) {
-            print("Data received: ${availableCoursesModel.courses![0].courseDetails?.name}");
+          if (availableCoursesModel.data != null &&
+              availableCoursesModel.data!.isNotEmpty) {
+            print("Data received: ${availableCoursesModel.data![0].name}");
           } else {
             print("No courses available.");
           }
@@ -69,44 +59,35 @@ class HomeService {
     }
   }
 
-
+  // Get slider images
   Future<SliderImagesModel?> getSliderImages({
     required BuildContext context,
   }) async {
     try {
       SharedPreferences prefs = await SharedPreferences.getInstance();
       String? userId = prefs.getString('userId');
-      var headers = {
-        'Cookie': 'etcpro_ci_session=18sjlpb9r1jqtr68p77nfo77ds8qpd2a'
-      };
 
-      var request = http.MultipartRequest(
-          'POST', Uri.parse('$baseUrlEtc$sliderImagesUrl'));
-      request.fields.addAll({'userid': userId!});
-
-      request.headers.addAll(headers);
-
-      http.StreamedResponse response = await request.send();
+      final response = await _sendPostRequest(
+        url: '$baseUrl$sliderImagesUrl',
+        fields: {'userid': userId!},
+      );
 
       if (response.statusCode == 200) {
-        var responseBody = await response.stream.bytesToString();
-        final jsonResponse = json.decode(responseBody);
+        final jsonResponse = json.decode(await response.stream.bytesToString());
 
-        // Validate jsonResponse structure
         if (jsonResponse == null || jsonResponse.isEmpty) {
           showSnackbar(context, 'Invalid response from server');
           return null;
         }
 
-        var sliderImagesModel = SliderImagesModel.fromJson(jsonResponse);
+        final sliderImagesModel = SliderImagesModel.fromJson(jsonResponse);
 
         if (sliderImagesModel.type == 'success') {
           showSnackbar(context, 'Slider images fetch success');
 
-          // Safely check if sliders list is not null or empty before accessing
           if (sliderImagesModel.sliders != null &&
               sliderImagesModel.sliders!.isNotEmpty) {
-            print("Data received: ${sliderImagesModel.sliders![0].title}"); 
+            print("Data received: ${sliderImagesModel.sliders![0].title}");
           } else {
             print("No slider images available.");
           }
@@ -127,7 +108,13 @@ class HomeService {
     }
   }
 
-
-
+  // Helper method to send POST request
+  Future<http.StreamedResponse> _sendPostRequest({
+    required String url,
+    required Map<String, String> fields,
+  }) async {
+    final request = http.MultipartRequest('POST', Uri.parse(url));
+    request.fields.addAll(fields);
+    return await request.send();
+  }
 }
-
