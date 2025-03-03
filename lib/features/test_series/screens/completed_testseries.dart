@@ -51,7 +51,7 @@ class _CompletedTestSeriesScreenState extends State<CompletedTestSeriesScreen> {
                     var test = completedTestSeries[index];
 
                     return Card(
-                      color: Colors.white, // Ensures good contrast with background
+                      //color: Colors.white, // Ensures good contrast with background
                       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
                       elevation: 4, // Adds slight shadow for depth
                       margin: const EdgeInsets.only(bottom: 12),
@@ -61,7 +61,7 @@ class _CompletedTestSeriesScreenState extends State<CompletedTestSeriesScreen> {
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
                             ListTile(
-                              leading: const Icon(Icons.check_circle, size: 30, color: Colors.green),
+                              leading: const Icon(Icons.check_circle, size: 30, color: Colors.blue),
                               title: Text(
                                 test.name ?? "Unnamed Test",
                                 style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 16),
