@@ -1,4 +1,6 @@
 import 'package:alpha/constants/app_constants.dart';
+import 'package:alpha/constants/config.dart';
+import 'package:alpha/features/test_series/screens/attend_main_test_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:alpha/features/test_series/services/ongoing_testseries_services.dart';
 import 'package:alpha/models/ongoing_testseries_model.dart';
@@ -15,7 +17,7 @@ class _OngoingTestSeriesState extends State<OngoingTestSeries> {
   void initState() {
     super.initState();
     _ongoingTestsFuture = OngoingTestseriesServices().getOngoingTests(
-      userId: '1', 
+      userId: '1',
       context: context,
     );
   }
@@ -29,8 +31,13 @@ class _OngoingTestSeriesState extends State<OngoingTestSeries> {
         builder: (context, snapshot) {
           if (snapshot.connectionState == ConnectionState.waiting) {
             return const Center(child: CircularProgressIndicator());
-          } else if (snapshot.hasError || snapshot.data?.ongoing == null || snapshot.data!.ongoing!.isEmpty) {
-            return const Center(child: Text("No ongoing test series available.", style: TextStyle(fontSize: 16, fontWeight: FontWeight.w500)));
+          } else if (snapshot.hasError ||
+              snapshot.data?.ongoing == null ||
+              snapshot.data!.ongoing!.isEmpty) {
+            return const Center(
+                child: Text("No ongoing test series available.",
+                    style:
+                        TextStyle(fontSize: 16, fontWeight: FontWeight.w500)));
           }
 
           List<Ongoing> testSeries = snapshot.data!.ongoing!;
@@ -42,7 +49,8 @@ class _OngoingTestSeriesState extends State<OngoingTestSeries> {
               var test = testSeries[index];
 
               return Card(
-                shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
+                shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(12)),
                 elevation: 4, // Adds a subtle shadow
                 margin: const EdgeInsets.only(bottom: 12),
                 child: Padding(
@@ -51,16 +59,24 @@ class _OngoingTestSeriesState extends State<OngoingTestSeries> {
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       ListTile(
-                        leading: const Icon(Icons.assignment, size: 30, color: Colors.green),
+                        leading: const Icon(Icons.assignment,
+                            size: 30, color: Colors.green),
                         title: Text(
                           test.mainTestsName ?? "Unknown Test",
-                          style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 16),
+                          style: const TextStyle(
+                              fontWeight: FontWeight.bold, fontSize: 16),
                         ),
                         trailing: ElevatedButton(
                           onPressed: () {
-                            // Navigate to test details or start the test
+                            Navigator.pushReplacement(
+                              context,
+                              MaterialPageRoute(
+                                  builder: (context) => AttendMainTestScreen(
+                                      testid: test.mainTestsId!)),
+                            );
                           },
-                          style: ElevatedButton.styleFrom(backgroundColor: Colors.orange),
+                          style: ElevatedButton.styleFrom(
+                              backgroundColor: Colors.orange),
                           child: const Text("Start"),
                         ),
                       ),
@@ -90,7 +106,8 @@ class _OngoingTestSeriesState extends State<OngoingTestSeries> {
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         Text(label, style: const TextStyle(fontSize: 12, color: Colors.grey)),
-        Text(value, style: const TextStyle(fontSize: 14, fontWeight: FontWeight.bold)),
+        Text(value,
+            style: const TextStyle(fontSize: 14, fontWeight: FontWeight.bold)),
       ],
     );
   }

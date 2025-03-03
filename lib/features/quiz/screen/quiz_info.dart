@@ -11,10 +11,10 @@ class QuizInfo extends StatelessWidget {
         ),
         child: Column(
           children: [
-            Expanded(
+            const Expanded(
               flex: 1,
               child: Padding(
-                padding: const EdgeInsets.all(8.0),
+                padding: EdgeInsets.all(8.0),
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.start,
                   children: [
@@ -22,7 +22,7 @@ class QuizInfo extends StatelessWidget {
                     SizedBox(width: 20),
                     Text(
                       "Algebra practice quiz",
-                      style: TextStyle(
+                      style: const TextStyle(
                         color: Colors.white,
                         fontSize: 20,
                         fontWeight: FontWeight.w700,
@@ -44,17 +44,17 @@ class QuizInfo extends StatelessWidget {
                 ),
                 child: Column(
                   children: [
-                    Expanded(
+                    const Expanded(
                       child: SingleChildScrollView(
                         child: Padding(
-                          padding: const EdgeInsets.symmetric(
+                          padding: EdgeInsets.symmetric(
                               horizontal: 20.0, vertical: 10),
-                          child:const Column(
+                          child: Column(
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
-                              const SizedBox(height: 20),
+                              SizedBox(height: 20),
                               Center(
-                                child: const Text(
+                                child: Text(
                                   "Quiz Information",
                                   style: TextStyle(
                                     fontSize: 20,
@@ -62,25 +62,25 @@ class QuizInfo extends StatelessWidget {
                                   ),
                                 ),
                               ),
-                              const SizedBox(height: 20),
+                              SizedBox(height: 20),
                               IconText(
                                 iconName: Icons.question_mark_outlined,
                                 title: "10 Questions",
                                 subtitle: "10 points for each correct answer",
                               ),
-                              const SizedBox(height: 10),
+                              SizedBox(height: 10),
                               IconText(
                                 iconName: Icons.timer_outlined,
                                 title: "1 hour 15 min",
                                 subtitle: "Total duration of the quiz",
                               ),
-                              const SizedBox(height: 10),
+                              SizedBox(height: 10),
                               IconText(
                                 iconName: Icons.star,
                                 title: "Win All stars",
                                 subtitle: "Answer all question correctly",
                               ),
-                              const SizedBox(height: 15),
+                              SizedBox(height: 15),
                               Text(
                                 "Please read the following instructions carefully",
                                 style: TextStyle(
@@ -88,7 +88,7 @@ class QuizInfo extends StatelessWidget {
                                   fontWeight: FontWeight.bold,
                                 ),
                               ),
-                              const SizedBox(height: 15),
+                              SizedBox(height: 15),
                               instructions(
                                   instruction:
                                       "10 points awarded for a correct answer and no marks for an incorrect answer"),
@@ -130,10 +130,9 @@ class QuizInfo extends StatelessWidget {
                           ),
                           child: const Text("Start Quiz",
                               style: TextStyle(
-                                fontSize: 12,
-                                fontWeight: FontWeight.bold,
-                                color: Colors.white
-                              )),
+                                  fontSize: 12,
+                                  fontWeight: FontWeight.bold,
+                                  color: Colors.white)),
                         ),
                       ),
                     ),
@@ -158,17 +157,21 @@ class instructions extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Row(
-     // crossAxisAlignment: CrossAxisAlignment.start,
+      // crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        Icon(Icons.circle,size: 10,),
-        SizedBox(width: 20,),
+        const Icon(
+          Icons.circle,
+          size: 10,
+        ),
+        const SizedBox(
+          width: 20,
+        ),
         Expanded(
           child: Text(instruction,
-          style: TextStyle(
-             fontWeight: FontWeight.w400,
-          ),
-          softWrap: true
-          ),
+              style: const TextStyle(
+                fontWeight: FontWeight.w400,
+              ),
+              softWrap: true),
         )
       ],
     );
@@ -177,8 +180,8 @@ class instructions extends StatelessWidget {
 
 class IconText extends StatelessWidget {
   final dynamic iconName;
-    final String title;
-    final String subtitle;
+  final String title;
+  final String subtitle;
   const IconText({
     required this.iconName,
     required this.subtitle,
@@ -188,24 +191,39 @@ class IconText extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    
     return Row(
       mainAxisAlignment: MainAxisAlignment.start,
       children: [
-         CircleAvatar(
+        CircleAvatar(
           backgroundColor: AppConstant.titlecolor,
-          child: Icon(iconName,size: 24,color: Colors.white,),
+          child: Icon(
+            iconName,
+            size: 24,
+            color: Colors.white,
           ),
-          SizedBox(width: 10,),
-          Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Text(title,style: TextStyle(fontSize: 14,fontWeight: FontWeight.bold),),
-              SizedBox(height: 5,),
-               Text(subtitle,style: TextStyle(fontSize: 12,fontWeight: FontWeight.w200,color: AppConstant.hindColor),
-               ),
-            ],
-          )
+        ),
+        const SizedBox(
+          width: 10,
+        ),
+        Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Text(
+              title,
+              style: const TextStyle(fontSize: 14, fontWeight: FontWeight.bold),
+            ),
+            const SizedBox(
+              height: 5,
+            ),
+            Text(
+              subtitle,
+              style: const TextStyle(
+                  fontSize: 12,
+                  fontWeight: FontWeight.w200,
+                  color: AppConstant.hindColor),
+            ),
+          ],
+        )
       ],
     );
   }

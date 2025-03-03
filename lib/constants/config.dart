@@ -16,3 +16,11 @@ const videoList = 'chapterVideos';
 const practiceTestList = 'chapterPracticeTests';
 const materialList = 'chapterMaterials';
 const courseDetailsUrl = 'exploreCourse';
+const webUrl = 'https://alphaacademyonline.in';
+
+const String About_us = "${baseUrl}about";
+const String Privacy = "${baseUrl}privacy";
+const String terms = "${baseUrl}terms";
+const String printReport = "${baseUrl}printReport";
+const String attendMainTest = "${baseUrl}testseries";
+const String attendPracticeTest = "${baseUrl}practiceexam";

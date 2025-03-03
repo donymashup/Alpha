@@ -3,6 +3,7 @@ import 'package:shared_preferences/shared_preferences.dart';
 
 class UserController extends GetxController {
   var username = 'User'.obs;
+  var userId = '0'.obs; // Corrected default value
   var profilePictureUrl = RxnString(); // Allow null values
 
   @override
@@ -10,12 +11,19 @@ class UserController extends GetxController {
     super.onInit();
     loadUsername();
     loadProfilePicture();
+    loadUserId();
   }
 
   /// Loads the username from SharedPreferences
   Future<void> loadUsername() async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
     username.value = prefs.getString('firstName') ?? 'User';
+  }
+
+  /// Loads the userId from SharedPreferences
+  Future<void> loadUserId() async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    userId.value = prefs.getString('userId') ?? '0';
   }
 
   /// Loads the profile picture from SharedPreferences
@@ -32,7 +40,7 @@ class UserController extends GetxController {
     SharedPreferences prefs = await SharedPreferences.getInstance();
     await prefs.setString('image', newUrl);
 
-    profilePictureUrl.value = newUrl;  // Update state
+    profilePictureUrl.value = newUrl; // Update state
     update(); // Force UI update (alternative: profilePictureUrl.refresh())
   }
 }

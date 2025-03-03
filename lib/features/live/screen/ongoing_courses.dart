@@ -3,6 +3,7 @@ import 'package:alpha/models/live_model.dart';
 import 'package:flutter/material.dart';
 import 'package:fluentui_system_icons/fluentui_system_icons.dart';
 import 'package:intl/intl.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 class OngoingClasses extends StatefulWidget {
   const OngoingClasses({super.key});
@@ -30,8 +31,7 @@ class _OngoingClassesState extends State<OngoingClasses> {
     });
   }
 
-
-@override
+  @override
   Widget build(BuildContext context) {
     return Padding(
       padding: const EdgeInsets.all(16.0),
@@ -41,10 +41,13 @@ class _OngoingClassesState extends State<OngoingClasses> {
           future: _liveClassFuture,
           builder: (context, snapshot) {
             if (snapshot.connectionState == ConnectionState.waiting) {
-              return const Center(child: CircularProgressIndicator()); // Show loading
+              return const Center(
+                  child: CircularProgressIndicator()); // Show loading
             } else if (snapshot.hasError || snapshot.data == null) {
-              return const Center(child: Text("Failed to load upcoming classes"));
-            } else if (snapshot.data! == null || snapshot.data!.ongoing!.isEmpty) {
+              return const Center(
+                  child: Text("Failed to load upcoming classes"));
+            } else if (snapshot.data! == null ||
+                snapshot.data!.ongoing!.isEmpty) {
               return const Center(child: Text("No upcoming classes available"));
             }
 
@@ -61,9 +64,17 @@ class _OngoingClassesState extends State<OngoingClasses> {
                 return ClassCard(
                   title: classData.title ?? "No Title",
                   tutor: classData.faculty ?? "No Faculty",
-                  imageUrl: classData.avatar ?? "assets/images/ongoingcourse.png", 
-                  date: classData.end != null ? DateFormat("MMM dd, yyyy").format(DateTime.parse(classData.start!)) : "No Date",
-                  startTime: classData.end != null ? DateFormat("h:mm a").format(DateTime.parse(classData.start!)) : "No Time",
+                  imageUrl:
+                      classData.avatar ?? "assets/images/ongoingcourse.png",
+                  date: classData.end != null
+                      ? DateFormat("MMM dd, yyyy")
+                          .format(DateTime.parse(classData.start!))
+                      : "No Date",
+                  startTime: classData.end != null
+                      ? DateFormat("h:mm a")
+                          .format(DateTime.parse(classData.start!))
+                      : "No Time",
+                  url: classData.url ?? "No URL",
                 );
               },
             );
@@ -74,14 +85,13 @@ class _OngoingClassesState extends State<OngoingClasses> {
   }
 }
 
-
 class ClassCard extends StatelessWidget {
   final String title;
   final String tutor;
   final String imageUrl;
   final String date;
   final String startTime;
-
+  final String url;
 
   const ClassCard({
     required this.title,
@@ -89,59 +99,86 @@ class ClassCard extends StatelessWidget {
     required this.imageUrl,
     required this.date,
     required this.startTime,
+    required this.url,
     super.key,
   });
 
   @override
   Widget build(BuildContext context) {
-    return Card(
-      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
-      child: Padding(
-        padding: const EdgeInsets.all(12.0),
-        child: Row(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          mainAxisSize: MainAxisSize.min, // Prevents unnecessary expansion
-          children: [
-            /// Image section - 1/3 of the row
-            ClipRRect(
-              borderRadius: BorderRadius.circular(8),
-              child: Image.network(imageUrl, width: 80, height: 80, fit: BoxFit.cover),
-            ),
-            const SizedBox(width: 12),
-
-            /// Text section - 2/3 of the row
-            Expanded(
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Text(
-                    title,
-                    style: const TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
-                  ),
-                  Text(
-                    tutor,
-                    style: TextStyle(fontSize: 16, color: Colors.grey[700]),
-                  ),
-                  const SizedBox(height: 8),
-                  Row(
-                    children: [
-                      Icon(FluentIcons.calendar_ltr_24_regular, size: 18, color: Colors.blue),
-                      const SizedBox(width: 4),
-                      Text(date, style: const TextStyle(fontSize: 14, fontWeight: FontWeight.bold)),
-                      const Spacer(),
-                      Icon(FluentIcons.clock_24_regular, size: 18, color: Colors.green),
-                      const SizedBox(width: 4),
-                      Text(startTime, style: const TextStyle(fontSize: 14, fontWeight: FontWeight.bold)),
-                      const Spacer(), // Pushes next elements to the right
-                      const Icon(Icons.fiber_manual_record, color: Colors.red, size: 12),
-                      const SizedBox(width: 4),
-                      const Text("Live", style: TextStyle(color: Colors.red)),
-                    ],
-                  ),
-                ],
+    return GestureDetector(
+      onTap: () async {
+        debugPrint("Tapped on class card ${url}");
+        // Handle card tap, e.g., navigate to a detailed page or open a URL
+        if (url.isNotEmpty) {
+          try {
+            await launchUrl(Uri.parse(url),
+                mode: LaunchMode.externalApplication);
+          } catch (e) {
+            // Handle the error.
+            ScaffoldMessenger.of(context).showSnackBar(
+              SnackBar(content: Text("Error: $e")),
+            );
+          }
+        }
+      },
+      child: Card(
+        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
+        child: Padding(
+          padding: const EdgeInsets.all(12.0),
+          child: Row(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            mainAxisSize: MainAxisSize.min, // Prevents unnecessary expansion
+            children: [
+              /// Image section - 1/3 of the row
+              ClipRRect(
+                borderRadius: BorderRadius.circular(8),
+                child: Image.network(imageUrl,
+                    width: 80, height: 80, fit: BoxFit.cover),
               ),
-            ),
-          ],
+              const SizedBox(width: 12),
+
+              /// Text section - 2/3 of the row
+              Expanded(
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Text(
+                      title,
+                      style: const TextStyle(
+                          fontSize: 18, fontWeight: FontWeight.bold),
+                    ),
+                    Text(
+                      tutor,
+                      style: TextStyle(fontSize: 16, color: Colors.grey[700]),
+                    ),
+                    const SizedBox(height: 8),
+                    Row(
+                      children: [
+                        Icon(FluentIcons.calendar_ltr_24_regular,
+                            size: 18, color: Colors.blue),
+                        const SizedBox(width: 4),
+                        Text(date,
+                            style: const TextStyle(
+                                fontSize: 14, fontWeight: FontWeight.bold)),
+                        const Spacer(),
+                        Icon(FluentIcons.clock_24_regular,
+                            size: 18, color: Colors.green),
+                        const SizedBox(width: 4),
+                        Text(startTime,
+                            style: const TextStyle(
+                                fontSize: 14, fontWeight: FontWeight.bold)),
+                        const Spacer(), // Pushes next elements to the right
+                        const Icon(Icons.fiber_manual_record,
+                            color: Colors.red, size: 12),
+                        const SizedBox(width: 4),
+                        const Text("Live", style: TextStyle(color: Colors.red)),
+                      ],
+                    ),
+                  ],
+                ),
+              ),
+            ],
+          ),
         ),
       ),
     );

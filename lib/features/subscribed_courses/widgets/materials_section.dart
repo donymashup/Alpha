@@ -16,74 +16,112 @@ class MaterialsSectionWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
+    return Padding(
+      padding: const EdgeInsets.all(8.0),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          _buildSectionHeader(),
+          FutureBuilder<MaterialsModel?>(
+            future: fetchFunction,
+            builder: (context, snapshot) {
+              if (snapshot.connectionState == ConnectionState.waiting) {
+                return const Center(child: CircularProgressIndicator());
+              } else if (snapshot.hasError) {
+                return Center(child: Text("Error: ${snapshot.error}"));
+              } else if (!snapshot.hasData ||
+                  snapshot.data!.materials!.isEmpty) {
+                return const Text("No Data Available",
+                    style: TextStyle(color: Colors.grey));
+              }
+
+              return _buildMaterialList(snapshot.data!.materials!);
+            },
+          ),
+          const SizedBox(height: 12), // Space after section
+        ],
+      ),
+    );
+  }
+
+  Widget _buildSectionHeader() {
+    return Row(
       children: [
-        // Section heading with icon
-        Row(
-          children: [
-            Icon(icon, color: Colors.red),
-            const SizedBox(width: 8),
-            Text(
-              title,
-              style: const TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
-            ),
-          ],
+        Icon(icon, color: Colors.red),
+        const SizedBox(width: 8),
+        Text(
+          title,
+          style: const TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
         ),
-        const SizedBox(height: 8),
+      ],
+    );
+  }
 
-        // FutureBuilder to fetch video data
-        FutureBuilder<MaterialsModel?>(
-          future: fetchFunction,
-          builder: (context, snapshot) {
-            if (snapshot.connectionState == ConnectionState.waiting) {
-              return const Center(child: CircularProgressIndicator());
-            } else if (snapshot.hasError) {
-              return Center(child: Text("Error: ${snapshot.error}"));
-            } else if (!snapshot.hasData || snapshot.data!.materials!.isEmpty) {
-              return const Text("No Data Available",
-                  style: TextStyle(color: Colors.grey));
-            }
-
-            // Display the list of videos using ListView.builder
-            return ListView.builder(
-              shrinkWrap: true, // so that it takes minimal space
-              physics: const NeverScrollableScrollPhysics(), // disable scrolling inside Column
-              itemCount: snapshot.data!.materials!.length,
-              itemBuilder: (context, index) {
-                final material = snapshot.data!.materials![index];
-                return Card(
-                  color: const Color.fromARGB(255, 252, 255, 214),
-                  child: ListTile(
-                    title: Text(
-                      material.materialListName?? "Material",
-                      style: const TextStyle(fontSize: 14),
-                    ),
-                    subtitle: Text(
-                      material.materialListDescription?? "Description",
-                      style: const TextStyle(fontSize: 12),
-                    ),
-                    onTap: () {
-                      // Open the PDF viewer screen
-                      Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                          builder: (context) => PDFViewerPage(
-                            pdfPath: material.materialListLink?? "",
-                            materialName: material.materialListName?? "",
-                          ),
-                        ),
-                      );
-                    },
-                  ),
-                );
-              },
+  Widget _buildMaterialList(List<Materials> materials) {
+    return ListView.builder(
+      shrinkWrap: true, // so that it takes minimal space
+      physics:
+          const NeverScrollableScrollPhysics(), // disable scrolling inside Column
+      itemCount: materials.length,
+      itemBuilder: (context, index) {
+        final material = materials[index];
+        return GestureDetector(
+          onTap: () {
+            // Open the PDF viewer screen
+            Navigator.push(
+              context,
+              MaterialPageRoute(
+                builder: (context) => PDFViewerPage(
+                  pdfPath: material.materialListLink ?? "",
+                  materialName: material.materialListName ?? "",
+                ),
+              ),
             );
           },
-        ),
-
-        const SizedBox(height: 12), // Space after section
-      ],
+          child: Padding(
+            padding:
+                const EdgeInsets.only(right: 2, top: 4, bottom: 4, left: 2),
+            child: Card(
+              color: Colors.white,
+              shape: RoundedRectangleBorder(
+                borderRadius: BorderRadius.circular(10),
+              ),
+              child: Row(
+                crossAxisAlignment: CrossAxisAlignment.center,
+                children: [
+                  Expanded(
+                    child: Padding(
+                      padding: const EdgeInsets.all(8.0),
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Text(
+                            material.materialListName ?? "Material",
+                            style: const TextStyle(
+                                fontSize: 14, fontWeight: FontWeight.bold),
+                            maxLines: 1,
+                            overflow: TextOverflow.ellipsis,
+                          ),
+                          const SizedBox(height: 4),
+                          Text(
+                            material.materialListDescription ??
+                                "No description available",
+                            style: const TextStyle(
+                                fontSize: 12, color: Colors.grey),
+                            maxLines: 2,
+                            overflow: TextOverflow.ellipsis,
+                          ),
+                        ],
+                      ),
+                    ),
+                  ),
+                  const Icon(Icons.arrow_forward_ios, size: 16),
+                ],
+              ),
+            ),
+          ),
+        );
+      },
     );
   }
 }
