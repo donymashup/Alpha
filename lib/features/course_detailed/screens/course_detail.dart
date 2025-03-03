@@ -84,6 +84,7 @@ class _AnimatedTabBarScreenState extends State<AnimatedTabBarScreen>
                             MediaQuery.of(context).size.height * 0.35,
                         toolbarHeight: 15.0,
                         collapsedHeight: 15.0,
+                        leading: Container(),
                         pinned: true,
                         flexibleSpace: LayoutBuilder(
                           builder: (context, constraints) {
