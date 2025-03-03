@@ -15,12 +15,13 @@ class MyCourses extends StatefulWidget {
 }
 
 class _MyCoursesState extends State<MyCourses> {
-late Future<UserSubscriptionsModel?> _futureSubscriptions;
+  late Future<UserSubscriptionsModel?> _futureSubscriptions;
 
   @override
   void initState() {
     super.initState();
-    _futureSubscriptions = UserSubscriptionsServices().getUserSubscriptions(context: context);
+    _futureSubscriptions =
+        UserSubscriptionsServices().getUserSubscriptions(context: context);
   }
 
   @override
@@ -29,7 +30,7 @@ late Future<UserSubscriptionsModel?> _futureSubscriptions;
       appBar: CustomAppBar(appbarTitle: "My Subscribed Courses"),
       drawer: const DrawerScreen(),
       backgroundColor: AppConstant.backgroundColor,
-      body:  SafeArea(
+      body: SafeArea(
         child: FutureBuilder<UserSubscriptionsModel?>(
           future: _futureSubscriptions,
           builder: (context, snapshot) {
@@ -37,7 +38,9 @@ late Future<UserSubscriptionsModel?> _futureSubscriptions;
               return const Center(child: CircularProgressIndicator());
             } else if (snapshot.hasError) {
               return Center(child: Text("Error: ${snapshot.error}"));
-            } else if (!snapshot.hasData || snapshot.data!.courses == null || snapshot.data!.courses!.isEmpty) {
+            } else if (!snapshot.hasData ||
+                snapshot.data!.courses == null ||
+                snapshot.data!.courses!.isEmpty) {
               return const Center(child: Text("No courses found"));
             }
             return ListView.builder(
@@ -49,7 +52,11 @@ late Future<UserSubscriptionsModel?> _futureSubscriptions;
                     Navigator.push(
                       context,
                       MaterialPageRoute(
-                        builder: (context) => ClassList(courseId:course.courseDetails!.courseListId!,courseName:course.courseDetails?.courseListName ?? "Course Name",batchId:course.courseDetails!.batchListId!),
+                        builder: (context) => ClassList(
+                            courseId: course.courseDetails!.courseListId!,
+                            courseName: course.courseDetails?.courseListName ??
+                                "Course Name",
+                            batchId: course.courseDetails!.batchListId!),
                       ),
                     );
                   },
@@ -69,8 +76,9 @@ late Future<UserSubscriptionsModel?> _futureSubscriptions;
                               left: Radius.circular(10),
                             ),
                             child: Image.network(
-                              course.courseDetails?.courseListImage ?? "assets/images/course1.png",
-                              height: 150,
+                              course.courseDetails?.courseListImage ??
+                                  "assets/images/course1.png",
+                              // height: 150,
                               width: double.infinity,
                               fit: BoxFit.cover,
                             ),
@@ -79,11 +87,15 @@ late Future<UserSubscriptionsModel?> _futureSubscriptions;
                           Row(
                             mainAxisAlignment: MainAxisAlignment.spaceBetween,
                             children: [
-                              Text(
-                                course.courseDetails?.courseListName ?? "Course Name",
-                                style: const TextStyle(
-                                  fontSize: 15,
-                                  fontWeight: FontWeight.bold,
+                              Flexible(
+                                child: Text(
+                                  course.courseDetails?.courseListName ??
+                                      "Course Name",
+                                  style: const TextStyle(
+                                    fontSize: 15,
+                                    fontWeight: FontWeight.bold,
+                                  ),
+                                  overflow: TextOverflow.ellipsis,
                                 ),
                               ),
                               Row(

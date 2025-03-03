@@ -1,9 +1,12 @@
 import 'package:alpha/constants/app_constants.dart';
+import 'package:alpha/models/course_details_model.dart';
 import 'package:flutter/material.dart';
 import 'package:swipeable_button_view/swipeable_button_view.dart';
 
 class EnrollButton extends StatefulWidget {
-  const EnrollButton({super.key});
+  final CourseDetailsModel courseDetailsModel;
+
+  EnrollButton({super.key, required this.courseDetailsModel});
 
   @override
   _EnrollButtonState createState() => _EnrollButtonState();
@@ -15,7 +18,8 @@ class _EnrollButtonState extends State<EnrollButton> {
   @override
   Widget build(BuildContext context) {
     return SwipeableButtonView(
-      buttonText: "Enroll Course - 499/-",
+      buttonText:
+          "Enroll Course - ${widget.courseDetailsModel.details?.price!}/-",
       buttonWidget: Icon(
         Icons.arrow_forward,
         color: AppConstant.primaryColor,

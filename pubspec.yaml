@@ -2,20 +2,20 @@ name: alpha
 description: "A new Flutter project."
 
 # Prevents accidental publishing to pub.dev
-publish_to: 'none' 
+publish_to: "none"
 
 # Application versioning
 version: 1.0.0+1
 
 # Define the Dart SDK version
 environment:
-  sdk: '>=3.4.1 <4.0.0'
+  sdk: ">=3.4.1 <4.0.0"
 
 # Dependencies required for the project
 dependencies:
   flutter:
     sdk: flutter
-  
+
   # UI and Icon Packages
   cupertino_icons: ^1.0.6
   font_awesome_flutter: ^10.1.0
@@ -31,7 +31,7 @@ dependencies:
   google_nav_bar: ^5.0.6
 
   # Functionalities
-  intl_phone_field: ^3.2.0 
+  intl_phone_field: ^3.2.0
   intl: ^0.17.0
   url_launcher: ^6.3.1
   shared_preferences: ^2.5.2
@@ -43,21 +43,22 @@ dependencies:
   get: ^4.6.6
   fl_chart: ^0.70.2
   flutter_markdown: ^0.7.5
+  flutter_widget_from_html: ^0.16.0
 
 # Developer dependencies
 dev_dependencies:
   flutter_test:
     sdk: flutter
   flutter_lints: ^3.0.0
-  flutter_launcher_icons: ^0.13.1  # Package for setting the app icon
+  flutter_launcher_icons: ^0.13.1 # Package for setting the app icon
 
 # Flutter launcher icons configuration
 flutter_launcher_icons:
-  android: true   # Enable for Android
-  ios: true       # Enable for iOS
-  image_path: "assets/images/alpha_icon.png"  # Path to your logo
+  android: true # Enable for Android
+  ios: true # Enable for iOS
+  image_path: "assets/images/alpha_icon.png" # Path to your logo
   adaptive_icon_background: "#ffffff"
-  remove_alpha_ios: true  # White background
+  remove_alpha_ios: true # White background
 
 # Flutter-specific settings
 flutter:
@@ -65,6 +66,7 @@ flutter:
 
   # Include assets like images, icons, and animations
   assets:
+    - assets/
     - assets/images/
     - assets/icons/
     - assets/lottie/

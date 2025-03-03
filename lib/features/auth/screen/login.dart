@@ -36,10 +36,8 @@ class _LoginState extends State<Login> {
       _isLoading = false; // Hide loading indicator
     });
     if (res?.type == 'success') {
-      Navigator.pushReplacement(
-          context,
-          MaterialPageRoute(
-              builder: (context) => CustomBottomNavigation()));
+      Navigator.pushReplacement(context,
+          MaterialPageRoute(builder: (context) => CustomBottomNavigation()));
     }
   }
 
@@ -76,6 +74,13 @@ class _LoginState extends State<Login> {
                   crossAxisAlignment: CrossAxisAlignment.center,
                   children: [
                     const SizedBox(height: 20),
+                    Padding(
+                      padding: const EdgeInsets.only(bottom: 20.0),
+                      child: Image.asset(
+                        'assets/images/alphalogo_rectangle.png', // Replace with your logo asset path
+                        height: 100, // Adjust the height as needed
+                      ),
+                    ),
                     const Text(
                       'Login',
                       textAlign: TextAlign.center,
@@ -101,7 +106,7 @@ class _LoginState extends State<Login> {
                         borderRadius: BorderRadius.circular(30),
                         boxShadow: [
                           BoxShadow(
-                            color: Colors.grey.withOpacity(0.1),
+                            color: Colors.grey.withAlpha(25),
                             spreadRadius: 2,
                             blurRadius: 4,
                             offset: const Offset(0, 2),
@@ -116,7 +121,10 @@ class _LoginState extends State<Login> {
                                   horizontal: 20, vertical: 18),
                               border: OutlineInputBorder(
                                 borderRadius: BorderRadius.circular(30),
-                                borderSide: BorderSide.none,
+                                borderSide: const BorderSide(
+                                  color: Colors.grey, // Stroke color
+                                  width: 1.0, // Stroke width
+                                ),
                               ),
                               filled: true,
                               fillColor: Colors.white,
@@ -126,9 +134,23 @@ class _LoginState extends State<Login> {
                             initialCountryCode: 'IN',
                             keyboardType: TextInputType.phone,
                             onChanged: (phone) {
+                              debugPrint(
+                                  "completeNumber ${phone.completeNumber}"); //get complete number
+                              debugPrint(
+                                  "countryCode ${phone.countryCode}"); // get country code only
+                              debugPrint(
+                                  "number ${phone.number}"); // only phone number
+                              debugPrint(
+                                  "countryISOCode ${phone.countryISOCode}"); // only phone number
                               setState(() {
                                 countryCode = phone.countryCode;
                                 phoneNumber = phone.number;
+                              });
+                            },
+                            onCountryChanged: (country) {
+                              debugPrint('Country changed to: ${country.dialCode}');
+                              setState(() {
+                                countryCode = country.dialCode;
                               });
                             },
                           ),
@@ -169,35 +191,50 @@ class _LoginState extends State<Login> {
                     ),
 
                     const SizedBox(height: 20),
-
+                    TextButton(
+                      onPressed: () {
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                              builder: (context) => RegistrationScreen()),
+                        );
+                      },
+                      child: const Text(
+                        "Don't have an account? Sign Up",
+                        style: TextStyle(
+                          fontSize: 16,
+                          fontWeight: FontWeight.w500,
+                          color: Colors.black, // Customize color
+                        ),
+                      ),
+                    )
                     // "Don't have an account?" TextButton
                   ],
                 ),
               ),
             ),
           ),
-          Positioned(
-            bottom: 0,
-            left: 0,
-            right: 0,
-            child: TextButton(
-              onPressed: () {
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(
-                      builder: (context) => RegistrationScreen()),
-                );
-              },
-              child: const Text(
-                "Don't have an account? Sign Up",
-                style: TextStyle(
-                  fontSize: 16,
-                  fontWeight: FontWeight.w500,
-                  color: Colors.black, // Customize color
-                ),
-              ),
-            ),
-          ),
+          // Positioned(
+          //   bottom: 3,
+          //   left: 0,
+          //   right: 0,
+          //   child: TextButton(
+          //     onPressed: () {
+          //       Navigator.push(
+          //         context,
+          //         MaterialPageRoute(builder: (context) => RegistrationScreen()),
+          //       );
+          //     },
+          //     child: const Text(
+          //       "Don't have an account? Sign Up",
+          //       style: TextStyle(
+          //         fontSize: 16,
+          //         fontWeight: FontWeight.w500,
+          //         color: Colors.black, // Customize color
+          //       ),
+          //     ),
+          //   ),
+          // ),
 
           const SizedBox(height: 50), // Extra spacing before gradient
         ],

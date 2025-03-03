@@ -17,28 +17,26 @@
 //   }
 // }
 
-
 //}
-
 
 class LoginModel {
   String? type;
   String? userid;
   String? message;
 
-  LoginModel({this.type, this.userid, this.message});
+  LoginModel({this.type, this.userid = '0', this.message});
 
   LoginModel.fromJson(Map<String, dynamic> json) {
     type = json['type'];
-    userid = json['userid'];
+    userid = json['userid'] ?? '0';
     message = json['message'];
   }
 
   Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = new Map<String, dynamic>();
-    data['type'] = this.type;
-    data['userid'] = this.userid;
-    data['message'] = this.message;
+    final Map<String, dynamic> data = <String, dynamic>{};
+    data['type'] = type;
+    data['userid'] = userid;
+    data['message'] = message;
     return data;
   }
 }

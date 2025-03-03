@@ -14,10 +14,8 @@ class AppConstant {
   static const subtitlecolor = Color(0xFF989EA7);
   static const shadowColor = Color.fromARGB(255, 202, 188, 188);
   static const buttonupdate = Color(0xFFF6921E);
- static const backgroundColor = Color.fromARGB(255, 247, 246, 250);
- static const notificationbackground = Color.fromARGB(255, 230, 225, 225);
-  
-
+  static const backgroundColor = Color.fromARGB(255, 247, 246, 250);
+  static const notificationbackground = Color.fromARGB(255, 230, 225, 225);
 
   // Dots colors
   static const reddot = Color.fromARGB(255, 239, 32, 40);
@@ -25,36 +23,38 @@ class AppConstant {
   static const bluedot = Color(0xFF005DA3);
   static const yellowdot = Color(0xFFFFD700);
 
-
   //
 
   static const Gradient redWhiteGradient = LinearGradient(
-    colors: [AppConstant.backgroundColor,Color(0xFFF8A2A5)],
+    colors: [AppConstant.backgroundColor, Color(0xFFF8A2A5)],
     begin: Alignment.topCenter,
     end: Alignment.bottomCenter,
   );
 
   static const Gradient redDarkeGradient = LinearGradient(
-    colors: [primaryColor,darkGradient],
+    colors: [primaryColor, darkGradient],
     begin: Alignment.topLeft,
     end: Alignment.topRight,
   );
 
-
   static const List<String> carouselImages = [
-       //'assets/images/alphalogo.png',
-       'assets/images/etutorslider5.png',
-       'assets/images/banner1.png',
-       'assets/images/banner3.png',
-       'assets/images/banner4.png',
-    ];
+    //'assets/images/alphalogo.png',
+    'assets/images/etutorslider5.png',
+    'assets/images/banner1.png',
+    'assets/images/banner3.png',
+    'assets/images/banner4.png',
+  ];
 
-    static const List<String> items = [
-    "All Courses", "NEET", "JEE", "UPSC", "PSC", "SSC"
-  ]; 
+  static const List<String> items = [
+    "All Courses",
+    "NEET",
+    "JEE",
+    "UPSC",
+    "PSC",
+    "SSC"
+  ];
 
-
-   static const List<Map<String, dynamic>> item = [
+  static const List<Map<String, dynamic>> item = [
     {
       "title": "Bumper Olympiard",
       "imagePath": "assets/images/course1.png",
@@ -72,5 +72,3 @@ class AppConstant {
     },
   ];
 }
-
-

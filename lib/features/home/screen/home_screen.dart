@@ -1,117 +1,232 @@
 import 'package:alpha/common%20widgets/customappbar.dart';
 import 'package:alpha/common%20widgets/drawermenu/drawer.dart';
 import 'package:alpha/constants/app_constants.dart';
+import 'package:alpha/controllers/selected_course_controller.dart';
 import 'package:alpha/controllers/user_controller.dart';
+import 'package:alpha/features/course_detailed/screens/course_detail.dart';
+import 'package:alpha/features/home/services/home_service.dart';
 import 'package:alpha/features/home/widgets/carousel.dart';
 import 'package:alpha/features/home/widgets/course_list.dart';
 import 'package:alpha/features/home/widgets/custom_Image_Button.dart';
 import 'package:alpha/features/home/widgets/header_list.dart';
 import 'package:alpha/features/home/widgets/search_field.dart';
+import 'package:alpha/models/available_courses_model.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:lottie/lottie.dart';
 
-class HomeScreen extends StatelessWidget {  
-  HomeScreen({super.key});
+class HomeScreen extends StatefulWidget {
+  const HomeScreen({super.key});
+
+  @override
+  _HomeScreenState createState() => _HomeScreenState();
+}
+
+class _HomeScreenState extends State<HomeScreen> {
   final UserController userController = Get.put(UserController());
+  late Future<AvailableCoursesModel?> _futureCourses;
+  int _selectedCategoryIndex = 0;
+
+  @override
+  void initState() {
+    super.initState();
+    _futureCourses = fetchCourses(context);
+  }
+
+  Future<AvailableCoursesModel?> fetchCourses(BuildContext context) async {
+    HomeService homeService = HomeService();
+    return await homeService.getAvailableCourses(context: context);
+  }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: PreferredSize(
-        preferredSize: Size.fromHeight(kToolbarHeight),
-        child: Obx(() => CustomAppBar(appbarTitle: "Hello, ${userController.username}")),
+        preferredSize: const Size.fromHeight(kToolbarHeight),
+        child: Obx(() =>
+            CustomAppBar(appbarTitle: "Hello, ${userController.username}")),
       ),
       drawer: const DrawerScreen(),
       body: Container(
         color: AppConstant.backgroundColor,
-        child: SingleChildScrollView(
-          // child: Padding(
-          //   padding: const EdgeInsets.all(10.0),
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                // Card-like UI with Lottie Animation
-                // Padding(
-                //   padding: const EdgeInsets.symmetric(horizontal: 10.0),
-                //   // child: Card(
-                //   //   color: AppConstant.cardBackground, // Change the card background color
-                //   //   elevation: 4,
-                //   //   shape: RoundedRectangleBorder(
-                //   //     borderRadius: BorderRadius.circular(15),
-                //   //   ),
-                //   //   child: Padding(
-                //   //     padding: const EdgeInsets.all(15.0),
-                //   //     child: Row(
-                //   //       mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                //   //       children: [
-                //   //         Column(
-                //   //           crossAxisAlignment: CrossAxisAlignment.start,
-                //   //           children: const [
-                //   //             Text(
-                //   //               "Welcome!",
-                //   //               style: TextStyle(
-                //   //                 fontSize: 20,
-                //   //                 fontWeight: FontWeight.bold,
-                //   //                 color: Colors.black,
-                //   //               ),
-                //   //             ),
-                //   //             SizedBox(height: 5),
-                //   //             Text(
-                //   //               "Let's Learn",
-                //   //               style: TextStyle(
-                //   //                 fontSize: 20,
-                //   //                 fontWeight: FontWeight.bold,
-                //   //                 color: Colors.black,
-                //   //               ),
-                //   //             ),
-                //   //             SizedBox(height: 5),
-                //   //             Text(
-                //   //               "Something new today",
-                //   //               style: TextStyle(
-                //   //                 fontSize: 18,
-                //   //                 color: Colors.black54,
-                //   //               ),
-                //   //             ),
-                //   //           ],
-                //   //         ),
-                //   //         Lottie.asset(
-                //   //           'assets/lottie/Animation - 1740046298623.json', // Path to your Lottie file
-                //   //           height: 120,
-                //   //           width: 120,
-                //   //         ),
-                //   //       ],
-                //   //     ),
-                //   //   ),
-                //   // ),
-                // ),
-
-                const SizedBox(height: 5),
-                Padding(
-                  padding: const EdgeInsets.symmetric(horizontal: 10.0),
-                  child: const SearchField(),
+        child: CustomScrollView(
+          slivers: [
+            SliverPadding(
+              padding: const EdgeInsets.symmetric(horizontal: 10.0),
+              sliver: SliverList(
+                delegate: SliverChildListDelegate(
+                  [
+                    const SizedBox(height: 5),
+                    const SearchField(),
+                    const SizedBox(height: 10),
+                    const CarouselImage(),
+                    const SizedBox(height: 20),
+                    _categoryHeader(),
+                    const SizedBox(height: 10),
+                    _courseList()
+                  ],
                 ),
-                const SizedBox(height: 10),
-                Padding(
-                  padding:const EdgeInsets.symmetric(horizontal: 10.0),
-                  child: const CarouselImage(),
-                ),
-                const SizedBox(height: 20),
-                const SizedBox(
-                  height: 50,
-                  child: HeaderList(),
-                ),
-                const SizedBox(height: 10),
-                Padding(
-                  padding:const EdgeInsets.symmetric(horizontal: 10.0),
-                  child: const CourseLists(),
-                ),
-              ],
+              ),
             ),
-          //),
+          ],
         ),
       ),
+    );
+  }
+
+  Widget _categoryHeader() {
+    return FutureBuilder<AvailableCoursesModel?>(
+      future: _futureCourses,
+      builder: (context, snapshot) {
+        if (snapshot.connectionState == ConnectionState.waiting) {
+          return Center(child: CircularProgressIndicator());
+        } else if (snapshot.hasError) {
+          return Center(child: Text('Error: ${snapshot.error}'));
+        } else if (!snapshot.hasData ||
+            snapshot.data == null ||
+            snapshot.data!.data == null ||
+            snapshot.data!.data!.isEmpty) {
+          return Center(child: Text('No categories available'));
+        } else {
+          final categories = snapshot.data!.data!;
+          return SizedBox(
+            height: 50,
+            child: ListView.builder(
+              scrollDirection: Axis.horizontal,
+              itemCount: categories.length,
+              itemBuilder: (context, index) {
+                return Padding(
+                  padding: const EdgeInsets.symmetric(horizontal: 8.0),
+                  child: ChoiceChip(
+                    label: Text(categories[index].name ?? "No Name"),
+                    selected: _selectedCategoryIndex == index,
+                    onSelected: (selected) {
+                      setState(() {
+                        _selectedCategoryIndex = index;
+                      });
+                    },
+                    selectedColor: Colors.blue,
+                    backgroundColor: Colors.grey[300],
+                  ),
+                );
+              },
+            ),
+          );
+        }
+      },
+    );
+  }
+
+  Widget _courseList() {
+    return FutureBuilder<AvailableCoursesModel?>(
+      future: _futureCourses,
+      builder: (context, snapshot) {
+        if (snapshot.connectionState == ConnectionState.waiting) {
+          return Center(child: CircularProgressIndicator());
+        } else if (snapshot.hasError) {
+          return Center(child: Text('Error: ${snapshot.error}'));
+        } else if (!snapshot.hasData ||
+            snapshot.data == null ||
+            snapshot.data!.data == null ||
+            snapshot.data!.data!.isEmpty) {
+          return Center(child: Text('No courses available'));
+        } else {
+          final courses = snapshot.data!.data![_selectedCategoryIndex].courses;
+          if (courses == null || courses.isEmpty) {
+            return Center(child: Text('No courses available in this category'));
+          }
+          return ListView.builder(
+            shrinkWrap: true,
+            physics: NeverScrollableScrollPhysics(),
+            itemCount: courses?.length,
+            itemBuilder: (context, index) {
+              final course = courses[index];
+              return GestureDetector(
+                onTap: () {
+                  if (course.courseDetails != null) {
+                    Get.find<CourseController>()
+                        .setCourse(course!.courseDetails!);
+                    Get.to(() => AnimatedTabBarScreen(
+                        isSubscribed: false,
+                        heroImage: course.courseDetails!.image!,
+                        courseId: course.courseDetails!.id!,
+                        heroImageTag:
+                            "imageCourse-${course.courseDetails?.id}"));
+                  }
+                },
+                child: Card(
+                  margin: const EdgeInsets.all(8),
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(10),
+                  ),
+                  color: AppConstant.cardBackground,
+                  elevation: 5,
+                  child: Row(
+                    children: [
+                      Expanded(
+                        flex: 4,
+                        child: ClipRRect(
+                          borderRadius: BorderRadius.circular(10),
+                          child: Hero(
+                            tag: "imageCourse-${course.courseDetails?.id}",
+                            child: course.courseDetails?.image != null
+                                ? Image.network(
+                                    course!.courseDetails!.image!,
+                                    width: double.infinity,
+                                    height: 100,
+                                    fit: BoxFit.cover,
+                                    errorBuilder:
+                                        (context, error, stackTrace) =>
+                                            const Icon(Icons.broken_image),
+                                  )
+                                : const Icon(Icons.image, size: 80),
+                          ),
+                        ),
+                      ),
+                      const SizedBox(width: 5),
+                      Expanded(
+                        flex: 5,
+                        child: Padding(
+                          padding: const EdgeInsets.all(8.0),
+                          child: Column(
+                            mainAxisAlignment: MainAxisAlignment.start,
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              Text(
+                                course.courseDetails?.name ?? "No Name",
+                                style: const TextStyle(
+                                  fontSize: 16,
+                                  fontWeight: FontWeight.bold,
+                                ),
+                              ),
+                              const SizedBox(height: 5),
+                              Row(
+                                children: [
+                                  Icon(
+                                    Icons.star,
+                                    color: Colors.amber,
+                                    size: 18,
+                                  ),
+                                  SizedBox(width: 5),
+                                  Text(
+                                    course.avgStars.toString(),
+                                    style: TextStyle(fontSize: 16),
+                                  ),
+                                ],
+                              ),
+                            ],
+                          ),
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
+              );
+            },
+          );
+        }
+      },
     );
   }
 }
