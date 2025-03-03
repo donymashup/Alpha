@@ -1,3 +1,4 @@
+import 'package:alpha/features/subscribed_courses/screen/pdfview_screen.dart';
 import 'package:alpha/models/material_model.dart';
 import 'package:flutter/material.dart';
 
@@ -63,7 +64,16 @@ class MaterialsSectionWidget extends StatelessWidget {
                       style: const TextStyle(fontSize: 12),
                     ),
                     onTap: () {
-                      // Navigate to the video detail page or play the video
+                      // Open the PDF viewer screen
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) => PDFViewerPage(
+                            pdfPath: material.materialListLink?? "",
+                            materialName: material.materialListName?? "",
+                          ),
+                        ),
+                      );
                     },
                   ),
                 );

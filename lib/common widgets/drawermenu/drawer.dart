@@ -1,7 +1,8 @@
 import 'package:alpha/common%20widgets/drawermenu/aboutus.dart';
 import 'package:alpha/constants/app_constants.dart';
 import 'package:alpha/features/auth/screen/logout.dart';
-import 'package:alpha/features/performance/student_performance_index.dart';
+import 'package:alpha/features/performance/screens/custom_peformance_message.dart';
+import 'package:alpha/features/performance/screens/student_performance_index.dart';
 import 'package:alpha/features/timeline/calendar_schedule_page.dart';
 import 'package:fluentui_system_icons/fluentui_system_icons.dart';
 import 'package:flutter/material.dart';
@@ -101,7 +102,8 @@ class DrawerScreen extends StatelessWidget {
                 Navigator.push(
                   context,
                   MaterialPageRoute(
-                      builder: (context) => StudentPerformanceIndex()),
+                      //builder: (context) => StudentPerformanceIndex()),
+                      builder: (context) => CustomPeformanceMessage()),
                 );
               },
             ),
