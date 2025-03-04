@@ -1,7 +1,7 @@
-import 'package:alpha/constants/app_constants.dart';
 import 'package:flutter/material.dart';
+import 'package:alpha/constants/app_constants.dart';
 
-class QuizInfo extends StatelessWidget {
+class StartQuizSeriesInfo extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -11,6 +11,7 @@ class QuizInfo extends StatelessWidget {
         ),
         child: Column(
           children: [
+            // Header Section
             Expanded(
               flex: 1,
               child: Padding(
@@ -18,20 +19,22 @@ class QuizInfo extends StatelessWidget {
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.start,
                   children: [
-                    Icon(Icons.arrow_back_ios_new, color: Colors.white),
-                    SizedBox(width: 20),
-                    Text(
-                      "Algebra practice quiz",
+                    const Icon(Icons.arrow_back_ios_new, color: Colors.white),
+                    const SizedBox(width: 20),
+                    const Text(
+                      "Algebra Practice Quiz",
                       style: TextStyle(
                         color: Colors.white,
                         fontSize: 20,
                         fontWeight: FontWeight.w700,
                       ),
-                    )
+                    ),
                   ],
                 ),
               ),
             ),
+
+            // Quiz Info Section
             Expanded(
               flex: 5,
               child: Container(
@@ -47,14 +50,13 @@ class QuizInfo extends StatelessWidget {
                     Expanded(
                       child: SingleChildScrollView(
                         child: Padding(
-                          padding: const EdgeInsets.symmetric(
-                              horizontal: 20.0, vertical: 10),
-                          child: const Column(
+                          padding: const EdgeInsets.symmetric(horizontal: 20.0, vertical: 10),
+                          child: Column(
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
                               const SizedBox(height: 20),
-                              Center(
-                                child: const Text(
+                              const Center(
+                                child: Text(
                                   "Quiz Information",
                                   style: TextStyle(
                                     fontSize: 20,
@@ -63,25 +65,30 @@ class QuizInfo extends StatelessWidget {
                                 ),
                               ),
                               const SizedBox(height: 20),
-                              IconText(
+
+                              // Quiz Details
+                              const IconText(
                                 iconName: Icons.question_mark_outlined,
                                 title: "10 Questions",
                                 subtitle: "10 points for each correct answer",
                               ),
                               const SizedBox(height: 10),
-                              IconText(
+                              const IconText(
                                 iconName: Icons.timer_outlined,
                                 title: "1 hour 15 min",
                                 subtitle: "Total duration of the quiz",
                               ),
                               const SizedBox(height: 10),
-                              IconText(
+                              const IconText(
                                 iconName: Icons.star,
-                                title: "Win All stars",
-                                subtitle: "Answer all question correctly",
+                                title: "Win All Stars",
+                                subtitle: "Answer all questions correctly",
                               ),
+
                               const SizedBox(height: 15),
-                              Text(
+
+                              // Instructions Section
+                              const Text(
                                 "Please read the following instructions carefully",
                                 style: TextStyle(
                                   fontSize: 16,
@@ -89,35 +96,25 @@ class QuizInfo extends StatelessWidget {
                                 ),
                               ),
                               const SizedBox(height: 15),
-                              instructions(
-                                  instruction:
-                                      "Correct and incorrect marks are shown for each and every questions"),
-                              SizedBox(height: 15),
-                              instructions(
-                                  instruction:
-                                      "Tap on options to select the correct answer"),
-                              SizedBox(height: 15),
-                              instructions(
-                                  instruction:
-                                      "Save each exam answers before submitting (Press the save button)"),
-                              SizedBox(height: 15),
-                              instructions(
-                                  instruction:
-                                      "Once you submit the exam, you cannot change the answers"),
-                              SizedBox(height: 15),
-                              instructions(
-                                  instruction:
-                                      "Press submit after saving the answers to complete exam (Press submit and end button)"),
-                              SizedBox(height: 30),
+                              const Instructions(instruction: "Correct and incorrect marks are shown for each question."),
+                              const SizedBox(height: 15),
+                              const Instructions(instruction: "Tap on options to select the correct answer."),
+                              const SizedBox(height: 15),
+                              const Instructions(instruction: "Save each answer before submitting (Press the Save button)."),
+                              const SizedBox(height: 15),
+                              const Instructions(instruction: "Once you submit the exam, you cannot change the answers."),
+                              const SizedBox(height: 15),
+                              const Instructions(instruction: "Press submit after saving answers to complete the exam (Press Submit and End button)."),
+                              const SizedBox(height: 30),
                             ],
                           ),
                         ),
                       ),
                     ),
-                    // Button at the bottom
+
+                    // Start Quiz Button
                     Padding(
-                      padding: const EdgeInsets.symmetric(
-                          horizontal: 20, vertical: 10),
+                      padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
                       child: SizedBox(
                         width: double.infinity,
                         child: ElevatedButton(
@@ -126,18 +123,19 @@ class QuizInfo extends StatelessWidget {
                           },
                           style: ElevatedButton.styleFrom(
                             backgroundColor: AppConstant.buttonupdate,
-                            minimumSize: Size(
-                                MediaQuery.of(context).size.width * 0.9, 50),
+                            minimumSize: Size(MediaQuery.of(context).size.width * 0.9, 50),
                             shape: RoundedRectangleBorder(
                               borderRadius: BorderRadius.circular(10),
                             ),
                           ),
-                          child: const Text("Start Quiz",
-                              style: TextStyle(
-                                fontSize: 12,
-                                fontWeight: FontWeight.bold,
-                                color: Colors.white
-                              )),
+                          child: const Text(
+                            "Start Quiz",
+                            style: TextStyle(
+                              fontSize: 14,
+                              fontWeight: FontWeight.bold,
+                              color: Colors.white,
+                            ),
+                          ),
                         ),
                       ),
                     ),
@@ -152,25 +150,23 @@ class QuizInfo extends StatelessWidget {
   }
 }
 
-class instructions extends StatelessWidget {
+// Instructions Widget
+class Instructions extends StatelessWidget {
   final String instruction;
-  const instructions({
-    required this.instruction,
-    super.key,
-  });
+  const Instructions({required this.instruction, super.key});
 
   @override
   Widget build(BuildContext context) {
     return Row(
       children: [
-        Icon(Icons.arrow_forward_ios, size: 16),
-        SizedBox(width: 20),
+        const Icon(Icons.arrow_forward_ios, size: 16),
+        const SizedBox(width: 10),
         Expanded(
           child: Text(
             instruction,
-            style: TextStyle(
+            style: const TextStyle(
               fontWeight: FontWeight.w400,
-              fontSize: 14, // Increased font size
+              fontSize: 14,
             ),
             softWrap: true,
           ),
@@ -180,45 +176,30 @@ class instructions extends StatelessWidget {
   }
 }
 
+// Icon and Text Widget
 class IconText extends StatelessWidget {
-  final dynamic iconName;
+  final IconData iconName;
   final String title;
   final String subtitle;
-  const IconText({
-    required this.iconName,
-    required this.subtitle,
-    required this.title,
-    super.key,
-  });
+  const IconText({required this.iconName, required this.subtitle, required this.title, super.key});
 
   @override
   Widget build(BuildContext context) {
     return Row(
-      mainAxisAlignment: MainAxisAlignment.start,
       children: [
         CircleAvatar(
           backgroundColor: AppConstant.titlecolor,
-          child: Icon(
-            iconName,
-            size: 24,
-            color: Colors.white,
-          ),
+          child: Icon(iconName, size: 24, color: Colors.white),
         ),
-        SizedBox(width: 10),
+        const SizedBox(width: 10),
         Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Text(
-              title,
-              style: TextStyle(fontSize: 14, fontWeight: FontWeight.bold),
-            ),
-            SizedBox(height: 5),
+            Text(title, style: const TextStyle(fontSize: 14, fontWeight: FontWeight.bold)),
+            const SizedBox(height: 5),
             Text(
               subtitle,
-              style: TextStyle(
-                  fontSize: 12,
-                  fontWeight: FontWeight.w200,
-                  color: AppConstant.hindColor),
+              style: TextStyle(fontSize: 12, fontWeight: FontWeight.w400, color: AppConstant.hindColor),
             ),
           ],
         ),
