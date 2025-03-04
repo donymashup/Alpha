@@ -23,6 +23,8 @@ class AppConstant {
   static const bluedot = Color(0xFF005DA3);
   static const yellowdot = Color(0xFFFFD700);
 
+  static const OPENAI_API_KEY = " ";
+
   //
 
   static const Gradient redWhiteGradient = LinearGradient(

@@ -7,10 +7,11 @@ import 'package:get/get.dart';
 import 'package:alpha/common%20widgets/bottom_navigation_bar.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:flutter_tex/flutter_tex.dart';
+import 'package:tpstreams_player_sdk/tpstreams_player_sdk.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
-  TeXRederingServer.renderingEngine = const TeXViewRenderingEngine.mathjax();
+  TPStreamsSDK.initialize(provider: PROVIDER.tpstreams, orgCode: "85xd8j");
 
   // if (!kIsWeb) {
   //   await TeXRederingServer.run();

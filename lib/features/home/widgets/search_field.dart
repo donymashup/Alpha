@@ -1,5 +1,5 @@
 import 'package:alpha/constants/app_constants.dart';
-import 'package:alpha/features/chat_gpt/alpha_gpt.dart';
+import 'package:alpha/features/chat_gpt/chatGpt.dart';
 import 'package:flutter/material.dart';
 
 class SearchField extends StatelessWidget {
@@ -23,9 +23,11 @@ class SearchField extends StatelessWidget {
                 hintText: "Search here...",
                 hintStyle: TextStyle(color: AppConstant.hindColor),
                 border: InputBorder.none,
-                contentPadding: const EdgeInsets.symmetric(vertical: 12), // Adjust for consistent height
+                contentPadding: const EdgeInsets.symmetric(
+                    vertical: 12), // Adjust for consistent height
                 prefixIcon: Padding(
-                  padding: const EdgeInsets.all(8.0), // Add padding for alignment
+                  padding:
+                      const EdgeInsets.all(8.0), // Add padding for alignment
                   child: Image.asset(
                     'assets/icons/search.png',
                     height: 24,
@@ -43,7 +45,9 @@ class SearchField extends StatelessWidget {
               // Navigate to another page
               Navigator.push(
                 context,
-                MaterialPageRoute(builder: (context) => Gpt()), // Replace with your page
+                MaterialPageRoute(
+                    builder: (context) =>
+                        ChatGptScreen()), // Replace with your page
               );
             },
             child: Padding(
