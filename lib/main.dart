@@ -2,6 +2,7 @@
 import 'package:alpha/bindings/app_bindings.dart';
 import 'package:alpha/common%20widgets/splash_screen.dart';
 import 'package:alpha/constants/app_constants.dart';
+import 'package:alpha/features/course_detailed/screens/checkout_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:alpha/common%20widgets/bottom_navigation_bar.dart';
@@ -40,6 +41,7 @@ class MyApp extends StatelessWidget {
       ),
       initialBinding: AppBindings(),
       home: isLoggedIn ? CustomBottomNavigation() : SplashScreen(),
+     // home: CheckoutScreen(),
     );
   }
 }

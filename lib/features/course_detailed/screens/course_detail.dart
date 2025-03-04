@@ -214,7 +214,7 @@ class _AnimatedTabBarScreenState extends State<AnimatedTabBarScreen>
                               "No description available",
                         ),
                         ClassesList(courseDetailsModel: courseDetails!),
-                        ReviewTab(courseDetailsModel: courseDetails!),
+                        ReviewTab(courseDetailsModel: courseDetails),
                       ],
                     ),
                   ),
