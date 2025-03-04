@@ -1,4 +1,4 @@
-import 'package:alpha/common%20widgets/drawermenu/aboutus.dart';
+import 'package:alpha/features/drawermenu/screens/aboutus.dart';
 import 'package:alpha/constants/app_constants.dart';
 import 'package:alpha/features/auth/screen/logout.dart';
 import 'package:alpha/features/performance/screens/custom_peformance_message.dart';

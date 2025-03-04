@@ -1,4 +1,6 @@
 import 'package:alpha/constants/app_constants.dart';
+import 'package:alpha/features/drawermenu/services/drawer_service.dart';
+import 'package:alpha/models/timeLine_model.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 
@@ -9,44 +11,31 @@ class CalendarSchedulePage extends StatefulWidget {
 
 class _CalendarSchedulePageState extends State<CalendarSchedulePage> {
   DateTime selectedDate = DateTime.now(); // Automatically selects today's date
+  late Future<TimeLineModel?> _timeLinedata;
 
-  final List<Map<String, dynamic>> scheduleItems = [
-    {
-      'icon': Icons.play_circle_outline,
-      'iconColor': AppConstant.orangedot,
-      'title': 'Crop Production',
-      'subtitle': 'Videos',
-      'time': '3:36:46 PM',
-    },
-    {
-      'icon': Icons.list,
-      'iconColor': AppConstant.bluedot,
-      'title': 'Alphabet Test',
-      'subtitle': 'Practice Tests',
-      'time': '7:07:23 AM',
-    },
-    {
-      'icon': Icons.bookmark,
-      'iconColor': AppConstant.reddot,
-      'title': 'Blood Relation (SB)',
-      'subtitle': 'Materials',
-      'time': '8:15:17 AM',
-    },
-  ];
+  @override
+  void initState() {
+    super.initState();
+    _timeLinedata = fetchTimeLineData();
+  }
+
+   Future<TimeLineModel?> fetchTimeLineData() async {
+    DrawerService drawerService = DrawerService();
+    return await drawerService.getTimeLine(
+        userId: '1',
+        date: DateFormat('dd-MM-yyyy').format(selectedDate)
+      );
+  }
 
   List<DateTime> _generateWeekDays() {
     final DateTime startDate = DateTime.now().subtract(Duration(days: 3));
-    return List.generate(14, (index) => startDate.add(Duration(days: index)));
+    return List.generate(5, (index) => startDate.add(Duration(days: index)));
   }
 
   String getDateLabel() {
     DateTime today = DateTime.now();
-    DateTime tomorrow = today.add(Duration(days: 1));
-
     if (DateFormat('yyyy-MM-dd').format(selectedDate) == DateFormat('yyyy-MM-dd').format(today)) {
       return 'Today';
-    } else if (DateFormat('yyyy-MM-dd').format(selectedDate) == DateFormat('yyyy-MM-dd').format(tomorrow)) {
-      return 'Tomorrow';
     } else {
       return DateFormat('EEEE').format(selectedDate);
     }
@@ -155,6 +144,7 @@ class _CalendarSchedulePageState extends State<CalendarSchedulePage> {
                           setState(() {
                             selectedDate = date;
                           });
+                         _timeLinedata = fetchTimeLineData();
                         },
                         child: Padding(
                           padding: const EdgeInsets.symmetric(horizontal: 8.0),
@@ -195,11 +185,52 @@ class _CalendarSchedulePageState extends State<CalendarSchedulePage> {
                 ),
               ),
               const SizedBox(height: 20),
+              FutureBuilder<TimeLineModel?>(
+                future: _timeLinedata,
+                 builder: (context, snapshot) {
+                   if (snapshot.connectionState == ConnectionState.waiting) {
+                      return Center(child: CircularProgressIndicator());
+                    } else if (snapshot.hasError) {
+                      return Center(child: Text('Error: ${snapshot.error}'));
+                    } else if (!snapshot.hasData ||
+                        snapshot.data == null ||
+                        snapshot.data!.timeline == null ||
+                        snapshot.data!.timeline!.isEmpty) {
+                      return Center(child: Text('No Time Line available'));
+                    } else {
+                      final timeLineData = snapshot.data!.timeline!;
+                 
+                 return ListView.builder(
+                  itemCount: timeLineData.length,
+                  itemBuilder: 
+                  (context, index) {
+                     final item = timeLineData[index];
+                     print(item.type);
+                      IconData itemIcon;
+                      Color itemColor;
 
-              // Schedule Items
-              ...scheduleItems.map((item) => Padding(
-                padding: const EdgeInsets.only(bottom: 16),
-                child: Container(
+                      switch (item.type) {
+                      case 'vedios':
+                        itemIcon = Icons.play_circle_fill;
+                        itemColor = AppConstant.orangedot;
+                        break;
+                      case 'material':
+                        itemIcon = Icons.book;
+                        itemColor = AppConstant.reddot;
+                        break;
+                      case 'Practice Test':
+                        itemIcon = Icons.list;
+                        itemColor = AppConstant.bluedot;
+                        break;
+                      case 'Test Series':
+                        itemIcon = Icons.question_mark_outlined;
+                        itemColor = const Color.fromARGB(255, 0, 163, 139);
+                        break;  
+                      default:
+                        itemIcon = Icons.insert_drive_file;
+                        itemColor = Colors.grey;
+                    }
+                    return Container(
                   padding: const EdgeInsets.all(20),
                   decoration: BoxDecoration(
                     color: Colors.white,
@@ -215,8 +246,8 @@ class _CalendarSchedulePageState extends State<CalendarSchedulePage> {
                   child: Row(
                     children: [
                       Icon(
-                        item['icon'],
-                        color: item['iconColor'],
+                        itemIcon,
+                        color: itemColor,
                         size: 24,
                       ),
                       const SizedBox(width: 16),
@@ -225,16 +256,16 @@ class _CalendarSchedulePageState extends State<CalendarSchedulePage> {
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
                             Text(
-                              item['title'],
+                              item.name?? 'name',
                               style: TextStyle(
-                                color: item['iconColor'],
+                                color: itemColor,
                                 fontSize: 18,
                                 fontWeight: FontWeight.w600,
                               ),
                             ),
                             const SizedBox(height: 4),
                             Text(
-                              item['subtitle'],
+                              item.description?? 'description',
                               style: const TextStyle(
                                 color: Colors.black87,
                                 fontSize: 14,
@@ -250,7 +281,7 @@ class _CalendarSchedulePageState extends State<CalendarSchedulePage> {
                                 ),
                                 const SizedBox(width: 4),
                                 Text(
-                                  item['time'],
+                                  item.time?? 'time',
                                   style: TextStyle(
                                     color: Colors.grey[400],
                                     fontSize: 14,
@@ -263,8 +294,13 @@ class _CalendarSchedulePageState extends State<CalendarSchedulePage> {
                       ),
                     ],
                   ),
-                ),
-              )).toList(),
+                );
+                  },
+                  
+                  );
+                 }
+                 },
+                 )
             ],
           ),
         ),
