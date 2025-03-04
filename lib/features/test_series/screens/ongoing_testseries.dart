@@ -1,6 +1,8 @@
 import 'package:alpha/constants/app_constants.dart';
+
 import 'package:alpha/constants/config.dart';
 import 'package:alpha/features/test_series/screens/attend_main_test_screen.dart';
+
 import 'package:flutter/material.dart';
 import 'package:alpha/features/test_series/services/ongoing_testseries_services.dart';
 import 'package:alpha/models/ongoing_testseries_model.dart';
@@ -49,9 +51,11 @@ class _OngoingTestSeriesState extends State<OngoingTestSeries> {
               var test = testSeries[index];
 
               return Card(
+
                 shape: RoundedRectangleBorder(
                     borderRadius: BorderRadius.circular(12)),
                 elevation: 4, // Adds a subtle shadow
+
                 margin: const EdgeInsets.only(bottom: 12),
                 child: Padding(
                   padding: const EdgeInsets.all(12),
@@ -68,11 +72,13 @@ class _OngoingTestSeriesState extends State<OngoingTestSeries> {
                         ),
                         trailing: ElevatedButton(
                           onPressed: () {
+
                             Navigator.pushReplacement(
                               context,
                               MaterialPageRoute(
                                   builder: (context) => AttendMainTestScreen(
                                       testid: test.mainTestsId!)),
+
                             );
                           },
                           style: ElevatedButton.styleFrom(
