@@ -6,91 +6,6 @@ import 'package:flutter/material.dart';
 import 'package:fluentui_system_icons/fluentui_system_icons.dart';
 import 'package:intl/intl.dart';
 
-// class RecordingsCourses extends StatefulWidget {
-//   const RecordingsCourses({super.key});
-
-//   @override
-//   State<RecordingsCourses> createState() => _RecordingsCoursesState();
-// }
-
-// class _RecordingsCoursesState extends State<RecordingsCourses> {
-//   final LiveService _liveService = LiveService(); // Initialize LiveService
-
-//   Future<LiveModel?>? _liveClassFuture; // Future to hold API response
-
-//   @override
-//   void initState() {
-//     super.initState();
-//     _fetchLiveClasses();
-//   }
-
-//   void _fetchLiveClasses() {
-//     setState(() {
-//       _liveClassFuture = _liveService.getLiveClass(
-//         context: context,
-//       );
-//     });
-//   }
-
-
-//   @override
-//   Widget build(BuildContext context) {
-//     return Column(
-//       children: [
-//         HorizontalCalendar(),
-//         Padding(
-//           padding: const EdgeInsets.all(16.0),
-//           child: SizedBox(
-//             width: double.infinity,
-//             child: FutureBuilder<LiveModel?>(
-//               future: _liveClassFuture,
-//               builder: (context, snapshot) {
-//                 if (snapshot.connectionState == ConnectionState.waiting) {
-//                   return const Center(
-//                       child: CircularProgressIndicator()); // Show loading
-//                 } else if (snapshot.hasError || snapshot.data == null) {
-//                   return const Center(
-//                       child: Text("Failed to load upcoming classes"));
-//                 } else if (snapshot.data!.completed == null ||
-//                     snapshot.data!.completed!.isEmpty) {
-//                   return const Center(
-//                       child: Text("No Recording classes available"));
-//                 }
-        
-//                 // Extract upcoming classes
-//                 List<Completed> recordedClasses = snapshot.data!.completed!;
-//                 // Handle null months list properly
-//                 final months = recordedClasses[0].months ?? [];
-//                 final dataList = months.isNotEmpty ? months[0].data ?? [Data()] : [Data()];
-        
-//                 return ListView.builder(
-//                   shrinkWrap: true,
-//                   physics: const BouncingScrollPhysics(),
-//                   itemCount: dataList.length,
-//                   itemBuilder: (context, index) {
-        
-//                     return ClassCard(
-//                       title: dataList.isNotEmpty
-//                           ? dataList[index].title ?? "No Title"
-//                           : "No Title",
-//                       tutor: dataList[index].faculty ?? "No Faculty",
-//                       imageUrl:dataList[index].avatar ?? "assets/images/ongoingcourse.png", // Default or dynamic image
-//                       date: dataList[index].start != null  ? DateFormat("MMM dd, yyyy").format(DateTime.parse(dataList[index].start!)) : "No Date",
-//                       startTime: dataList[index].start!= null ? DateFormat("h:mm a").format(DateTime.parse(dataList[index].start!)) : "No Time",
-        
-//                     );
-//                   },
-//                 );
-//               },
-//             ),
-//           ),
-//         ),
-//       ],
-//     );
-//   }
-// }
-
-
 class RecordingsCourses extends StatefulWidget {
   const RecordingsCourses({super.key});
 
@@ -99,9 +14,9 @@ class RecordingsCourses extends StatefulWidget {
 }
 
 class _RecordingsCoursesState extends State<RecordingsCourses> {
-  final LiveService _liveService = LiveService(); // Initialize LiveService
-  Future<LiveModel?>? _liveClassFuture; // Future to hold API response
-  DateTime selectedDate = DateTime.now(); // Default selected date is today
+  final LiveService _liveService = LiveService();
+  Future<LiveModel?>? _liveClassFuture; 
+  DateTime selectedDate = DateTime.now(); 
 
   @override
   void initState() {
