@@ -49,6 +49,7 @@ class QuizInfo extends StatelessWidget {
                         child: Padding(
                           padding: EdgeInsets.symmetric(
                               horizontal: 20.0, vertical: 10),
+
                           child: Column(
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
@@ -91,19 +92,23 @@ class QuizInfo extends StatelessWidget {
                               SizedBox(height: 15),
                               instructions(
                                   instruction:
-                                      "10 points awarded for a correct answer and no marks for an incorrect answer"),
-                              SizedBox(height: 10),
+                                      "Correct and incorrect marks are shown for each and every questions"),
+                              SizedBox(height: 15),
                               instructions(
                                   instruction:
                                       "Tap on options to select the correct answer"),
-                              SizedBox(height: 10),
+                              SizedBox(height: 15),
                               instructions(
                                   instruction:
-                                      "Tap on the bookmark icon to save interesting questions"),
-                              SizedBox(height: 10),
+                                      "Save each exam answers before submitting (Press the save button)"),
+                              SizedBox(height: 15),
                               instructions(
                                   instruction:
-                                      "Click submit if you are sure you want to complete the quiz"),
+                                      "Once you submit the exam, you cannot change the answers"),
+                              SizedBox(height: 15),
+                              instructions(
+                                  instruction:
+                                      "Press submit after saving the answers to complete exam (Press submit and end button)"),
                               SizedBox(height: 30),
                             ],
                           ),
@@ -157,6 +162,7 @@ class instructions extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Row(
+
       // crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         const Icon(
@@ -202,14 +208,13 @@ class IconText extends StatelessWidget {
             color: Colors.white,
           ),
         ),
-        const SizedBox(
-          width: 10,
-        ),
+
         Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Text(
               title,
+
               style: const TextStyle(fontSize: 14, fontWeight: FontWeight.bold),
             ),
             const SizedBox(
@@ -218,11 +223,13 @@ class IconText extends StatelessWidget {
             Text(
               subtitle,
               style: const TextStyle(
+
                   fontSize: 12,
                   fontWeight: FontWeight.w200,
                   color: AppConstant.hindColor),
             ),
           ],
+
         )
       ],
     );

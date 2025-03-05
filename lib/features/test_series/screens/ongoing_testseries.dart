@@ -1,9 +1,10 @@
-import 'package:alpha/constants/app_constants.dart';
-import 'package:alpha/constants/config.dart';
-import 'package:alpha/features/test_series/screens/attend_main_test_screen.dart';
+import 'dart:convert';
 import 'package:flutter/material.dart';
+import 'package:alpha/constants/app_constants.dart';
+import 'package:alpha/features/test_series/screens/start_testseries_quiz.dart';
 import 'package:alpha/features/test_series/services/ongoing_testseries_services.dart';
 import 'package:alpha/models/ongoing_testseries_model.dart';
+import 'package:intl/intl.dart';
 
 class OngoingTestSeries extends StatefulWidget {
   @override
@@ -35,9 +36,11 @@ class _OngoingTestSeriesState extends State<OngoingTestSeries> {
               snapshot.data?.ongoing == null ||
               snapshot.data!.ongoing!.isEmpty) {
             return const Center(
-                child: Text("No ongoing test series available.",
-                    style:
-                        TextStyle(fontSize: 16, fontWeight: FontWeight.w500)));
+              child: Text(
+                "No ongoing test series available.",
+                style: TextStyle(fontSize: 16, fontWeight: FontWeight.w500),
+              ),
+            );
           }
 
           List<Ongoing> testSeries = snapshot.data!.ongoing!;
@@ -68,11 +71,15 @@ class _OngoingTestSeriesState extends State<OngoingTestSeries> {
                         ),
                         trailing: ElevatedButton(
                           onPressed: () {
-                            Navigator.pushReplacement(
+                            Navigator.push(
                               context,
                               MaterialPageRoute(
-                                  builder: (context) => AttendMainTestScreen(
-                                      testid: test.mainTestsId!)),
+                                builder: (context) => StartQuizSeriesInfo(
+                                  quizTitle: test.mainTestsName ?? "Unknown Test",
+                                  totalQuestions: int.tryParse(test.mainTestsQuestions ?? "0") ?? 0, // ✅ Fix applied
+                                  duration: test.mainTestsDuration ?? "N/A",
+                                ),
+                              ),
                             );
                           },
                           style: ElevatedButton.styleFrom(
@@ -84,8 +91,8 @@ class _OngoingTestSeriesState extends State<OngoingTestSeries> {
                       Row(
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
-                          _infoText('Start Time', test.mainTestsStart ?? "N/A"),
-                          _infoText('End Time', test.mainTestsEnd ?? "N/A"),
+                          _infoText('Start Time', formatDate(test.mainTestsStart ?? "")),
+                          _infoText('End Time', formatDate(test.mainTestsEnd ?? "")),
                         ],
                       ),
                       const SizedBox(height: 8),
@@ -110,5 +117,16 @@ class _OngoingTestSeriesState extends State<OngoingTestSeries> {
             style: const TextStyle(fontSize: 14, fontWeight: FontWeight.bold)),
       ],
     );
+  }
+
+  String formatDate(String inputDateTimeString) {
+    if (inputDateTimeString.isEmpty) return "N/A";
+    try {
+      DateTime dateTime = DateTime.parse(inputDateTimeString);
+      final format = DateFormat('dd/MM/yy hh:mm:ss a');
+      return format.format(dateTime);
+    } catch (e) {
+      return "Invalid Date";
+    }
   }
 }

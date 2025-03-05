@@ -41,29 +41,51 @@ class _SubjectListState extends State<SubjectList> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: PreferredSize(
-        preferredSize: const Size.fromHeight(kToolbarHeight),
-        child: SubscribedAppBar(title: widget.className),
-      ),
       body: SafeArea(
-        child: FutureBuilder<SubjectListModel?>(
-          future: _subjectList,
-          builder: (context, snapshot) {
-            if (snapshot.connectionState == ConnectionState.waiting) {
-              return const Center(child: CircularProgressIndicator());
-            } else if (snapshot.hasError) {
-              return Center(child: Text("Error: ${snapshot.error}"));
-            } else if (!snapshot.hasData ||
-                snapshot.data!.subjects == null ||
-                snapshot.data!.subjects!.isEmpty) {
-              return const Center(child: Text("No subjects found"));
-            }
+        child: CustomScrollView(
+          slivers: [
+            SliverAppBar(
+              expandedHeight: 200.0,
+              floating: false,
+              pinned: true,
+              leading: IconButton(
+                icon: const Icon(
+                  Icons.arrow_back_ios_new,
+                  size: 16,
+                  color: Colors.black,
+                ),
+                onPressed: () {
+                  Navigator.pop(context);
+                },
+              ),
+              flexibleSpace: FlexibleSpaceBar(
+                title: Text(widget.className),
+                background: Image.asset(
+                  'assets/images/coverpage.jpg',
+                  fit: BoxFit.cover,
+                ),
+              ),
+            ),
+            SliverFillRemaining(
+              child: FutureBuilder<SubjectListModel?>(
+                future: _subjectList,
+                builder: (context, snapshot) {
+                  if (snapshot.connectionState == ConnectionState.waiting) {
+                    return const Center(child: CircularProgressIndicator());
+                  } else if (snapshot.hasError) {
+                    return Center(child: Text("Error: ${snapshot.error}"));
+                  } else if (!snapshot.hasData ||
+                      snapshot.data!.subjects == null ||
+                      snapshot.data!.subjects!.isEmpty) {
+                    return const Center(child: Text("No subjects found"));
+                  }
 
-            return ListView.builder(
-              padding: const EdgeInsets.all(12),
-              itemCount: snapshot.data!.subjects!.length,
-              itemBuilder: (context, index) {
-                final subject = snapshot.data!.subjects![index];
+                  return ListView.builder(
+                    padding: const EdgeInsets.all(12),
+                    itemCount: snapshot.data!.subjects!.length,
+                    itemBuilder: (context, index) {
+                      final subject = snapshot.data!.subjects![index];
+
 
                 return GestureDetector(
                   onTap: () {
@@ -114,6 +136,12 @@ class _SubjectListState extends State<SubjectList> {
                               height: 80,
                               fit: BoxFit.cover,
                             ),
+                          );
+                        },
+                        child: Card(
+                          shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(12),
+                            side: BorderSide(color: Colors.grey.shade300),
                           ),
                           ),
                           const SizedBox(width: 12), // Space between image and text
@@ -124,16 +152,17 @@ class _SubjectListState extends State<SubjectList> {
                                 fontSize: 16,
                                 fontWeight: FontWeight.w600,
                               ),
+
                             ),
                           ),
-                        ],
-                      ),
-                    ),
-                  ),
-                );
-              },
-            );
-          },
+                        ),
+                      );
+                    },
+                  );
+                },
+              ),
+            ),
+          ],
         ),
       ),
     );

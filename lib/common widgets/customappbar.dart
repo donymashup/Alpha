@@ -38,7 +38,7 @@ class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
               ),
               padding: const EdgeInsets.all(8),
               child: Image.asset(
-                'assets/icons/bell.png',
+                'assets/icons/notification.png',
                 height: 24,
                 width: 24,
               ),
