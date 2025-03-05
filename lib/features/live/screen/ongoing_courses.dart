@@ -1,8 +1,10 @@
 import 'package:alpha/features/live/services/live_service.dart';
 import 'package:alpha/models/live_model.dart';
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:fluentui_system_icons/fluentui_system_icons.dart';
 import 'package:intl/intl.dart';
+import 'package:shimmer/shimmer.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 class OngoingClasses extends StatefulWidget {
@@ -127,18 +129,32 @@ class ClassCard extends StatelessWidget {
           padding: const EdgeInsets.all(12.0),
           child: Row(
             crossAxisAlignment: CrossAxisAlignment.start,
-            mainAxisSize: MainAxisSize.min, // Prevents unnecessary expansion
+           // mainAxisSize: MainAxisSize.min, // Prevents unnecessary expansion
             children: [
               /// Image section - 1/3 of the row
               ClipRRect(
                 borderRadius: BorderRadius.circular(8),
-                child: Image.network(imageUrl,
-                    width: 80, height: 80, fit: BoxFit.cover),
+                child: CachedNetworkImage(
+                imageUrl: imageUrl, // URL of the image
+                width: 80,
+                height: 80,
+                fit: BoxFit.cover,
+                placeholder: (context, url) => Shimmer.fromColors(
+                  baseColor: Colors.grey[300]!,
+                  highlightColor: Colors.grey[100]!,
+                  child: Container(
+                    width: 80,
+                    height: 80,
+                    color: Colors.white,
+                  ),
+                ),
+                errorWidget: (context, url, error) => Icon(Icons.broken_image, size: 40, color: Colors.grey),
+              ),
               ),
               const SizedBox(width: 12),
 
               /// Text section - 2/3 of the row
-              Expanded(
+              Flexible(
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
@@ -153,27 +169,43 @@ class ClassCard extends StatelessWidget {
                     ),
                     const SizedBox(height: 8),
                     Row(
-                      children: [
-                        Icon(FluentIcons.calendar_ltr_24_regular,
-                            size: 18, color: Colors.blue),
-                        const SizedBox(width: 4),
-                        Text(date,
-                            style: const TextStyle(
-                                fontSize: 14, fontWeight: FontWeight.bold)),
-                        const Spacer(),
-                        Icon(FluentIcons.clock_24_regular,
-                            size: 18, color: Colors.green),
-                        const SizedBox(width: 4),
-                        Text(startTime,
-                            style: const TextStyle(
-                                fontSize: 14, fontWeight: FontWeight.bold)),
-                        const Spacer(), // Pushes next elements to the right
-                        const Icon(Icons.fiber_manual_record,
-                            color: Colors.red, size: 12),
-                        const SizedBox(width: 4),
-                        const Text("Live", style: TextStyle(color: Colors.red)),
-                      ],
-                    ),
+                    mainAxisAlignment: MainAxisAlignment.spaceEvenly, // Ensures equal spacing
+                    children: [
+                      /// Date Section
+                      Row(
+                        children: [
+                          Icon(FluentIcons.calendar_ltr_24_regular, size: 18, color: Colors.blue),
+                          const SizedBox(width: 4),
+                          Text(
+                            date,
+                            style: const TextStyle(fontSize: 14, fontWeight: FontWeight.bold),
+                          ),
+                        ],
+                      ),
+
+                      /// Time Section
+                      Row(
+                        children: [
+                          Icon(FluentIcons.clock_24_regular, size: 18, color: Colors.green),
+                          const SizedBox(width: 4),
+                          Text(
+                            startTime,
+                            style: const TextStyle(fontSize: 14, fontWeight: FontWeight.bold),
+                          ),
+                        ],
+                      ),
+
+                      /// Live Indicator
+                      Row(
+                        children: const [
+                          Icon(Icons.fiber_manual_record, color: Colors.red, size: 12),
+                          SizedBox(width: 4),
+                          Text("Live", style: TextStyle(color: Colors.red)),
+                        ],
+                      ),
+                    ],
+                  )
+
                   ],
                 ),
               ),

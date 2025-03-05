@@ -11,10 +11,12 @@ import 'package:alpha/features/home/widgets/custom_Image_Button.dart';
 import 'package:alpha/features/home/widgets/header_list.dart';
 import 'package:alpha/features/home/widgets/search_field.dart';
 import 'package:alpha/models/available_courses_model.dart';
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:lottie/lottie.dart';
+import 'package:shimmer/shimmer.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});
@@ -170,17 +172,24 @@ class _HomeScreenState extends State<HomeScreen> {
                           borderRadius: BorderRadius.circular(10),
                           child: Hero(
                             tag: "imageCourse-${course.courseDetails?.id}",
-                            child: course.courseDetails?.image != null
-                                ? Image.network(
-                                    course!.courseDetails!.image!,
-                                    width: double.infinity,
-                                    height: 100,
-                                    fit: BoxFit.cover,
-                                    errorBuilder:
-                                        (context, error, stackTrace) =>
-                                            const Icon(Icons.broken_image),
-                                  )
-                                : const Icon(Icons.image, size: 80),
+                            child:course.courseDetails?.image != null
+                            ? CachedNetworkImage(
+                            imageUrl: course!.courseDetails!.image!,
+                            width: double.infinity,
+                            height: 100,
+                            fit: BoxFit.cover,
+                            placeholder: (context, url) => Shimmer.fromColors(
+                              baseColor: Colors.grey[300]!,
+                              highlightColor: Colors.grey[100]!,
+                              child: Container(
+                                width: double.infinity,
+                                height: 100,
+                                color: Colors.white,
+                              ),
+                            ),
+                            errorWidget: (context, url, error) => const Icon(Icons.broken_image),
+                          )
+                            : const Icon(Icons.image, size: 80),
                           ),
                         ),
                       ),

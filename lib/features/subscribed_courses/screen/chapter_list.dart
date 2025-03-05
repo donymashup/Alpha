@@ -11,6 +11,7 @@ class ChapterList extends StatefulWidget {
   final String packageId;
   final String batchId;
   final String subjectId;
+
   const ChapterList({
     required this.sublectImage,
     required this.subjectName,
@@ -49,95 +50,134 @@ class _ChapterListState extends State<ChapterList> {
             expandedHeight: 200.0,
             floating: false,
             pinned: true,
-            snap: false,
             backgroundColor: Colors.white,
-            flexibleSpace: FlexibleSpaceBar(
-              title: Text(
-                widget.subjectName,
-                style: TextStyle(color: Colors.black),
-              ),
-              background: Image.network(
-                widget.sublectImage,
-                fit: BoxFit.cover,
-              ),
+            flexibleSpace: LayoutBuilder(
+              builder: (context, constraints) {
+                bool isCollapsed = constraints.maxHeight <= kToolbarHeight;
+
+                return Stack(
+                  fit: StackFit.expand,
+                  children: [
+                    Image.network(
+                      widget.sublectImage,
+                      fit: BoxFit.cover,
+                    ),
+                    Container(
+                      decoration: BoxDecoration(
+                        gradient: LinearGradient(
+                          begin: Alignment.bottomCenter,
+                          end: Alignment.topCenter,
+                          colors: [
+                            Colors.black.withOpacity(0.9),
+                            Colors.transparent,
+                          ],
+                        ),
+                      ),
+                    ),
+                    Align(
+                      alignment: Alignment.bottomLeft,
+                      child: Padding(
+                        padding: const EdgeInsets.only(left: 35, bottom: 10),
+                        child: Text(
+                          widget.subjectName,
+                          style: TextStyle(
+                            color: Colors.white,
+                            fontSize: isCollapsed ? 18 : 20,
+                            fontWeight: FontWeight.bold,
+                          ),
+                        ),
+                      ),
+                    ),
+                  ],
+                );
+              },
             ),
             leading: IconButton(
-              icon: const Icon(Icons.arrow_back_ios_new,
-                  size: 16, color: Colors.black),
+              icon: const Icon(Icons.arrow_back_ios_new, size: 16, color: Colors.white),
               onPressed: () {
                 Navigator.pop(context);
               },
             ),
           ),
-          SliverFillRemaining(
-            child: SafeArea(
-              child: Container(
-                color: Colors.white, // Set the background color to white
-                child: FutureBuilder<ChapterListModel?>(
-                  future: _chapterList,
-                  builder: (context, snapshot) {
-                    if (snapshot.connectionState == ConnectionState.waiting) {
-                      return const Center(child: CircularProgressIndicator());
-                    } else if (snapshot.hasError) {
-                      return Center(child: Text("Error: ${snapshot.error}"));
-                    } else if (!snapshot.hasData ||
-                        snapshot.data!.chapters == null ||
-                        snapshot.data!.chapters!.isEmpty) {
-                      return const Center(child: Text("No chapters found"));
-                    }
-                    return ListView.builder(
-                      padding: const EdgeInsets.all(3),
-                      itemCount: snapshot.data!.chapters!.length,
-                      itemBuilder: (context, index) {
-                        final list = snapshot.data!.chapters![index];
-                        return Card(
-                          color: Colors.white,
-                          shape: RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(5),
-                            side: BorderSide(color: Colors.grey.shade300),
-                          ),
-                          elevation: 3,
-                          child: Padding(
-                            padding:
-                                const EdgeInsets.only(top: 12.0, bottom: 12.0),
-                            child: ListTile(
-                              title: Text(
-                                list.chaptersName ?? "Chapter",
-                                style: const TextStyle(
-                                  fontSize: 15,
-                                  fontWeight: FontWeight.w500,
-                                ),
-                              ),
-                              leading: ClipRRect(
-                                borderRadius: BorderRadius.circular(3),
-                                child: Image.network(
-                                  list.chaptersImage ??
-                                      "assets/images/course1.png",
-                                  fit: BoxFit.cover,
-                                ),
-                              ),
-                              onTap: () {
-                                Navigator.push(
-                                  context,
-                                  MaterialPageRoute(
-                                    builder: (context) => ChapterContents(
-                                      chapterImage: list.chaptersImage!,
-                                      chapterName: list.chaptersName!,
-                                      chapterId: list.chaptersId!,
-                                      batchId: widget.batchId,
-                                      packageId: widget.packageId,
-                                    ),
-                                  ),
-                                );
-                              },
+          SliverToBoxAdapter(
+            child: FutureBuilder<ChapterListModel?>(
+              future: _chapterList,
+              builder: (context, snapshot) {
+                if (snapshot.connectionState == ConnectionState.waiting) {
+                  return const Center(
+                    child: Padding(
+                      padding: EdgeInsets.all(20.0),
+                      child: CircularProgressIndicator(),
+                    ),
+                  );
+                } else if (snapshot.hasError) {
+                  return Center(
+                    child: Padding(
+                      padding: const EdgeInsets.all(20.0),
+                      child: Text("Error: ${snapshot.error}"),
+                    ),
+                  );
+                } else if (!snapshot.hasData ||
+                    snapshot.data!.chapters == null ||
+                    snapshot.data!.chapters!.isEmpty) {
+                  return const Center(
+                    child: Padding(
+                      padding: EdgeInsets.all(20.0),
+                      child: Text("No chapters found"),
+                    ),
+                  );
+                }
+                return ListView.builder(
+                  shrinkWrap: true, // Important for SliverToBoxAdapter
+                  physics: NeverScrollableScrollPhysics(), // Avoid nested scrolling issues
+                  padding: const EdgeInsets.all(3),
+                  itemCount: snapshot.data!.chapters!.length,
+                  itemBuilder: (context, index) {
+                    final list = snapshot.data!.chapters![index];
+                    return Card(
+                      color: Colors.white,
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(5),
+                        side: BorderSide(color: Colors.grey.shade300),
+                      ),
+                      elevation: 3,
+                      child: Padding(
+                        padding: const EdgeInsets.only(top: 12.0, bottom: 12.0),
+                        child: ListTile(
+                          title: Text(
+                            list.chaptersName ?? "Chapter",
+                            style: const TextStyle(
+                              fontSize: 15,
+                              fontWeight: FontWeight.w500,
                             ),
                           ),
-                        );
-                      },
+                          leading: ClipRRect(
+                            borderRadius: BorderRadius.circular(3),
+                            child: Image.network(
+                              list.chaptersImage ?? "assets/images/course1.png",
+                              fit: BoxFit.cover,
+                            ),
+                          ),
+                          onTap: () {
+                            Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                builder: (context) => ChapterContents(
+                                  chapterImage: list.chaptersImage!,
+                                  chapterName: list.chaptersName!,
+                                  chapterId: list.chaptersId!,
+                                  batchId: widget.batchId,
+                                  packageId: widget.packageId,
+                                ),
+                              ),
+                            );
+                          },
+                        ),
+                      ),
                     );
                   },
-                ),
-              ),
+                );
+              },
             ),
           ),
         ],

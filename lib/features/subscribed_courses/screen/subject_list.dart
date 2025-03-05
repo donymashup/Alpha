@@ -3,7 +3,9 @@ import 'package:alpha/features/subscribed_courses/screen/chapter_list.dart';
 import 'package:alpha/features/subscribed_courses/services/user_subscriptions_services.dart';
 import 'package:alpha/features/subscribed_courses/widgets/suscribed_appbar.dart';
 import 'package:alpha/models/subject_list_model.dart';
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
+import 'package:shimmer/shimmer.dart';
 
 class SubjectList extends StatefulWidget {
   final String classId;
@@ -84,19 +86,55 @@ class _SubjectListState extends State<SubjectList> {
                     itemBuilder: (context, index) {
                       final subject = snapshot.data!.subjects![index];
 
-                      return GestureDetector(
-                        onTap: () {
-                          Navigator.push(
-                            context,
-                            MaterialPageRoute(
-                              builder: (context) => ChapterList(
-                                sublectImage: subject.subjectImage!,
-                                subjectName: subject.subjectName!,
-                                classId: widget.classId,
-                                packageId: subject.packageid!,
-                                batchId: widget.batchId,
-                                subjectId: subject.subjectId!,
+
+                return GestureDetector(
+                  onTap: () {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) => ChapterList(
+                          sublectImage: subject.subjectImage!,
+                          subjectName: subject.subjectName!,
+                          classId: widget.classId,
+                          packageId: subject.packageid!,
+                          batchId: widget.batchId,
+                          subjectId: subject.subjectId!,
+                        ),
+                      ),
+                    );
+                  },
+                  child: Card(
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(12),
+                      side: BorderSide(color: Colors.grey.shade300),
+                    ),
+                    elevation: 4,
+                    margin: const EdgeInsets.symmetric(vertical: 8),
+                    child: Padding(
+                      padding: const EdgeInsets.all(8.0),
+                      child: Row(
+                        children: [
+                          ClipRRect(
+                            borderRadius: BorderRadius.circular(8),
+                            child: CachedNetworkImage(
+                            imageUrl: subject.subjectImage ?? "", // Use an empty string if null
+                            width: 110,
+                            height: 80,
+                            fit: BoxFit.cover,
+                            placeholder: (context, url) => Shimmer.fromColors(
+                              baseColor: Colors.grey[300]!,
+                              highlightColor: Colors.grey[100]!,
+                              child: Container(
+                                width: 110,
+                                height: 80,
+                                color: Colors.white,
                               ),
+                            ),
+                            errorWidget: (context, url, error) => Image.asset(
+                              'assets/images/onboarding1.jpg', // Default image on error
+                              width: 110,
+                              height: 80,
+                              fit: BoxFit.cover,
                             ),
                           );
                         },
@@ -105,41 +143,16 @@ class _SubjectListState extends State<SubjectList> {
                             borderRadius: BorderRadius.circular(12),
                             side: BorderSide(color: Colors.grey.shade300),
                           ),
-                          elevation: 4,
-                          margin: const EdgeInsets.symmetric(vertical: 8),
-                          child: Padding(
-                            padding: const EdgeInsets.all(8.0),
-                            child: Row(
-                              children: [
-                                ClipRRect(
-                                  borderRadius: BorderRadius.circular(8),
-                                  child: Image.network(
-                                    subject.subjectImage ??
-                                        'assets/images/onboarding1.jpg',
-                                    width: 110,
-                                    height: 80,
-                                    fit: BoxFit.cover,
-                                    errorBuilder: (context, error, stackTrace) {
-                                      return Image.asset(
-                                        'assets/images/onboarding1.jpg',
-                                        width: 80,
-                                        height: 80,
-                                        fit: BoxFit.cover,
-                                      );
-                                    },
-                                  ),
-                                ),
-                                const SizedBox(width: 12),
-                                Expanded(
-                                  child: Text(
-                                    subject.subjectName ?? "Subject",
-                                    style: const TextStyle(
-                                      fontSize: 16,
-                                      fontWeight: FontWeight.w600,
-                                    ),
-                                  ),
-                                ),
-                              ],
+                          ),
+                          const SizedBox(width: 12), // Space between image and text
+                          Expanded(
+                            child: Text(
+                              subject.subjectName ?? "Subject",
+                              style: const TextStyle(
+                                fontSize: 16,
+                                fontWeight: FontWeight.w600,
+                              ),
+
                             ),
                           ),
                         ),

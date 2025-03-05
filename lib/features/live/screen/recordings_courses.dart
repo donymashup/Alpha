@@ -2,9 +2,11 @@ import 'package:alpha/constants/app_constants.dart';
 import 'package:alpha/features/live/services/live_service.dart';
 import 'package:alpha/features/live/widgets/calender.dart';
 import 'package:alpha/models/live_model.dart';
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:fluentui_system_icons/fluentui_system_icons.dart';
 import 'package:intl/intl.dart';
+import 'package:shimmer/shimmer.dart';
 
 class RecordingsCourses extends StatefulWidget {
   const RecordingsCourses({super.key});
@@ -140,10 +142,23 @@ class ClassCard extends StatelessWidget {
             ClipRRect(
               borderRadius: BorderRadius.circular(8),
               child: SizedBox(
-                width: 80, // Fixed width for image to prevent expansion
-                height: 80,
-                child: Image.network(imageUrl, fit: BoxFit.cover),
+              width: 80, // Fixed width for image to prevent expansion
+              height: 80,
+              child: CachedNetworkImage(
+                imageUrl: imageUrl,
+                fit: BoxFit.cover,
+                placeholder: (context, url) => Shimmer.fromColors(
+                  baseColor: Colors.grey[300]!,
+                  highlightColor: Colors.grey[100]!,
+                  child: Container(
+                    width: 80,
+                    height: 80,
+                    color: Colors.white,
+                  ),
+                ),
+                errorWidget: (context, url, error) => Icon(Icons.broken_image, size: 40, color: Colors.grey),
               ),
+            ),
             ),
             const SizedBox(width: 12),
 

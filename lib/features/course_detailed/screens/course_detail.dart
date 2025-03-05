@@ -226,7 +226,7 @@ class _AnimatedTabBarScreenState extends State<AnimatedTabBarScreen>
                       final controller = Get.find<IsSubscribedController>();
                       return controller.isSubscribed.value
                           ? SizedBox()
-                          : EnrollButton(courseDetailsModel: courseDetails!);
+                          : EnrollButton(courseDetailsModel: courseDetails);
                     }),
                   ),
                 ],
