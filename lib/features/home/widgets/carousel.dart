@@ -25,7 +25,7 @@ class _CarouselImageState extends State<CarouselImage> {
     final sliderData = await _homeService.getSliderImages(context: context);
     if (sliderData != null && sliderData.sliders != null) {
       setState(() {
-        _sliderImages = sliderData.sliders!.take(5).toList(); // ✅ Only first 5 images
+        _sliderImages = sliderData.sliders!.take(5).toList();
       });
       _startAutoScroll();
     }

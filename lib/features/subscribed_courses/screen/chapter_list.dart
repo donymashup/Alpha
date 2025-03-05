@@ -2,7 +2,9 @@ import 'package:alpha/constants/config.dart';
 import 'package:alpha/features/subscribed_courses/screen/chapter_contents.dart';
 import 'package:alpha/features/subscribed_courses/services/user_subscriptions_services.dart';
 import 'package:alpha/models/chapter_list_model.dart';
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
+import 'package:shimmer/shimmer.dart';
 
 class ChapterList extends StatefulWidget {
   final String sublectImage;
@@ -110,11 +112,23 @@ class _ChapterListState extends State<ChapterList> {
                               ),
                               leading: ClipRRect(
                                 borderRadius: BorderRadius.circular(3),
-                                child: Image.network(
-                                  list.chaptersImage ??
-                                      "assets/images/course1.png",
+                                child: CachedNetworkImage(
+                                imageUrl: list.chaptersImage ?? "",
+                                fit: BoxFit.cover,
+                                placeholder: (context, url) => Shimmer.fromColors(
+                                  baseColor: Colors.grey[300]!,
+                                  highlightColor: Colors.grey[100]!,
+                                  child: Container(
+                                    color: Colors.white,
+                                    width: double.infinity,
+                                    height: double.infinity,
+                                  ),
+                                ),
+                                errorWidget: (context, url, error) => Image.asset(
+                                  "assets/images/course1.png", // Fallback asset image
                                   fit: BoxFit.cover,
                                 ),
+                              ),
                               ),
                               onTap: () {
                                 Navigator.push(
