@@ -32,6 +32,34 @@ class _CalendarSchedulePageState extends State<CalendarSchedulePage> {
       'subtitle': 'Materials',
       'time': '8:15:17 AM',
     },
+    {
+      'icon': Icons.list,
+      'iconColor': AppConstant.bluedot,
+      'title': 'Alphabet Test',
+      'subtitle': 'Practice Tests',
+      'time': '7:07:23 AM',
+    },
+    {
+      'icon': Icons.bookmark,
+      'iconColor': AppConstant.reddot,
+      'title': 'Blood Relation (SB)',
+      'subtitle': 'Materials',
+      'time': '8:15:17 AM',
+    },
+    {
+      'icon': Icons.list,
+      'iconColor': AppConstant.bluedot,
+      'title': 'Alphabet Test',
+      'subtitle': 'Practice Tests',
+      'time': '7:07:23 AM',
+    },
+    {
+      'icon': Icons.bookmark,
+      'iconColor': AppConstant.reddot,
+      'title': 'Blood Relation (SB)',
+      'subtitle': 'Materials',
+      'time': '8:15:17 AM',
+    },
   ];
 
   List<DateTime> _generateWeekDays() {
