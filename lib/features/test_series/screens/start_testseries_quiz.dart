@@ -19,7 +19,7 @@ class StartQuizSeriesInfo extends StatelessWidget {
     return Scaffold(
       body: Container(
         decoration: const BoxDecoration(
-          gradient: AppConstant.blueDarkeGradient,
+          gradient: AppConstant.redDarkeGradient,
         ),
         child: Column(
           children: [
