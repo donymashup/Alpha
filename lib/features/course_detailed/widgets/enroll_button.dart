@@ -1,4 +1,5 @@
 import 'package:alpha/constants/app_constants.dart';
+import 'package:alpha/features/course_detailed/screens/checkout_screen.dart';
 import 'package:alpha/models/course_details_model.dart';
 import 'package:flutter/material.dart';
 import 'package:swipeable_button_view/swipeable_button_view.dart';
@@ -38,6 +39,15 @@ class _EnrollButtonState extends State<EnrollButton> {
         setState(() {
           isFinished = false;
         });
+       Navigator.push(
+          context,
+          MaterialPageRoute(builder: (context) => CheckoutScreen(
+            courseName: widget.courseDetailsModel.details!.name!,
+            duration: widget.courseDetailsModel.details!.duration!,
+            fee: widget.courseDetailsModel.details!.price!,
+            image: widget.courseDetailsModel.details!.image!,
+          )),
+        );   
       },
     );
   }

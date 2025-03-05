@@ -1,4 +1,6 @@
 import 'package:alpha/constants/app_constants.dart';
+import 'package:alpha/features/drawermenu/services/drawer_service.dart';
+import 'package:alpha/models/timeLine_model.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 
@@ -9,104 +11,76 @@ class CalendarSchedulePage extends StatefulWidget {
 
 class _CalendarSchedulePageState extends State<CalendarSchedulePage> {
   DateTime selectedDate = DateTime.now(); // Automatically selects today's date
+  late Future<TimeLineModel?> _timeLinedata;
+  final ScrollController _scrollController = ScrollController();
 
-  final List<Map<String, dynamic>> scheduleItems = [
-    {
-      'icon': Icons.play_circle_outline,
-      'iconColor': AppConstant.orangedot,
-      'title': 'Crop Production',
-      'subtitle': 'Videos',
-      'time': '3:36:46 PM',
-    },
-    {
-      'icon': Icons.list,
-      'iconColor': AppConstant.bluedot,
-      'title': 'Alphabet Test',
-      'subtitle': 'Practice Tests',
-      'time': '7:07:23 AM',
-    },
-    {
-      'icon': Icons.bookmark,
-      'iconColor': AppConstant.reddot,
-      'title': 'Blood Relation (SB)',
-      'subtitle': 'Materials',
-      'time': '8:15:17 AM',
-    },
-    {
-      'icon': Icons.list,
-      'iconColor': AppConstant.bluedot,
-      'title': 'Alphabet Test',
-      'subtitle': 'Practice Tests',
-      'time': '7:07:23 AM',
-    },
-    {
-      'icon': Icons.bookmark,
-      'iconColor': AppConstant.reddot,
-      'title': 'Blood Relation (SB)',
-      'subtitle': 'Materials',
-      'time': '8:15:17 AM',
-    },
-    {
-      'icon': Icons.list,
-      'iconColor': AppConstant.bluedot,
-      'title': 'Alphabet Test',
-      'subtitle': 'Practice Tests',
-      'time': '7:07:23 AM',
-    },
-    {
-      'icon': Icons.bookmark,
-      'iconColor': AppConstant.reddot,
-      'title': 'Blood Relation (SB)',
-      'subtitle': 'Materials',
-      'time': '8:15:17 AM',
-    },
-  ];
+  @override
+  void initState() {
+    super.initState();
+      WidgetsBinding.instance.addPostFrameCallback((_) {
+      _scrollToToday();  
+      });
+    _timeLinedata = fetchTimeLineData();
+  }
+  
+
+  void _scrollToToday() {
+    Future.delayed(Duration(milliseconds: 300), () {
+      _scrollController.jumpTo(_scrollController.position.maxScrollExtent);
+    });
+  }
+   Future<TimeLineModel?> fetchTimeLineData() async {
+    DrawerService drawerService = DrawerService();
+    return await drawerService.getTimeLine(
+        userId: '1',
+        date: DateFormat('dd-MM-yyyy').format(selectedDate)
+      );
+  }
 
   List<DateTime> _generateWeekDays() {
-    final DateTime startDate = DateTime.now().subtract(Duration(days: 3));
-    return List.generate(14, (index) => startDate.add(Duration(days: index)));
+   // final DateTime startDate = DateTime.now();
+     return List.generate(30, (index) => DateTime.now().subtract(Duration(days: index)))
+        .reversed
+        .toList();
   }
 
   String getDateLabel() {
     DateTime today = DateTime.now();
-    DateTime tomorrow = today.add(Duration(days: 1));
-
     if (DateFormat('yyyy-MM-dd').format(selectedDate) == DateFormat('yyyy-MM-dd').format(today)) {
       return 'Today';
-    } else if (DateFormat('yyyy-MM-dd').format(selectedDate) == DateFormat('yyyy-MM-dd').format(tomorrow)) {
-      return 'Tomorrow';
     } else {
       return DateFormat('EEEE').format(selectedDate);
     }
   }
 
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      backgroundColor: AppConstant.backgroundColor,
-      appBar: AppBar(
-        leading: IconButton(
-          icon: const Icon(Icons.arrow_back, color: AppConstant.titlecolor),
-          onPressed: () => Navigator.pop(context),
-        ),
-        title: const Text(
-          "Timeline",
-          style: TextStyle(
-            fontWeight: FontWeight.bold,
-            color: AppConstant.titlecolor,
-          ),
-        ),
-        centerTitle: false,
-        backgroundColor: Colors.transparent,
-        elevation: 0,
+@override
+Widget build(BuildContext context) {
+  return Scaffold(
+    backgroundColor: AppConstant.backgroundColor,
+    appBar: AppBar(
+      leading: IconButton(
+        icon: const Icon(Icons.arrow_back_ios_new, color: AppConstant.titlecolor),
+        onPressed: () => Navigator.pop(context),
       ),
-      body: SingleChildScrollView(
-        child: Padding(
+      title: const Text(
+        "Timeline",
+        style: TextStyle(
+          fontWeight: FontWeight.bold,
+          color: AppConstant.titlecolor,
+          fontSize: 20,
+        ),
+      ),
+      centerTitle: false,
+      backgroundColor: Colors.transparent,
+      elevation: 0,
+    ),
+    body: Column(
+      children: [
+        Padding(
           padding: const EdgeInsets.all(20),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              // Date Header
               Row(
                 crossAxisAlignment: CrossAxisAlignment.end,
                 children: [
@@ -119,22 +93,17 @@ class _CalendarSchedulePageState extends State<CalendarSchedulePage> {
                   ),
                   const SizedBox(width: 12),
                   Expanded(
-                    child: Column(
+                   child: 
+                    Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         Text(
                           DateFormat('EEE').format(selectedDate),
-                          style: TextStyle(
-                            fontSize: 16,
-                            color: Colors.grey[500],
-                          ),
+                          style: TextStyle(fontSize: 16, color: Colors.grey[500]),
                         ),
                         Text(
                           DateFormat('MMM yyyy').format(selectedDate),
-                          style: TextStyle(
-                            fontSize: 16,
-                            color: Colors.grey[500],
-                          ),
+                          style: TextStyle(fontSize: 16, color: Colors.grey[500]),
                         ),
                       ],
                     ),
@@ -155,8 +124,7 @@ class _CalendarSchedulePageState extends State<CalendarSchedulePage> {
                   ),
                 ],
               ),
-              const SizedBox(height: 30),
-
+              const SizedBox(height: 20),
               // Scrollable Week Calendar
               Container(
                 padding: const EdgeInsets.all(20),
@@ -172,6 +140,7 @@ class _CalendarSchedulePageState extends State<CalendarSchedulePage> {
                   ],
                 ),
                 child: SingleChildScrollView(
+                  controller: _scrollController,
                   scrollDirection: Axis.horizontal,
                   child: Row(
                     children: _generateWeekDays().map((date) {
@@ -182,6 +151,7 @@ class _CalendarSchedulePageState extends State<CalendarSchedulePage> {
                         onTap: () {
                           setState(() {
                             selectedDate = date;
+                            _timeLinedata = fetchTimeLineData();
                           });
                         },
                         child: Padding(
@@ -190,17 +160,11 @@ class _CalendarSchedulePageState extends State<CalendarSchedulePage> {
                             children: [
                               Text(
                                 DateFormat('E').format(date)[0],
-                                style: TextStyle(
-                                  color: Colors.grey[500],
-                                  fontSize: 14,
-                                ),
+                                style: TextStyle(color: Colors.grey[500], fontSize: 14),
                               ),
                               const SizedBox(height: 8),
                               Container(
-                                padding: const EdgeInsets.symmetric(
-                                  horizontal: 12,
-                                  vertical: 6,
-                                ),
+                                padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 6),
                                 decoration: BoxDecoration(
                                   color: isSelected ? const Color(0xFFFF7F57) : Colors.transparent,
                                   borderRadius: BorderRadius.circular(12),
@@ -222,81 +186,122 @@ class _CalendarSchedulePageState extends State<CalendarSchedulePage> {
                   ),
                 ),
               ),
-              const SizedBox(height: 20),
-
-              // Schedule Items
-              ...scheduleItems.map((item) => Padding(
-                padding: const EdgeInsets.only(bottom: 16),
-                child: Container(
-                  padding: const EdgeInsets.all(20),
-                  decoration: BoxDecoration(
-                    color: Colors.white,
-                    borderRadius: BorderRadius.circular(20),
-                    boxShadow: [
-                      BoxShadow(
-                        color: Colors.black.withAlpha(13),
-                        blurRadius: 10,
-                        offset: const Offset(0, 4),
-                      ),
-                    ],
-                  ),
-                  child: Row(
-                    children: [
-                      Icon(
-                        item['icon'],
-                        color: item['iconColor'],
-                        size: 24,
-                      ),
-                      const SizedBox(width: 16),
-                      Expanded(
-                        child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            Text(
-                              item['title'],
-                              style: TextStyle(
-                                color: item['iconColor'],
-                                fontSize: 18,
-                                fontWeight: FontWeight.w600,
-                              ),
-                            ),
-                            const SizedBox(height: 4),
-                            Text(
-                              item['subtitle'],
-                              style: const TextStyle(
-                                color: Colors.black87,
-                                fontSize: 14,
-                              ),
-                            ),
-                            const SizedBox(height: 8),
-                            Row(
-                              children: [
-                                Icon(
-                                  Icons.access_time,
-                                  size: 16,
-                                  color: Colors.grey[400],
-                                ),
-                                const SizedBox(width: 4),
-                                Text(
-                                  item['time'],
-                                  style: TextStyle(
-                                    color: Colors.grey[400],
-                                    fontSize: 14,
-                                  ),
-                                ),
-                              ],
-                            ),
-                          ],
-                        ),
-                      ),
-                    ],
-                  ),
-                ),
-              )).toList(),
             ],
           ),
         ),
-      ),
-    );
-  }
+        const SizedBox(height: 10),
+
+        // Timeline ListView
+        Expanded(
+          child: FutureBuilder<TimeLineModel?>(
+            future: _timeLinedata,
+            builder: (context, snapshot) {
+              if (snapshot.connectionState == ConnectionState.waiting) {
+                return const Center(child: CircularProgressIndicator());
+              } else if (snapshot.hasError) {
+                return Center(child: Text('Error: ${snapshot.error}'));
+              } else if (!snapshot.hasData ||
+                  snapshot.data == null ||
+                  snapshot.data!.timeline == null ||
+                  snapshot.data!.timeline!.isEmpty) {
+                return const Center(child: Text('No Time Line available'));
+              } else {
+                final timeLineData = snapshot.data!.timeline!;
+                return ListView.builder(
+                  physics: const BouncingScrollPhysics(),
+                  itemCount: timeLineData.length,
+                  itemBuilder: (context, index) {
+                    final item = timeLineData[index];
+                    IconData itemIcon;
+                    Color itemColor;
+
+                    switch (item.type) {
+                      case 'vedios':
+                        itemIcon = Icons.play_circle_fill;
+                        itemColor = AppConstant.orangedot;
+                        break;
+                      case 'material':
+                        itemIcon = Icons.book;
+                        itemColor = AppConstant.reddot;
+                        break;
+                      case 'Practice Test':
+                        itemIcon = Icons.list;
+                        itemColor = AppConstant.bluedot;
+                        break;
+                      case 'Test Series':
+                        itemIcon = Icons.question_mark_outlined;
+                        itemColor = const Color.fromARGB(255, 0, 163, 139);
+                        break;
+                      default:
+                        itemIcon = Icons.insert_drive_file;
+                        itemColor = Colors.grey;
+                    }
+
+                    return Container(
+                      margin: const EdgeInsets.symmetric(vertical: 8, horizontal: 20),
+                      padding: const EdgeInsets.all(16),
+                      decoration: BoxDecoration(
+                        color: Colors.white,
+                        borderRadius: BorderRadius.circular(16),
+                        boxShadow: [
+                          BoxShadow(
+                            color: Colors.black.withAlpha(10),
+                            blurRadius: 10,
+                            offset: const Offset(0, 4),
+                          ),
+                        ],
+                      ),
+                      child: Row(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Icon(itemIcon, color: itemColor, size: 25),
+                          const SizedBox(width: 16),
+                          Expanded(
+                            child: Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                Text(
+                                  item.name ?? 'name',
+                                  style: TextStyle(
+                                    color: itemColor,
+                                    fontSize: 15,
+                                    fontWeight: FontWeight.bold,
+                                  ),
+                                ),
+                                const SizedBox(height: 4),
+                                Text(
+                                  item.description ?? 'description',
+                                  style: const TextStyle(
+                                    color: Colors.black87,
+                                    fontSize: 14,
+                                  ),
+                                ),
+                                const SizedBox(height: 8),
+                                Row(
+                                  children: [
+                                    Icon(Icons.access_time, size: 16, color: Colors.grey[400]),
+                                    const SizedBox(width: 4),
+                                    Text(
+                                      item.time ?? 'time',
+                                      style: TextStyle(color: Colors.grey[400], fontSize: 14),
+                                    ),
+                                  ],
+                                ),
+                              ],
+                            ),
+                          ),
+                        ],
+                      ),
+                    );
+                  },
+                );
+              }
+            },
+          ),
+        ),
+      ],
+    ),
+  );
+}
+
 }
