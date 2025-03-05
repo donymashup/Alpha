@@ -39,6 +39,13 @@ class AppConstant {
     end: Alignment.topRight,
   );
 
+static const Gradient blueDarkeGradient = LinearGradient(
+    colors: [Color.fromARGB(255, 0, 68, 215), Color.fromARGB(255, 83, 2, 154)],
+    begin: Alignment.topLeft,
+    end: Alignment.topRight,
+  );
+
+
   static const List<String> carouselImages = [
     //'assets/images/alphalogo.png',
     'assets/images/etutorslider5.png',

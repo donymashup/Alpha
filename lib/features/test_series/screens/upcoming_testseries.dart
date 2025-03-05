@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:alpha/constants/app_constants.dart';
 import 'package:alpha/features/test_series/services/upcoming_testseries_services.dart';
 import 'package:alpha/models/upcoming_testseries_model.dart';
+import 'package:intl/intl.dart';
 
 class UpcomingTestSeriesScreen extends StatefulWidget {
   @override
@@ -42,7 +43,7 @@ class _UpcomingTestSeriesScreenState extends State<UpcomingTestSeriesScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: AppConstant.backgroundColor, // 🔹 Matches Completed Test UI
+      backgroundColor: AppConstant.backgroundColor, // Matches Completed Test UI
       body: isLoading
           ? const Center(child: CircularProgressIndicator())
           : errorMessage != null
@@ -56,7 +57,6 @@ class _UpcomingTestSeriesScreenState extends State<UpcomingTestSeriesScreen> {
                         final test = upcomingTests[index];
 
                         return Card(
-                          //color: Colors.white, // Better contrast with background
                           shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
                           elevation: 4, // Adds shadow for depth
                           margin: const EdgeInsets.only(bottom: 12),
@@ -71,20 +71,13 @@ class _UpcomingTestSeriesScreenState extends State<UpcomingTestSeriesScreen> {
                                     test.mainTestsName ?? "Unnamed Test",
                                     style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 16),
                                   ),
-                                  trailing: ElevatedButton(
-                                    onPressed: () {
-                                      // Navigate to details or set reminder
-                                    },
-                                    style: ElevatedButton.styleFrom(backgroundColor: Colors.orange),
-                                    child: const Text("Details"),
-                                  ),
                                 ),
                                 const Divider(),
                                 Row(
                                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                                   children: [
-                                    _infoText('Start Time', test.mainTestsStart ?? "N/A"),
-                                    _infoText('End Time', test.mainTestsEnd ?? "N/A"),
+                                    _infoText('Start Time', formatDate(test.mainTestsStart!)),
+                                    _infoText('End Time', formatDate(test.mainTestsEnd!)),
                                   ],
                                 ),
                                 const SizedBox(height: 8),
@@ -92,7 +85,6 @@ class _UpcomingTestSeriesScreenState extends State<UpcomingTestSeriesScreen> {
                                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                                   children: [
                                     _infoText('Duration', test.mainTestsDuration ?? "N/A"),
-                                   // _infoText('Questions', test.mainTestsQuestions ?? "N/A"),
                                   ],
                                 ),
                               ],
@@ -118,5 +110,11 @@ class _UpcomingTestSeriesScreenState extends State<UpcomingTestSeriesScreen> {
         ),
       ],
     );
+  }
+
+  String formatDate(String inputDateTimeString) {
+    DateTime dateTime = DateTime.parse(inputDateTimeString);
+    final format = DateFormat('dd/MM/yy hh:mm:ss a');
+    return format.format(dateTime);
   }
 }
