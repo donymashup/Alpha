@@ -41,9 +41,10 @@ class _SubjectListState extends State<SubjectList> {
   Widget build(BuildContext context) {
     return Scaffold(
       body: SafeArea(
-        child: CustomScrollView(
-          slivers: [
-            SliverAppBar(
+        child: NestedScrollView(
+          headerSliverBuilder: (context, innerBoxIsScrolled) {
+            return [
+               SliverAppBar(
               expandedHeight: 200.0,
               floating: false,
               pinned: true,
@@ -99,25 +100,20 @@ class _SubjectListState extends State<SubjectList> {
                 },
               ),
             ),
-            SliverFillRemaining(
-              child: FutureBuilder<SubjectListModel?>(
-                future: _subjectList,
-                builder: (context, snapshot) {
-                  if (snapshot.connectionState == ConnectionState.waiting) {
-                    return const Center(child: CircularProgressIndicator());
-                  } else if (snapshot.hasError) {
-                    return Center(child: Text("Error: ${snapshot.error}"));
-                  } else if (!snapshot.hasData ||
-                      snapshot.data!.subjects == null ||
-                      snapshot.data!.subjects!.isEmpty) {
-                    return const Center(child: Text("No subjects found"));
-                  }
-
-                  return ListView.builder(
-                    padding: const EdgeInsets.all(12),
-                    itemCount: snapshot.data!.subjects!.length,
-                    itemBuilder: (context, index) {
-                      final subject = snapshot.data!.subjects![index];
+            ];
+          },
+          body: FutureBuilder<SubjectListModel?>(
+            future: _subjectList,
+            builder: (context, snapshot) {
+              if (snapshot.connectionState == ConnectionState.waiting) {
+                return const Center(child: CircularProgressIndicator());
+              } else if (snapshot.hasError) {
+                return Center(child: Text("Error: ${snapshot.error}"));
+              } else if (!snapshot.hasData ||
+                  snapshot.data!.subjects == null ||
+                  snapshot.data!.subjects!.isEmpty) {
+                return const Center(child: Text("No subjects found"));
+              }
 
               return CustomScrollView(
                 slivers: [
