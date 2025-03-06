@@ -31,30 +31,6 @@ class _ChapterContentsState extends State<ChapterContents> {
       backgroundColor: Colors.white, // Set the background color to white
       body: CustomScrollView(
         slivers: [
-          // SliverAppBar(
-          //   expandedHeight: 200.0,
-          //   floating: false,
-          //   pinned: true,
-          //   snap: false,
-          //   backgroundColor: Colors.white,
-          //   flexibleSpace: FlexibleSpaceBar(
-          //     title: Text(
-          //       widget.chapterName,
-          //       style: TextStyle(color: Colors.black),
-          //     ),
-          //     background: Image.network(
-          //       widget.chapterImage,
-          //       fit: BoxFit.cover,
-          //     ),
-          //   ),
-          //   leading: IconButton(
-          //     icon: const Icon(Icons.arrow_back_ios_new,
-          //         size: 16, color: Colors.black),
-          //     onPressed: () {
-          //       Navigator.pop(context);
-          //     },
-          //   ),
-          // ),
            SliverAppBar(
             expandedHeight: 200.0,
             floating: false,
@@ -91,7 +67,7 @@ class _ChapterContentsState extends State<ChapterContents> {
                     Align(
                       alignment: Alignment.bottomLeft,
                       child: Padding(
-                        padding: const EdgeInsets.only(left: 35, bottom: 10),
+                        padding: const EdgeInsets.only(left: 45, bottom: 10),
                         child: Text(
                           widget.chapterName,
                           style: TextStyle(

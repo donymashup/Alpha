@@ -2,6 +2,7 @@ import 'package:alpha/features/subscribed_courses/screen/video_player.dart';
 import 'package:alpha/models/video_model.dart';
 import 'package:flutter/material.dart';
 import 'package:cached_network_image/cached_network_image.dart';
+import 'package:shimmer/shimmer.dart';
 
 class VideoSectionWidget extends StatelessWidget {
   final IconData icon;
@@ -100,17 +101,22 @@ class VideoSectionWidget extends StatelessWidget {
                             const BorderRadius.all(Radius.circular(10.0)),
                         child: Stack(
                           children: [
-                            CachedNetworkImage(
-                              imageUrl: video.videoThumbnail ?? '',
-                              placeholder: (context, url) => const Center(
-                                child: Padding(
-                                  padding: EdgeInsets.all(10.0),
-                                  child: CircularProgressIndicator(),
+                          CachedNetworkImage(
+                            imageUrl: video.videoThumbnail ?? '',
+                            placeholder: (context, url) => Center(
+                              child: Shimmer.fromColors(
+                                baseColor: Colors.grey[300]!,
+                                highlightColor: Colors.grey[100]!,
+                                child: Container(
+                                  width: double.infinity,
+                                  height: 200, // Adjust height as needed
+                                  color: Colors.white,
                                 ),
                               ),
-                              errorWidget: (context, url, error) =>
-                                  const Icon(Icons.error),
                             ),
+                            errorWidget: (context, url, error) => const Icon(Icons.error, color: Colors.red),
+                            fit: BoxFit.cover,
+                          ),
                             Positioned(
                               bottom: 0,
                               right: 0,

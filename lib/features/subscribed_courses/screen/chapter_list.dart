@@ -2,7 +2,9 @@ import 'package:alpha/constants/config.dart';
 import 'package:alpha/features/subscribed_courses/screen/chapter_contents.dart';
 import 'package:alpha/features/subscribed_courses/services/user_subscriptions_services.dart';
 import 'package:alpha/models/chapter_list_model.dart';
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
+import 'package:shimmer/shimmer.dart';
 
 class ChapterList extends StatefulWidget {
   final String sublectImage;
@@ -29,17 +31,23 @@ class ChapterList extends StatefulWidget {
 class _ChapterListState extends State<ChapterList> {
   late Future<ChapterListModel?> _chapterList;
 
-  @override
-  void initState() {
-    super.initState();
-    _chapterList = UserSubscriptionsServices().getSubjectChapterList(
-      context: context,
-      classId: widget.classId,
-      packageId: widget.packageId,
-      batchId: widget.batchId,
-      subjectId: widget.subjectId,
-    );
-  }
+ 
+@override
+void initState() {
+  super.initState();
+  _loadChapters();
+}
+
+void _loadChapters() async {
+  _chapterList = UserSubscriptionsServices().getSubjectChapterList(
+    context: context,
+    classId: widget.classId,
+    packageId: widget.packageId,
+    batchId: widget.batchId,
+    subjectId: widget.subjectId,
+  );
+  setState(() {}); // Ensure UI updates when data is available
+}
 
   @override
   Widget build(BuildContext context) {
@@ -77,7 +85,7 @@ class _ChapterListState extends State<ChapterList> {
                     Align(
                       alignment: Alignment.bottomLeft,
                       child: Padding(
-                        padding: const EdgeInsets.only(left: 35, bottom: 10),
+                        padding: const EdgeInsets.only(left: 45, bottom: 10),
                         child: Text(
                           widget.subjectName,
                           style: TextStyle(
@@ -153,8 +161,19 @@ class _ChapterListState extends State<ChapterList> {
                           ),
                           leading: ClipRRect(
                             borderRadius: BorderRadius.circular(3),
-                            child: Image.network(
-                              list.chaptersImage ?? "assets/images/course1.png",
+                            child: 
+                            CachedNetworkImage(
+                              imageUrl: list.chaptersImage ?? "",
+                              placeholder: (context, url) => Shimmer.fromColors(
+                              baseColor: Colors.grey[300]!,
+                              highlightColor: Colors.grey[100]!,
+                              child: Container(
+                                width: 50, // Set fixed width and height
+                                height: 50,
+                                color: Colors.white,
+                              ),
+                            ),
+                              errorWidget: (context, url, error) => Image.asset("assets/images/course1.png", fit: BoxFit.cover),
                               fit: BoxFit.cover,
                             ),
                           ),
