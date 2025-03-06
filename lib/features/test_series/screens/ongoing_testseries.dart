@@ -18,7 +18,7 @@ class _OngoingTestSeriesState extends State<OngoingTestSeries> {
   void initState() {
     super.initState();
     _ongoingTestsFuture = OngoingTestseriesServices().getOngoingTests(
-      userId: '1',
+      userId: userData.userid,
       context: context,
     );
   }
@@ -75,8 +75,11 @@ class _OngoingTestSeriesState extends State<OngoingTestSeries> {
                               context,
                               MaterialPageRoute(
                                 builder: (context) => StartQuizSeriesInfo(
-                                  quizTitle: test.mainTestsName ?? "Unknown Test",
-                                  totalQuestions: int.tryParse(test.mainTestsQuestions ?? "0") ?? 0, // ✅ Fix applied
+                                  quizTitle:
+                                      test.mainTestsName ?? "Unknown Test",
+                                  totalQuestions: int.tryParse(
+                                          test.mainTestsQuestions ?? "0") ??
+                                      0, // ✅ Fix applied
                                   duration: test.mainTestsDuration ?? "N/A",
                                 ),
                               ),
@@ -91,8 +94,10 @@ class _OngoingTestSeriesState extends State<OngoingTestSeries> {
                       Row(
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
-                          _infoText('Start Time', formatDate(test.mainTestsStart ?? "")),
-                          _infoText('End Time', formatDate(test.mainTestsEnd ?? "")),
+                          _infoText('Start Time',
+                              formatDate(test.mainTestsStart ?? "")),
+                          _infoText(
+                              'End Time', formatDate(test.mainTestsEnd ?? "")),
                         ],
                       ),
                       const SizedBox(height: 8),

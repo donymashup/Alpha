@@ -15,10 +15,10 @@ class OverviewTab extends StatelessWidget {
   const OverviewTab({super.key, required this.description});
   @override
   Widget build(BuildContext context) {
-    return Expanded(
+    return Padding(
+      padding: const EdgeInsets.all(8.0),
       child: Card(
         color: AppConstant.cardBackground,
-        margin: const EdgeInsets.all(8),
         child: Padding(
           padding: const EdgeInsets.all(8.0),
           child: SingleChildScrollView(

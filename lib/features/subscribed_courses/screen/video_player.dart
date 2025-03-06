@@ -38,7 +38,7 @@ class _VideoPlayerState extends State<VideoPlayer> {
     setupData();
 
     youtubeController = YoutubePlayerController(
-      initialVideoId: videoList.videos![selectedIndex].videoLink!,
+      initialVideoId: videoList.videos![selectedIndex].videoId!,
       flags: const YoutubePlayerFlags(
         mute: false,
         autoPlay: true,
@@ -124,7 +124,7 @@ class _VideoPlayerState extends State<VideoPlayer> {
                 setState(() {
                   selectedIndex = index;
                 });
-                youtubeController.load(videoList.videos![index].videoLink!);
+                youtubeController.load(videoList.videos![index].videoId!);
               } else {
                 setState(() {
                   selectedIndex = index;

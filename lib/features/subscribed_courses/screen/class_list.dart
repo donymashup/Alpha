@@ -49,20 +49,23 @@ class _ClassListState extends State<ClassList> {
                   pinned: true,
                   backgroundColor: Colors.white,
                   leading: IconButton(
-                    icon: const Icon(Icons.arrow_back_ios_new, size: 16, color: Colors.white),
+                    icon: const Icon(Icons.arrow_back_ios_new,
+                        size: 16, color: Colors.white),
                     onPressed: () {
                       Navigator.pop(context);
                     },
                   ),
                   flexibleSpace: LayoutBuilder(
                     builder: (context, constraints) {
-                      bool isCollapsed = constraints.maxHeight <= kToolbarHeight;
-          
+                      bool isCollapsed =
+                          constraints.maxHeight <= kToolbarHeight;
+
                       return Stack(
                         fit: StackFit.expand,
                         children: [
                           Hero(
-                            tag: "courseImage-${widget.courseId}", // Unique Hero tag
+                            tag:
+                                "courseImage-${widget.courseId}", // Unique Hero tag
                             child: Image.network(
                               widget.courseImage,
                               fit: BoxFit.cover,
@@ -83,7 +86,8 @@ class _ClassListState extends State<ClassList> {
                           Align(
                             alignment: Alignment.bottomLeft,
                             child: Padding(
-                              padding: const EdgeInsets.only(left: 45, bottom: 10),
+                              padding:
+                                  const EdgeInsets.only(left: 45, bottom: 10),
                               child: Text(
                                 widget.courseName,
                                 style: TextStyle(
@@ -108,16 +112,17 @@ class _ClassListState extends State<ClassList> {
                   return const Center(child: CircularProgressIndicator());
                 } else if (snapshot.hasError) {
                   return Center(child: Text("Error: ${snapshot.error}"));
-                } else if (!snapshot.hasData || snapshot.data!.classes!.isEmpty) {
+                } else if (!snapshot.hasData ||
+                    snapshot.data!.classes!.isEmpty) {
                   return const Center(child: Text("No classes found"));
                 }
-          
+
                 return ListView.builder(
                   padding: const EdgeInsets.only(bottom: 80),
                   itemCount: snapshot.data!.classes!.length,
                   itemBuilder: (context, index) {
                     final list = snapshot.data!.classes![index];
-          
+
                     return GestureDetector(
                       onTap: () {
                         Navigator.push(
@@ -128,6 +133,7 @@ class _ClassListState extends State<ClassList> {
                               packageId: list.packageid!,
                               batchId: widget.batchId,
                               className: list.className!,
+                              classImage: list.classImage!,
                             ),
                           ),
                         );
@@ -151,25 +157,30 @@ class _ClassListState extends State<ClassList> {
                                 borderRadius: const BorderRadius.horizontal(
                                   left: Radius.circular(10),
                                 ),
-                                child: CachedNetworkImage(
-                                  imageUrl: list.classImage ?? "",
-                                  height: 100,
-                                  width: 150,
-                                  fit: BoxFit.cover,
-                                  placeholder: (context, url) => Shimmer.fromColors(
-                                    baseColor: Colors.grey[300]!,
-                                    highlightColor: Colors.grey[100]!,
-                                    child: Container(
-                                      height: 100,
-                                      width: 150,
-                                      color: Colors.white,
-                                    ),
-                                  ),
-                                  errorWidget: (context, url, error) => Image.asset(
-                                    "assets/images/course1.png",
+                                child: Hero(
+                                  tag: "classImage-${list.classId!}",
+                                  child: CachedNetworkImage(
+                                    imageUrl: list.classImage ?? "",
                                     height: 100,
                                     width: 150,
                                     fit: BoxFit.cover,
+                                    placeholder: (context, url) =>
+                                        Shimmer.fromColors(
+                                      baseColor: Colors.grey[300]!,
+                                      highlightColor: Colors.grey[100]!,
+                                      child: Container(
+                                        height: 100,
+                                        width: 150,
+                                        color: Colors.white,
+                                      ),
+                                    ),
+                                    errorWidget: (context, url, error) =>
+                                        Image.asset(
+                                      "assets/images/course1.png",
+                                      height: 100,
+                                      width: 150,
+                                      fit: BoxFit.cover,
+                                    ),
                                   ),
                                 ),
                               ),
@@ -194,7 +205,7 @@ class _ClassListState extends State<ClassList> {
             ),
           ),
           Positioned(
-            bottom: 0,
+            bottom: 45,
             left: 0,
             right: 0,
             child: const _SwipeableAddReviewSection(),
@@ -223,16 +234,16 @@ class _SwipeableAddReviewSection extends StatelessWidget {
       //     );
       //   }
       // },
-       onTap: () {
-          showModalBottomSheet(
-            context: context,
-            isScrollControlled: true,
-            shape: const RoundedRectangleBorder(
-              borderRadius: BorderRadius.vertical(top: Radius.circular(20.0)),
-            ),
-            builder: (context) => const _AddReviewSheet(),
-          );
-        },
+      onTap: () {
+        showModalBottomSheet(
+          context: context,
+          isScrollControlled: true,
+          shape: const RoundedRectangleBorder(
+            borderRadius: BorderRadius.vertical(top: Radius.circular(20.0)),
+          ),
+          builder: (context) => const _AddReviewSheet(),
+        );
+      },
       child: Container(
         height: 50,
         padding: const EdgeInsets.all(8.0),
@@ -240,7 +251,7 @@ class _SwipeableAddReviewSection extends StatelessWidget {
         child: const Center(
           child: Column(
             children: [
-             // Icon(Icons.keyboard_arrow_up, size: 24, color: Colors.black54),
+              // Icon(Icons.keyboard_arrow_up, size: 24, color: Colors.black54),
               Text(
                 'Add review',
                 style: TextStyle(fontSize: 14, fontWeight: FontWeight.bold),
@@ -261,7 +272,7 @@ class _AddReviewSheet extends StatefulWidget {
 }
 
 class _AddReviewSheetState extends State<_AddReviewSheet> {
-  double _rating = 3.0;
+  double _rating = 5.0;
   final TextEditingController _reviewController = TextEditingController();
 
   @override

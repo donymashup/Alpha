@@ -6,7 +6,8 @@ import 'package:intl/intl.dart';
 
 class UpcomingTestSeriesScreen extends StatefulWidget {
   @override
-  _UpcomingTestSeriesScreenState createState() => _UpcomingTestSeriesScreenState();
+  _UpcomingTestSeriesScreenState createState() =>
+      _UpcomingTestSeriesScreenState();
 }
 
 class _UpcomingTestSeriesScreenState extends State<UpcomingTestSeriesScreen> {
@@ -23,7 +24,7 @@ class _UpcomingTestSeriesScreenState extends State<UpcomingTestSeriesScreen> {
 
   Future<void> fetchUpcomingTests() async {
     var response = await testSeriesService.getUpcomingTests(
-      userId: '1',
+      userId: userData.userid,
       context: context,
     );
 
@@ -47,7 +48,9 @@ class _UpcomingTestSeriesScreenState extends State<UpcomingTestSeriesScreen> {
       body: isLoading
           ? const Center(child: CircularProgressIndicator())
           : errorMessage != null
-              ? Center(child: Text(errorMessage!, style: TextStyle(color: Colors.red)))
+              ? Center(
+                  child:
+                      Text(errorMessage!, style: TextStyle(color: Colors.red)))
               : upcomingTests.isEmpty
                   ? const Center(child: Text("No upcoming tests available"))
                   : ListView.builder(
@@ -57,7 +60,8 @@ class _UpcomingTestSeriesScreenState extends State<UpcomingTestSeriesScreen> {
                         final test = upcomingTests[index];
 
                         return Card(
-                          shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
+                          shape: RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(12)),
                           elevation: 4, // Adds shadow for depth
                           margin: const EdgeInsets.only(bottom: 12),
                           child: Padding(
@@ -66,25 +70,33 @@ class _UpcomingTestSeriesScreenState extends State<UpcomingTestSeriesScreen> {
                               crossAxisAlignment: CrossAxisAlignment.start,
                               children: [
                                 ListTile(
-                                  leading: const Icon(Icons.access_time, size: 30, color: Colors.deepPurple),
+                                  leading: const Icon(Icons.access_time,
+                                      size: 30, color: Colors.deepPurple),
                                   title: Text(
                                     test.mainTestsName ?? "Unnamed Test",
-                                    style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 16),
+                                    style: const TextStyle(
+                                        fontWeight: FontWeight.bold,
+                                        fontSize: 16),
                                   ),
                                 ),
                                 const Divider(),
                                 Row(
-                                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                  mainAxisAlignment:
+                                      MainAxisAlignment.spaceBetween,
                                   children: [
-                                    _infoText('Start Time', formatDate(test.mainTestsStart!)),
-                                    _infoText('End Time', formatDate(test.mainTestsEnd!)),
+                                    _infoText('Start Time',
+                                        formatDate(test.mainTestsStart!)),
+                                    _infoText('End Time',
+                                        formatDate(test.mainTestsEnd!)),
                                   ],
                                 ),
                                 const SizedBox(height: 8),
                                 Row(
-                                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                  mainAxisAlignment:
+                                      MainAxisAlignment.spaceBetween,
                                   children: [
-                                    _infoText('Duration', test.mainTestsDuration ?? "N/A"),
+                                    _infoText('Duration',
+                                        test.mainTestsDuration ?? "N/A"),
                                   ],
                                 ),
                               ],

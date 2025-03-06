@@ -13,59 +13,64 @@ class ClassesList extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return ListView.builder(
-      itemCount: courseDetailsModel.chapters?.length ?? 0,
-      itemBuilder: (context, index) {
-        final chapter = courseDetailsModel.chapters![index];
+    return Padding(
+      padding: const EdgeInsets.all(8.0),
+      child: Card(
+        child: ListView.builder(
+          itemCount: courseDetailsModel.chapters?.length ?? 0,
+          itemBuilder: (context, index) {
+            final chapter = courseDetailsModel.chapters![index];
 
-        return Padding(
-          padding: const EdgeInsets.only(left: 8.0, right: 8.0, top: 8.0),
-          child: Card(
-            margin: EdgeInsets.symmetric(horizontal: 10, vertical: 2),
-            shape:
-                RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
-            color: AppConstant.cardBackground,
-            elevation: 4,
-            child: ExpansionTile(
-              title: Row(
-                children: [
-                  Icon(LucideIcons.bookOpen, color: Colors.teal),
-                  SizedBox(width: 10),
-                  Flexible(
-                    child: Text(
-                      chapter.chapName ?? "No Name",
-                      style:
-                          TextStyle(fontSize: 16, fontWeight: FontWeight.w600),
+            return Padding(
+              padding: const EdgeInsets.only(left: 8.0, right: 8.0, top: 8.0),
+              child: Card(
+                margin: EdgeInsets.symmetric(horizontal: 2, vertical: 2),
+                shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(5)),
+                color: AppConstant.cardBackground,
+                elevation: 4,
+                child: ExpansionTile(
+                  title: Row(
+                    children: [
+                      Icon(LucideIcons.bookOpen, color: Colors.teal),
+                      SizedBox(width: 10),
+                      Flexible(
+                        child: Text(
+                          chapter.chapName ?? "No Name",
+                          style: TextStyle(
+                              fontSize: 16, fontWeight: FontWeight.w600),
+                        ),
+                      ),
+                    ],
+                  ),
+                  subtitle: Padding(
+                    padding: const EdgeInsets.only(left: 35.0),
+                    child: Row(
+                      children: [
+                        Text(chapter.className ?? "No Class",
+                            style: TextStyle(color: Colors.grey)),
+                        SizedBox(width: 10),
+                        Text(chapter.subjectName ?? "No Subject",
+                            style: TextStyle(color: Colors.grey)),
+                      ],
                     ),
                   ),
-                ],
-              ),
-              subtitle: Padding(
-                padding: const EdgeInsets.only(left: 35.0),
-                child: Row(
                   children: [
-                    Text(chapter.className ?? "No Class",
-                        style: TextStyle(color: Colors.grey)),
-                    SizedBox(width: 10),
-                    Text(chapter.subjectName ?? "No Subject",
-                        style: TextStyle(color: Colors.grey)),
+                    _buildListSection('Videos', chapter.contents?.videos ?? [],
+                        LucideIcons.video, Colors.redAccent),
+                    Divider(),
+                    _buildListSection('PDFs', chapter.contents?.pdf ?? [],
+                        LucideIcons.file, Colors.blueAccent),
+                    Divider(),
+                    _buildListSection('Tests', chapter.contents?.test ?? [],
+                        LucideIcons.checkSquare, Colors.green),
                   ],
                 ),
               ),
-              children: [
-                _buildListSection('Videos', chapter.contents?.videos ?? [],
-                    LucideIcons.video, Colors.redAccent),
-                Divider(),
-                _buildListSection('PDFs', chapter.contents?.pdf ?? [],
-                    LucideIcons.file, Colors.blueAccent),
-                Divider(),
-                _buildListSection('Tests', chapter.contents?.test ?? [],
-                    LucideIcons.checkSquare, Colors.green),
-              ],
-            ),
-          ),
-        );
-      },
+            );
+          },
+        ),
+      ),
     );
   }
 

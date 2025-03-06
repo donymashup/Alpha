@@ -186,4 +186,6 @@ class UserSubscriptionsServices {
     SharedPreferences pref = await SharedPreferences.getInstance();
     return pref.getString('userId');
   }
+
+  // TODO: updateCourseStars courseid, rating, review
 }

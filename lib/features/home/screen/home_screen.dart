@@ -172,24 +172,26 @@ class _HomeScreenState extends State<HomeScreen> {
                           borderRadius: BorderRadius.circular(10),
                           child: Hero(
                             tag: "imageCourse-${course.courseDetails?.id}",
-                            child:course.courseDetails?.image != null
-                            ? CachedNetworkImage(
-                            imageUrl: course!.courseDetails!.image!,
-                            width: double.infinity,
-                            height: 100,
-                            fit: BoxFit.cover,
-                            placeholder: (context, url) => Shimmer.fromColors(
-                              baseColor: Colors.grey[300]!,
-                              highlightColor: Colors.grey[100]!,
-                              child: Container(
-                                width: double.infinity,
-                                height: 100,
-                                color: Colors.white,
-                              ),
-                            ),
-                            errorWidget: (context, url, error) => const Icon(Icons.broken_image),
-                          )
-                            : const Icon(Icons.image, size: 80),
+                            child: course.courseDetails?.image != null
+                                ? CachedNetworkImage(
+                                    imageUrl: course!.courseDetails!.image!,
+                                    width: double.infinity,
+                                    height: 100,
+                                    fit: BoxFit.cover,
+                                    placeholder: (context, url) =>
+                                        Shimmer.fromColors(
+                                      baseColor: Colors.grey[300]!,
+                                      highlightColor: Colors.grey[100]!,
+                                      child: Container(
+                                        width: double.infinity,
+                                        height: 100,
+                                        color: Colors.white,
+                                      ),
+                                    ),
+                                    errorWidget: (context, url, error) =>
+                                        const Icon(Icons.broken_image),
+                                  )
+                                : const Icon(Icons.image, size: 80),
                           ),
                         ),
                       ),

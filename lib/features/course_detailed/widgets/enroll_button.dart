@@ -39,15 +39,12 @@ class _EnrollButtonState extends State<EnrollButton> {
         setState(() {
           isFinished = false;
         });
-       Navigator.push(
+        Navigator.push(
           context,
-          MaterialPageRoute(builder: (context) => CheckoutScreen(
-            courseName: widget.courseDetailsModel.details!.name!,
-            duration: widget.courseDetailsModel.details!.duration!,
-            fee: widget.courseDetailsModel.details!.price!,
-            image: widget.courseDetailsModel.details!.image!,
-          )),
-        );   
+          MaterialPageRoute(
+              builder: (context) =>
+                  CheckoutScreen(thisCourses: widget.courseDetailsModel)),
+        );
       },
     );
   }

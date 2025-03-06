@@ -3,6 +3,7 @@
 import 'dart:convert';
 
 import 'package:alpha/common%20widgets/bottom_navigation_bar.dart';
+import 'package:alpha/constants/app_constants.dart';
 import 'package:alpha/constants/config.dart';
 import 'package:alpha/constants/utils.dart';
 import 'package:alpha/models/login_model.dart';
@@ -134,12 +135,27 @@ class AuthService {
     await prefs.setString("gender", user.gender!);
     await prefs.setString("school", user.school!);
     await prefs.setString("qualification", user.qualification!);
+
+    userData.userid = userDetailsModel.user!.id.toString();
+    userData.firstName = userDetailsModel.user!.firstName.toString();
+    userData.lastName = userDetailsModel.user!.lastName.toString();
+    userData.image = userDetailsModel.user!.image.toString();
+    userData.email = userDetailsModel.user!.email.toString();
+    userData.phone = userDetailsModel.user!.phone.toString();
+    userData.country = userDetailsModel.user!.country.toString();
   }
 
   // Logout User and Clear Session
   Future<void> logout(BuildContext context) async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
     await prefs.clear(); // Clear all stored data
+    userData.userid = '';
+    userData.firstName = '';
+    userData.lastName = '';
+    userData.image = '';
+    userData.email = '';
+    userData.phone = '';
+    userData.country = '';
     Navigator.pushReplacement(
       context,
       MaterialPageRoute(builder: (context) => Login()),

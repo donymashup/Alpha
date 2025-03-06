@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 
 class AppConstant {
+  static const appName = "Alpha Entrance Academy";
   static const backgroundColor2 = Color.fromARGB(255, 250, 246, 247);
   static const primaryColor = Color(0xFFD70000);
   static const lightGradient = Color.fromARGB(255, 214, 63, 69);
@@ -25,6 +26,9 @@ class AppConstant {
 
   static const OPENAI_API_KEY = " ";
 
+  // Razorpay Api
+  static const String RazorPay_key_id = "rzp_live_2n811bW7jr0DiA";
+  static const String RazorPay_secret_id = "v3ByNwGSRG3IhP9tujSZCJIn";
   //
 
   static const Gradient redWhiteGradient = LinearGradient(
@@ -39,12 +43,11 @@ class AppConstant {
     end: Alignment.topRight,
   );
 
-static const Gradient blueDarkeGradient = LinearGradient(
+  static const Gradient blueDarkeGradient = LinearGradient(
     colors: [Color.fromARGB(255, 0, 68, 215), Color.fromARGB(255, 83, 2, 154)],
     begin: Alignment.topLeft,
     end: Alignment.topRight,
   );
-
 
   static const List<String> carouselImages = [
     //'assets/images/alphalogo.png',
@@ -80,4 +83,16 @@ static const Gradient blueDarkeGradient = LinearGradient(
       "rating": 4.2,
     },
   ];
+}
+
+class userData {
+  static String userid = "";
+  static String firstName = "";
+  static String lastName = "";
+  static String image = "";
+  static String email = "";
+  static String phone = "";
+  static String country = "";
+  static String firebase_token = "";
+  static String onesignal_token = "";
 }

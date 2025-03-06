@@ -24,8 +24,8 @@ class _CompletedTestSeriesScreenState extends State<CompletedTestSeriesScreen> {
 
   Future<void> fetchCompletedTests() async {
     CompletedTestseriesServices service = CompletedTestseriesServices();
-    var response =
-        await service.getAttendedTests(userId: '1', context: context);
+    var response = await service.getAttendedTests(
+        userId: userData.userid, context: context);
 
     if (response != null && response.attended != null) {
       setState(() {

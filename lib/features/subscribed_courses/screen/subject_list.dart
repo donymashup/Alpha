@@ -11,12 +11,14 @@ class SubjectList extends StatefulWidget {
   final String packageId;
   final String batchId;
   final String className;
+  final String classImage;
   const SubjectList({
     required this.classId,
     required this.packageId,
     required this.batchId,
     required this.className,
     super.key,
+    required this.classImage,
   });
 
   @override
@@ -43,62 +45,78 @@ class _SubjectListState extends State<SubjectList> {
       body: NestedScrollView(
         headerSliverBuilder: (context, innerBoxIsScrolled) {
           return [
-             SliverAppBar(
-            expandedHeight: 200.0,
-            floating: false,
-            pinned: true,
-            backgroundColor: Colors.white,
-            flexibleSpace: LayoutBuilder(
-              builder: (context, constraints) {
-                bool isCollapsed = constraints.maxHeight <= kToolbarHeight;
-      
-                return Stack(
-                  fit: StackFit.expand,
-                  children: [
-                    // Background Image
-                    Image.asset(
-                      'assets/images/coverpage.jpg',
-                      fit: BoxFit.cover,
-                    ),
-                    // Gradient Overlay (Dark at Bottom)
-                    Container(
-                      decoration: BoxDecoration(
-                        gradient: LinearGradient(
-                          begin: Alignment.bottomCenter,
-                          end: Alignment.topCenter,
-                          colors: [
-                            Colors.black.withOpacity(0.9), // Dark at the bottom
-                            Colors.transparent,            // Clear at the top
-                          ],
-                        ),
-                      ),
-                    ),
-                    // Title positioned at the bottom left
-                    Align(
-                      alignment: Alignment.bottomLeft,
-                      child: Padding(
-                        padding: const EdgeInsets.only(left: 45, bottom: 10),
-                        child: Text(
-                          widget.className,
-                          style: TextStyle(
-                            color: Colors.white,
-                            fontSize: isCollapsed ? 18 : 20,
-                            fontWeight: FontWeight.bold,
+            SliverAppBar(
+              expandedHeight: 200.0,
+              floating: false,
+              pinned: true,
+              backgroundColor: Colors.white,
+              flexibleSpace: LayoutBuilder(
+                builder: (context, constraints) {
+                  bool isCollapsed = constraints.maxHeight <= kToolbarHeight;
+
+                  return Stack(
+                    fit: StackFit.expand,
+                    children: [
+                      // Background Image
+                      Hero(
+                        tag: widget.classImage,
+                        child: CachedNetworkImage(
+                          imageUrl: widget.classImage,
+                          fit: BoxFit.cover,
+                          placeholder: (context, url) => Shimmer.fromColors(
+                            baseColor: Colors.grey[300]!,
+                            highlightColor: Colors.grey[100]!,
+                            child: Container(
+                              color: Colors.white,
+                            ),
+                          ),
+                          errorWidget: (context, url, error) => Image.asset(
+                            'assets/images/onboarding1.jpg',
+                            fit: BoxFit.cover,
                           ),
                         ),
                       ),
-                    ),
-                  ],
-                );
-              },
+                      // Gradient Overlay (Dark at Bottom)
+                      Container(
+                        decoration: BoxDecoration(
+                          gradient: LinearGradient(
+                            begin: Alignment.bottomCenter,
+                            end: Alignment.topCenter,
+                            colors: [
+                              Colors.black
+                                  .withOpacity(0.9), // Dark at the bottom
+                              Colors.transparent, // Clear at the top
+                            ],
+                          ),
+                        ),
+                      ),
+                      // Title positioned at the bottom left
+                      Align(
+                        alignment: Alignment.bottomLeft,
+                        child: Padding(
+                          padding: const EdgeInsets.only(left: 45, bottom: 10),
+                          child: Text(
+                            widget.className,
+                            style: TextStyle(
+                              color: Colors.white,
+                              fontSize: isCollapsed ? 18 : 20,
+                              fontWeight: FontWeight.bold,
+                            ),
+                          ),
+                        ),
+                      ),
+                    ],
+                  );
+                },
+              ),
+              leading: IconButton(
+                icon: const Icon(Icons.arrow_back_ios_new,
+                    size: 16, color: Colors.white),
+                onPressed: () {
+                  Navigator.pop(context);
+                },
+              ),
             ),
-            leading: IconButton(
-              icon: const Icon(Icons.arrow_back_ios_new, size: 16, color: Colors.white),
-              onPressed: () {
-                Navigator.pop(context);
-              },
-            ),
-          ),
           ];
         },
         body: FutureBuilder<SubjectListModel?>(
@@ -113,7 +131,7 @@ class _SubjectListState extends State<SubjectList> {
                 snapshot.data!.subjects!.isEmpty) {
               return const Center(child: Text("No subjects found"));
             }
-      
+
             return CustomScrollView(
               slivers: [
                 SliverList(
@@ -154,7 +172,8 @@ class _SubjectListState extends State<SubjectList> {
                                     width: 110,
                                     height: 80,
                                     fit: BoxFit.cover,
-                                    placeholder: (context, url) => Shimmer.fromColors(
+                                    placeholder: (context, url) =>
+                                        Shimmer.fromColors(
                                       baseColor: Colors.grey[300]!,
                                       highlightColor: Colors.grey[100]!,
                                       child: Container(
@@ -163,7 +182,8 @@ class _SubjectListState extends State<SubjectList> {
                                         color: Colors.white,
                                       ),
                                     ),
-                                    errorWidget: (context, url, error) => Image.asset(
+                                    errorWidget: (context, url, error) =>
+                                        Image.asset(
                                       'assets/images/onboarding1.jpg',
                                       width: 110,
                                       height: 80,
