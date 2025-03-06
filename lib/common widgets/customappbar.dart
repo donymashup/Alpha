@@ -28,8 +28,18 @@ class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
       ),
       backgroundColor: AppConstant.backgroundColor,
       actions: [
+        // Static Icon (Just for display, no button functionality)
         Padding(
-          padding: const EdgeInsets.only(right: 10.0), // Add padding to the right
+          padding: const EdgeInsets.only(right: 10.0),
+          child: Image.asset(
+            'assets/icons/alphalogoapp1.png', 
+            height: 30,
+            width: 30,
+          ),
+        ),
+        // Notification Icon
+        Padding(
+          padding: const EdgeInsets.only(right: 10.0),
           child: IconButton(
             icon: Container(
               decoration: const BoxDecoration(
@@ -51,8 +61,9 @@ class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
             },
           ),
         ),
+        // Profile Icon
         Padding(
-          padding: const EdgeInsets.only(right: 15.0), // Added padding for better spacing
+          padding: const EdgeInsets.only(right: 15.0),
           child: GestureDetector(
             onTap: () {
               Navigator.push(
