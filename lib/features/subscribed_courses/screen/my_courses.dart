@@ -1,7 +1,6 @@
 import 'package:alpha/common%20widgets/customappbar.dart';
 import 'package:alpha/features/drawermenu/screens/drawer.dart';
 import 'package:alpha/constants/app_constants.dart';
-import 'package:alpha/features/course_detailed/screens/course_detail.dart';
 import 'package:alpha/features/subscribed_courses/screen/class_list.dart';
 import 'package:alpha/features/subscribed_courses/services/user_subscriptions_services.dart';
 import 'package:alpha/models/user_subscriptions_model.dart';
@@ -55,12 +54,11 @@ class _MyCoursesState extends State<MyCourses> {
                       context,
                       MaterialPageRoute(
                         builder: (context) => ClassList(
-                            courseId: course.courseDetails!.courseListId!,
-                            courseName: course.courseDetails?.courseListName ??
-                                "Course Name",
-                            batchId: course.courseDetails!.batchListId!,
-                            courseImage: course.courseDetails?.courseListImage ?? "assets/images/course1.png",
-                            ),
+                          courseId: course.courseDetails!.courseListId!,
+                          courseName: course.courseDetails?.courseListName ?? "Course Name",
+                          batchId: course.courseDetails!.batchListId!,
+                          courseImage: course.courseDetails?.courseListImage ?? "assets/images/course1.png",
+                        ),
                       ),
                     );
                   },
@@ -75,29 +73,32 @@ class _MyCoursesState extends State<MyCourses> {
                       padding: const EdgeInsets.all(8.0),
                       child: Column(
                         children: [
-                          ClipRRect(
-                            borderRadius: const BorderRadius.horizontal(
-                              left: Radius.circular(10),
-                            ),
-                            child:CachedNetworkImage(
-                            imageUrl: course.courseDetails?.courseListImage ?? "",
-                            width: double.infinity,
-                            fit: BoxFit.cover,
-                            placeholder: (context, url) => Shimmer.fromColors(
-                              baseColor: Colors.grey[300]!,
-                              highlightColor: Colors.grey[100]!,
-                              child: Container(
+                          Hero(
+                            tag: "courseImage-${course.courseDetails!.courseListId!}", // Hero tag
+                            child: ClipRRect(
+                              borderRadius: const BorderRadius.horizontal(
+                                left: Radius.circular(10),
+                              ),
+                              child: CachedNetworkImage(
+                                imageUrl: course.courseDetails?.courseListImage ?? "",
                                 width: double.infinity,
-                                height: 150, 
-                                color: Colors.white,
+                                fit: BoxFit.cover,
+                                placeholder: (context, url) => Shimmer.fromColors(
+                                  baseColor: Colors.grey[300]!,
+                                  highlightColor: Colors.grey[100]!,
+                                  child: Container(
+                                    width: double.infinity,
+                                    height: 150,
+                                    color: Colors.white,
+                                  ),
+                                ),
+                                errorWidget: (context, url, error) => Image.asset(
+                                  "assets/images/course1.png",
+                                  width: double.infinity,
+                                  fit: BoxFit.cover,
+                                ),
                               ),
                             ),
-                            errorWidget: (context, url, error) => Image.asset(
-                              "assets/images/course1.png",
-                              width: double.infinity,
-                              fit: BoxFit.cover,
-                            ),
-                          ),
                           ),
                           const SizedBox(height: 5),
                           Row(
@@ -105,8 +106,7 @@ class _MyCoursesState extends State<MyCourses> {
                             children: [
                               Flexible(
                                 child: Text(
-                                  course.courseDetails?.courseListName ??
-                                      "Course Name",
+                                  course.courseDetails?.courseListName ?? "Course Name",
                                   style: const TextStyle(
                                     fontSize: 15,
                                     fontWeight: FontWeight.bold,
@@ -116,11 +116,7 @@ class _MyCoursesState extends State<MyCourses> {
                               ),
                               Row(
                                 children: [
-                                  const Icon(
-                                    Icons.star,
-                                    color: Colors.amber,
-                                    size: 15,
-                                  ),
+                                  const Icon(Icons.star, color: Colors.amber, size: 15),
                                   const SizedBox(width: 5),
                                   Text(
                                     course.avgStars?.toString() ?? "0.0",

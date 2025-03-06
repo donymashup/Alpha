@@ -112,10 +112,15 @@ class _ClassListState extends State<ClassList> {
                   snapshot.data!.classes!.isEmpty) {
                 return const Center(child: Text("No classes found"));
               }
+
               return ListView.builder(
                 itemCount: snapshot.data!.classes!.length,
                 itemBuilder: (context, index) {
                   final list = snapshot.data!.classes![index];
+
+                  // Debugging: Check if class images are fetched
+                  print("Class Image URL: ${list.classImage}");
+
                   return GestureDetector(
                     onTap: () {
                       Navigator.push(
@@ -150,11 +155,15 @@ class _ClassListState extends State<ClassList> {
                                 left: Radius.circular(10),
                               ),
                               child: CachedNetworkImage(
-                                imageUrl: list.classImage ?? "",
+                                imageUrl: (list.classImage != null &&
+                                        list.classImage!.isNotEmpty)
+                                    ? list.classImage!
+                                    : "https://via.placeholder.com/150", // Fallback image
                                 height: 100,
                                 width: 150,
                                 fit: BoxFit.cover,
-                                placeholder: (context, url) => Shimmer.fromColors(
+                                placeholder: (context, url) =>
+                                    Shimmer.fromColors(
                                   baseColor: Colors.grey[300]!,
                                   highlightColor: Colors.grey[100]!,
                                   child: Container(
@@ -163,7 +172,8 @@ class _ClassListState extends State<ClassList> {
                                     color: Colors.white,
                                   ),
                                 ),
-                                errorWidget: (context, url, error) => Image.asset(
+                                errorWidget: (context, url, error) =>
+                                    Image.asset(
                                   "assets/images/course1.png",
                                   height: 100,
                                   width: 150,
@@ -174,7 +184,7 @@ class _ClassListState extends State<ClassList> {
                             const SizedBox(width: 10),
                             Expanded(
                               child: Text(
-                                list.className ?? "Course Name",
+                                list.className ?? "Class Name",
                                 style: const TextStyle(
                                   fontSize: 15,
                                   fontWeight: FontWeight.bold,
