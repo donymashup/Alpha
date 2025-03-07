@@ -66,10 +66,24 @@ void _loadChapters() async {
                 return Stack(
                   fit: StackFit.expand,
                   children: [
-                    Image.network(
-                      widget.sublectImage,
-                      fit: BoxFit.cover,
-                    ),
+                    Hero(
+                        tag:"subjectImage-${widget.subjectId}",
+                        child: CachedNetworkImage(
+                          imageUrl: widget.sublectImage,
+                          fit: BoxFit.cover,
+                          placeholder: (context, url) => Shimmer.fromColors(
+                            baseColor: Colors.grey[300]!,
+                            highlightColor: Colors.grey[100]!,
+                            child: Container(
+                              color: Colors.white,
+                            ),
+                          ),
+                          errorWidget: (context, url, error) => Image.asset(
+                            'assets/images/onboarding1.jpg',
+                            fit: BoxFit.cover,
+                          ),
+                        ),
+                      ),
                     Container(
                       decoration: BoxDecoration(
                         gradient: LinearGradient(
@@ -162,19 +176,22 @@ void _loadChapters() async {
                           leading: ClipRRect(
                             borderRadius: BorderRadius.circular(3),
                             child: 
-                            CachedNetworkImage(
-                              imageUrl: list.chaptersImage ?? "",
-                              placeholder: (context, url) => Shimmer.fromColors(
-                              baseColor: Colors.grey[300]!,
-                              highlightColor: Colors.grey[100]!,
-                              child: Container(
-                                width: 50, // Set fixed width and height
-                                height: 50,
-                                color: Colors.white,
+                            Hero(
+                              tag: "chapterImage-${list.chaptersId}",
+                              child: CachedNetworkImage(
+                                imageUrl: list.chaptersImage ?? "",
+                                placeholder: (context, url) => Shimmer.fromColors(
+                                baseColor: Colors.grey[300]!,
+                                highlightColor: Colors.grey[100]!,
+                                child: Container(
+                                  width: 50, // Set fixed width and height
+                                  height: 50,
+                                  color: Colors.white,
+                                ),
                               ),
-                            ),
-                              errorWidget: (context, url, error) => Image.asset("assets/images/course1.png", fit: BoxFit.cover),
-                              fit: BoxFit.cover,
+                                errorWidget: (context, url, error) => Image.asset("assets/images/course1.png", fit: BoxFit.cover),
+                                fit: BoxFit.cover,
+                              ),
                             ),
                           ),
                           onTap: () {

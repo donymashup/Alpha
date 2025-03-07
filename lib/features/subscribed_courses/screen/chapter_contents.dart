@@ -2,7 +2,9 @@ import 'package:alpha/features/subscribed_courses/services/user_subscriptions_se
 import 'package:alpha/features/subscribed_courses/widgets/materials_section.dart';
 import 'package:alpha/features/subscribed_courses/widgets/practice_test_section.dart';
 import 'package:alpha/features/subscribed_courses/widgets/videos_section.dart';
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
+import 'package:shimmer/shimmer.dart';
 
 class ChapterContents extends StatefulWidget {
   final String chapterImage;
@@ -45,10 +47,24 @@ class _ChapterContentsState extends State<ChapterContents> {
                   fit: StackFit.expand,
                   children: [
               
-                    Image.network(
-                          widget.chapterImage,
+                     Hero(
+                        tag:"chapterImage-${widget.chapterId}",
+                        child: CachedNetworkImage(
+                          imageUrl: widget.chapterImage,
                           fit: BoxFit.cover,
+                          placeholder: (context, url) => Shimmer.fromColors(
+                            baseColor: Colors.grey[300]!,
+                            highlightColor: Colors.grey[100]!,
+                            child: Container(
+                              color: Colors.white,
+                            ),
+                          ),
+                          errorWidget: (context, url, error) => Image.asset(
+                            'assets/images/onboarding1.jpg',
+                            fit: BoxFit.cover,
+                          ),
                         ),
+                      ),
 
                     Container(
                       decoration: BoxDecoration(

@@ -59,7 +59,7 @@ class _SubjectListState extends State<SubjectList> {
                     children: [
                       // Background Image
                       Hero(
-                        tag: widget.classImage,
+                        tag:"classImage-${widget.classId}",
                         child: CachedNetworkImage(
                           imageUrl: widget.classImage,
                           fit: BoxFit.cover,
@@ -167,27 +167,30 @@ class _SubjectListState extends State<SubjectList> {
                               children: [
                                 ClipRRect(
                                   borderRadius: BorderRadius.circular(8),
-                                  child: CachedNetworkImage(
-                                    imageUrl: subject.subjectImage ?? "",
-                                    width: 110,
-                                    height: 80,
-                                    fit: BoxFit.cover,
-                                    placeholder: (context, url) =>
-                                        Shimmer.fromColors(
-                                      baseColor: Colors.grey[300]!,
-                                      highlightColor: Colors.grey[100]!,
-                                      child: Container(
-                                        width: 110,
-                                        height: 80,
-                                        color: Colors.white,
-                                      ),
-                                    ),
-                                    errorWidget: (context, url, error) =>
-                                        Image.asset(
-                                      'assets/images/onboarding1.jpg',
+                                  child: Hero(
+                                    tag: "subjectImage-${subject.subjectId}",
+                                    child: CachedNetworkImage(
+                                      imageUrl: subject.subjectImage ?? "",
                                       width: 110,
                                       height: 80,
                                       fit: BoxFit.cover,
+                                      placeholder: (context, url) =>
+                                          Shimmer.fromColors(
+                                        baseColor: Colors.grey[300]!,
+                                        highlightColor: Colors.grey[100]!,
+                                        child: Container(
+                                          width: 110,
+                                          height: 80,
+                                          color: Colors.white,
+                                        ),
+                                      ),
+                                      errorWidget: (context, url, error) =>
+                                          Image.asset(
+                                        'assets/images/onboarding1.jpg',
+                                        width: 110,
+                                        height: 80,
+                                        fit: BoxFit.cover,
+                                      ),
                                     ),
                                   ),
                                 ),
