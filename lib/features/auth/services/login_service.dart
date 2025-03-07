@@ -6,10 +6,12 @@ import 'package:alpha/common%20widgets/bottom_navigation_bar.dart';
 import 'package:alpha/constants/app_constants.dart';
 import 'package:alpha/constants/config.dart';
 import 'package:alpha/constants/utils.dart';
+import 'package:alpha/controllers/user_controller.dart';
 import 'package:alpha/models/login_model.dart';
 import 'package:alpha/models/user_details_model.dart';
 import 'package:alpha/features/auth/screen/login.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:http/http.dart' as http;
 import 'package:shared_preferences/shared_preferences.dart';
 
@@ -93,17 +95,35 @@ class AuthService {
   }
 
   // Handle login success
-  Future<void> _handleLoginSuccess(
-      BuildContext context, LoginModel loginModel) async {
-    _showSnackbar(context, 'Login success');
-    final prefs = await SharedPreferences.getInstance();
-    await prefs.setString('userId', loginModel.userid!);
-    await prefs.setBool('isLoggedIn', true); // Save login status
-    final userId = prefs.getString('userId');
-    if (userId != null) {
-      await getUserDetails(userId: userId, context: context);
+  // Future<void> _handleLoginSuccess(
+  //     BuildContext context, LoginModel loginModel) async {
+  //   _showSnackbar(context, 'Login success');
+  //   final prefs = await SharedPreferences.getInstance();
+  //   await prefs.setString('userId', loginModel.userid!);
+  //   await prefs.setBool('isLoggedIn', true); // Save login status
+  //   final userId = prefs.getString('userId');
+  //   if (userId != null) {
+  //     await getUserDetails(userId: userId, context: context);
+  //   }
+  // }
+  // Handle login success
+Future<void> _handleLoginSuccess(BuildContext context, LoginModel loginModel) async {
+  _showSnackbar(context, 'Login success');
+  final prefs = await SharedPreferences.getInstance();
+  await prefs.setString('userId', loginModel.userid!);
+  await prefs.setBool('isLoggedIn', true);
+  final userId = prefs.getString('userId');
+  
+  if (userId != null) {
+    final userDetails = await getUserDetails(userId: userId, context: context);
+    if (userDetails != null) {
+      // Update UserController with the fetched user details
+      final userController = Get.find<UserController>();
+      userController.updateUserDetails(userDetails);
     }
   }
+}
+
 
   // Handle error
   void _handleError(BuildContext context, String message) {
