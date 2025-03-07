@@ -19,8 +19,17 @@ class SearchField extends StatelessWidget {
         children: [
           Expanded(
             child: TextField(
+              readOnly: true,
+            onTap: () {
+              Navigator.push(
+                context,
+                MaterialPageRoute(
+                  builder: (context) => ChatGptScreen(),
+                ),
+              );
+            },
               decoration: InputDecoration(
-                hintText: "Search here...",
+                hintText: "Ask anything here...",
                 hintStyle: TextStyle(color: AppConstant.hindColor),
                 border: InputBorder.none,
                 contentPadding: const EdgeInsets.symmetric(
@@ -40,23 +49,12 @@ class SearchField extends StatelessWidget {
               },
             ),
           ),
-          GestureDetector(
-            onTap: () {
-              // Navigate to another page
-              Navigator.push(
-                context,
-                MaterialPageRoute(
-                    builder: (context) =>
-                        ChatGptScreen()), // Replace with your page
-              );
-            },
-            child: Padding(
-              padding: const EdgeInsets.all(8.0), // Add padding for alignment
-              child: Image.asset(
-                'assets/icons/aigpt_icon.png',
-                height: 34,
-                width: 34,
-              ),
+          Padding(
+            padding: const EdgeInsets.all(8.0), 
+            child: Image.asset(
+              'assets/icons/aigpt_icon.png',
+              height: 34,
+              width: 34,
             ),
           ),
         ],

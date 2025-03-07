@@ -1,3 +1,4 @@
+import 'package:alpha/models/user_details_model.dart';
 import 'package:get/get.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
@@ -12,12 +13,26 @@ class UserController extends GetxController {
     loadUsername();
     loadProfilePicture();
     loadUserId();
+    loadUserData();
   }
 
   /// Loads the username from SharedPreferences
   Future<void> loadUsername() async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
     username.value = prefs.getString('firstName') ?? 'User';
+  }
+
+  Future<void> loadUserData() async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    username.value = prefs.getString('firstName') ?? 'User';
+    userId.value = prefs.getString('userId') ?? '0';
+    profilePictureUrl.value = prefs.getString('image');
+  }
+ // Method to update user details dynamically
+  void updateUserDetails(UserDetailsModel userDetails) {
+    username.value = userDetails.user!.firstName!;
+    profilePictureUrl.value = userDetails.user!.image!;
+    update(); // Force UI update
   }
 
   /// Loads the userId from SharedPreferences

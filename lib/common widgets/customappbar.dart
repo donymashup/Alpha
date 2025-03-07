@@ -8,36 +8,31 @@ import 'package:get/get.dart';
 
 class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
   final String appbarTitle;
-  final UserController userController;
+  final UserController userController = Get.put(UserController());
 
-  CustomAppBar({
-    required this.appbarTitle,
-    super.key,
-  }) : userController = Get.put(UserController());
+  CustomAppBar({required this.appbarTitle, super.key});
 
   @override
   Widget build(BuildContext context) {
     return AppBar(
-      title: Text(
-        appbarTitle,
-        style: TextStyle(
-          color: AppConstant.titlecolor,
-          fontSize: 18,
-          fontWeight: FontWeight.bold,
-        ),
-      ),
+      title: Obx(() => Text(
+            userController.username.value, // Updated name
+            style: TextStyle(
+              color: AppConstant.titlecolor,
+              fontSize: 18,
+              fontWeight: FontWeight.bold,
+            ),
+          )),
       backgroundColor: AppConstant.backgroundColor,
       actions: [
-        // Static Icon (Just for display, no button functionality)
         Padding(
           padding: const EdgeInsets.only(right: 10.0),
           child: Image.asset(
-            'assets/icons/alphalogoapp1.png', 
+            'assets/icons/alphalogoapp1.png',
             height: 30,
             width: 30,
           ),
         ),
-        // Notification Icon
         Padding(
           padding: const EdgeInsets.only(right: 10.0),
           child: IconButton(
@@ -61,7 +56,6 @@ class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
             },
           ),
         ),
-        // Profile Icon
         Padding(
           padding: const EdgeInsets.only(right: 15.0),
           child: GestureDetector(
