@@ -3,6 +3,7 @@ import 'package:alpha/constants/config.dart';
 import 'package:alpha/constants/utils.dart';
 import 'package:alpha/models/chapter_list_model.dart';
 import 'package:alpha/models/classs_list_model.dart';
+import 'package:alpha/models/common_model.dart';
 import 'package:alpha/models/material_model.dart';
 import 'package:alpha/models/practice_test_model.dart';
 import 'package:alpha/models/subject_list_model.dart';
@@ -149,6 +150,62 @@ class UserSubscriptionsServices {
       successMessage: 'Practice test list fetched successfully',
       failureMessage: 'Failed to fetch practice test list',
     );
+  }
+
+  Future<void> insertTimelineActivity({
+    required String userId,
+    required String contentId,
+    required String type,
+  }) async {
+    try {
+      var request = http.MultipartRequest(
+          'POST', Uri.parse('$baseUrl$insertTimelineActivityUrl'));
+      request.fields.addAll({
+        'userid': userId,
+        'contentid': contentId,
+        'type': type,
+      });
+
+      http.StreamedResponse response = await request.send();
+      if (response.statusCode == 200) {
+        print('Timeline activity inserted successfully');
+      } else {
+        print('Failed to insert timeline activity: ${response.statusCode}');
+      }
+    } catch (e) {
+      print('Error inserting timeline activity: $e');
+    }
+  }
+
+  Future<CommonModel> createUserCourseReview({
+    required String userId,
+    required String courseid,
+    required String review,
+    required String rating,
+  }) async {
+    try {
+      var request = http.MultipartRequest(
+          'POST', Uri.parse('$baseUrl$addCourseRatingUrl'));
+      request.fields.addAll({
+        'userid': userId,
+        'courseid': courseid,
+        'review': review,
+        'rating': rating,
+      });
+
+      http.StreamedResponse response = await request.send();
+      if (response.statusCode == 200) {
+        var responseBody = await response.stream.bytesToString();
+        final jsonResponse = json.decode(responseBody);
+        return CommonModel.fromJson(jsonResponse);
+      } else {
+        print('Failed to add course review: ${response.statusCode}');
+        throw Exception('Failed to add course review');
+      }
+    } catch (e) {
+      print('Error adding course review: $e');
+      throw Exception('Error adding course review');
+    }
   }
 
   Future<T?> _fetchData<T>({

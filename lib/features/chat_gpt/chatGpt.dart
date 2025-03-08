@@ -27,10 +27,10 @@ class _ChatGptScreenState extends State<ChatGptScreen> {
       enableLog: true);
 
   final ChatUser _user = ChatUser(
-    profileImage: 'https://example.com/user_image.png',
-    id: '1',
-    firstName: 'John',
-    lastName: 'Doe',
+    profileImage: userData.image,
+    id: userData.userid,
+    firstName: userData.firstName,
+    lastName: userData.lastName,
   );
 
   final ChatUser _gptChatUser = ChatUser(

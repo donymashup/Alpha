@@ -227,11 +227,11 @@ class _CalendarSchedulePageState extends State<CalendarSchedulePage> {
                       Color itemColor;
 
                       switch (item.type) {
-                        case 'vedios':
+                        case 'videos':
                           itemIcon = Icons.play_circle_fill;
                           itemColor = AppConstant.orangedot;
                           break;
-                        case 'material':
+                        case 'materials':
                           itemIcon = Icons.book;
                           itemColor = AppConstant.reddot;
                           break;
@@ -283,6 +283,8 @@ class _CalendarSchedulePageState extends State<CalendarSchedulePage> {
                                   const SizedBox(height: 4),
                                   Text(
                                     item.description ?? 'description',
+                                    maxLines: 1,
+                                    overflow: TextOverflow.ellipsis,
                                     style: const TextStyle(
                                       color: Colors.black87,
                                       fontSize: 14,

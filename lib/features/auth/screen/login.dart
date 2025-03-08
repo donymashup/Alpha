@@ -19,6 +19,22 @@ class _LoginState extends State<Login> {
   String? countryCode;
   final TextEditingController passwordController = TextEditingController();
   bool _isLoading = false;
+  bool _isRegEnabled = false;
+
+  initState() {
+    super.initState();
+    _isRegistrationEnabled();
+    // Add listeners to this class
+  }
+
+  _isRegistrationEnabled() async {
+    var res = await AuthService().isRegistrationEnabled();
+    if (res.type == 'success') {
+      setState(() {
+        _isRegEnabled = true;
+      });
+    }
+  }
 
   Future<void> handleLogin() async {
     setState(() {
@@ -148,7 +164,8 @@ class _LoginState extends State<Login> {
                               });
                             },
                             onCountryChanged: (country) {
-                              debugPrint('Country changed to: ${country.dialCode}');
+                              debugPrint(
+                                  'Country changed to: ${country.dialCode}');
                               setState(() {
                                 countryCode = country.dialCode;
                               });
@@ -191,20 +208,23 @@ class _LoginState extends State<Login> {
                     ),
 
                     const SizedBox(height: 20),
-                    TextButton(
-                      onPressed: () {
-                        Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                              builder: (context) => RegistrationScreen()),
-                        );
-                      },
-                      child: const Text(
-                        "Don't have an account? Sign Up",
-                        style: TextStyle(
-                          fontSize: 16,
-                          fontWeight: FontWeight.w500,
-                          color: Colors.black, // Customize color
+                    Visibility(
+                      visible: _isRegEnabled,
+                      child: TextButton(
+                        onPressed: () {
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                                builder: (context) => RegistrationScreen()),
+                          );
+                        },
+                        child: const Text(
+                          "Don't have an account? Sign Up",
+                          style: TextStyle(
+                            fontSize: 16,
+                            fontWeight: FontWeight.w500,
+                            color: Colors.black, // Customize color
+                          ),
                         ),
                       ),
                     )

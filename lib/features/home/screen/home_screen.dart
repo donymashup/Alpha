@@ -10,6 +10,7 @@ import 'package:alpha/features/home/widgets/course_list.dart';
 import 'package:alpha/features/home/widgets/custom_Image_Button.dart';
 import 'package:alpha/features/home/widgets/header_list.dart';
 import 'package:alpha/features/home/widgets/search_field.dart';
+import 'package:alpha/features/subscribed_courses/screen/class_list.dart';
 import 'package:alpha/models/available_courses_model.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
@@ -146,15 +147,34 @@ class _HomeScreenState extends State<HomeScreen> {
               final course = courses[index];
               return GestureDetector(
                 onTap: () {
+                  debugPrint("Course ID: ${course.courseDetails!.id!}");
+                  debugPrint("Course batchid: ${course.batchid!}");
+                  debugPrint("Course subscribed: ${course.subscribed}");
                   if (course.courseDetails != null) {
-                    Get.find<CourseController>()
-                        .setCourse(course!.courseDetails!);
-                    Get.to(() => AnimatedTabBarScreen(
-                        isSubscribed: false,
-                        heroImage: course.courseDetails!.image!,
-                        courseId: course.courseDetails!.id!,
-                        heroImageTag:
-                            "imageCourse-${course.courseDetails?.id}"));
+                    if (course.subscribed! != true) {
+                      Get.find<CourseController>()
+                          .setCourse(course!.courseDetails!);
+                      Get.to(() => AnimatedTabBarScreen(
+                          isSubscribed: course.subscribed!,
+                          heroImage: course.courseDetails!.image!,
+                          courseId: course.courseDetails!.id!,
+                          heroImageTag:
+                              "imageCourse-${course.courseDetails?.id}"));
+                    } else {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) => ClassList(
+                            courseId: course.courseDetails!.id!,
+                            courseName:
+                                course.courseDetails?.name ?? "Course Name",
+                            batchId: course.batchid!,
+                            courseImage: course.courseDetails?.image ??
+                                "assets/images/course1.png",
+                          ),
+                        ),
+                      );
+                    }
                   }
                 },
                 child: Card(

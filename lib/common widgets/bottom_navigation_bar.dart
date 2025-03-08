@@ -37,74 +37,75 @@ class _CustomBottomNavigationState extends State<CustomBottomNavigation> {
 
   @override
   void initState() {
-    // TODO: implement initState
     super.initState();
-
     fetchUserDetails();
   }
 
-  /// Fetch user details from API and update UI
   Future<void> fetchUserDetails() async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
-    String? userId = prefs.getString("userId");
+    String? userId = prefs.getString('userId');
 
     if (userId != null) {
       UserDetailsModel? details = await AuthService()
-          .getUserDetails(
-        userId: userId,
-        context: context,
-      )
+          .getUserDetails(userId: userId, context: context)
           .then((value) {
-        if (!mounted) return null;
-        setState(() => isLoading = false);
-        return value;
+        if (value?.type == "success") {
+          setState(() => isLoading = false);
+        } else {
+          AuthService().logout(context);
+        }
       }).catchError((error) {
-        // Handle error, e.g., logout
         AuthService().logout(context);
       });
     } else {
       print("User ID not found in SharedPreferences");
+      AuthService().logout(context);
     }
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: _widgetOptions.elementAt(_selectedIndex),
-      bottomNavigationBar: SafeArea(
-        child: Container(
-          color: AppConstant.backgroundColor,
-          padding: const EdgeInsets.symmetric(horizontal: 15, vertical: 8),
-          child: GNav(
-            gap: 8,
-            activeColor: AppConstant.primaryColor2,
-            color: Colors.grey,
-            backgroundColor: AppConstant.backgroundColor,
-            tabBackgroundColor: AppConstant.primaryColor2.withAlpha(50),
-            padding: const EdgeInsets.all(16),
-            onTabChange: _onItemTapped,
-            selectedIndex: _selectedIndex,
-            tabs: const [
-              GButton(
-                icon: Icons.home,
-                text: 'Home',
+      body: isLoading
+          ? const Center(child: CircularProgressIndicator())
+          : _widgetOptions.elementAt(_selectedIndex),
+      bottomNavigationBar: isLoading
+          ? null
+          : SafeArea(
+              child: Container(
+                color: AppConstant.backgroundColor,
+                padding:
+                    const EdgeInsets.symmetric(horizontal: 15, vertical: 8),
+                child: GNav(
+                  gap: 8,
+                  activeColor: AppConstant.primaryColor2,
+                  color: Colors.grey,
+                  backgroundColor: AppConstant.backgroundColor,
+                  tabBackgroundColor: AppConstant.primaryColor2.withAlpha(50),
+                  padding: const EdgeInsets.all(16),
+                  onTabChange: _onItemTapped,
+                  selectedIndex: _selectedIndex,
+                  tabs: const [
+                    GButton(
+                      icon: Icons.home,
+                      text: 'Home',
+                    ),
+                    GButton(
+                      icon: Icons.school_outlined,
+                      text: 'My Courses',
+                    ),
+                    GButton(
+                      icon: Icons.live_tv,
+                      text: 'Live',
+                    ),
+                    GButton(
+                      icon: FluentIcons.clipboard_task_list_16_regular,
+                      text: 'Test Series',
+                    ),
+                  ],
+                ),
               ),
-              GButton(
-                icon: Icons.school_outlined,
-                text: 'My Courses',
-              ),
-              GButton(
-                icon: Icons.live_tv,
-                text: 'Live',
-              ),
-              GButton(
-                icon: FluentIcons.clipboard_task_list_16_regular,
-                text: 'Test Series',
-              ),
-            ],
-          ),
-        ),
-      ),
+            ),
     );
   }
 }

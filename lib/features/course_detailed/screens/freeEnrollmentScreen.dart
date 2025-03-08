@@ -1,3 +1,4 @@
+import 'package:alpha/constants/app_constants.dart';
 import 'package:alpha/features/course_detailed/services/course_details_services.dart';
 import 'package:alpha/features/course_detailed/widgets/paymentFailedWidget.dart';
 import 'package:alpha/features/course_detailed/widgets/paymentSuccessfull.dart';
@@ -33,12 +34,13 @@ class _FreeEnrollmentScreenState extends State<FreeEnrollmentScreen> {
   }
 
   void _enrollStudent() {
+    debugPrint("Enrolling student");
     _courseDetailsService
         .freeEnrollment(
       context: context,
       courseId: widget.courseid,
       promo: widget.promo_code,
-      userId: 'userId', // Replace with actual userId
+      userId: userData.userid, // Replace with actual userId
       amount: widget.amount,
     )
         .then((value) {

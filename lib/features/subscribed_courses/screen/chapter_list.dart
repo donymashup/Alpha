@@ -1,5 +1,5 @@
 import 'package:alpha/constants/config.dart';
-import 'package:alpha/features/subscribed_courses/screen/chapter_contents.dart';
+import 'package:alpha/features/subscribed_courses/screen/chapter_content.dart';
 import 'package:alpha/features/subscribed_courses/services/user_subscriptions_services.dart';
 import 'package:alpha/models/chapter_list_model.dart';
 import 'package:cached_network_image/cached_network_image.dart';
@@ -31,23 +31,22 @@ class ChapterList extends StatefulWidget {
 class _ChapterListState extends State<ChapterList> {
   late Future<ChapterListModel?> _chapterList;
 
- 
-@override
-void initState() {
-  super.initState();
-  _loadChapters();
-}
+  @override
+  void initState() {
+    super.initState();
+    _loadChapters();
+  }
 
-void _loadChapters() async {
-  _chapterList = UserSubscriptionsServices().getSubjectChapterList(
-    context: context,
-    classId: widget.classId,
-    packageId: widget.packageId,
-    batchId: widget.batchId,
-    subjectId: widget.subjectId,
-  );
-  setState(() {}); // Ensure UI updates when data is available
-}
+  void _loadChapters() async {
+    _chapterList = UserSubscriptionsServices().getSubjectChapterList(
+      context: context,
+      classId: widget.classId,
+      packageId: widget.packageId,
+      batchId: widget.batchId,
+      subjectId: widget.subjectId,
+    );
+    setState(() {}); // Ensure UI updates when data is available
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -67,23 +66,23 @@ void _loadChapters() async {
                   fit: StackFit.expand,
                   children: [
                     Hero(
-                        tag:"subjectImage-${widget.subjectId}",
-                        child: CachedNetworkImage(
-                          imageUrl: widget.sublectImage,
-                          fit: BoxFit.cover,
-                          placeholder: (context, url) => Shimmer.fromColors(
-                            baseColor: Colors.grey[300]!,
-                            highlightColor: Colors.grey[100]!,
-                            child: Container(
-                              color: Colors.white,
-                            ),
-                          ),
-                          errorWidget: (context, url, error) => Image.asset(
-                            'assets/images/onboarding1.jpg',
-                            fit: BoxFit.cover,
+                      tag: "subjectImage-${widget.subjectId}",
+                      child: CachedNetworkImage(
+                        imageUrl: widget.sublectImage,
+                        fit: BoxFit.cover,
+                        placeholder: (context, url) => Shimmer.fromColors(
+                          baseColor: Colors.grey[300]!,
+                          highlightColor: Colors.grey[100]!,
+                          child: Container(
+                            color: Colors.white,
                           ),
                         ),
+                        errorWidget: (context, url, error) => Image.asset(
+                          'assets/images/onboarding1.jpg',
+                          fit: BoxFit.cover,
+                        ),
                       ),
+                    ),
                     Container(
                       decoration: BoxDecoration(
                         gradient: LinearGradient(
@@ -115,7 +114,8 @@ void _loadChapters() async {
               },
             ),
             leading: IconButton(
-              icon: const Icon(Icons.arrow_back_ios_new, size: 16, color: Colors.white),
+              icon: const Icon(Icons.arrow_back_ios_new,
+                  size: 16, color: Colors.white),
               onPressed: () {
                 Navigator.pop(context);
               },
@@ -151,7 +151,8 @@ void _loadChapters() async {
                 }
                 return ListView.builder(
                   shrinkWrap: true, // Important for SliverToBoxAdapter
-                  physics: NeverScrollableScrollPhysics(), // Avoid nested scrolling issues
+                  physics:
+                      NeverScrollableScrollPhysics(), // Avoid nested scrolling issues
                   padding: const EdgeInsets.all(3),
                   itemCount: snapshot.data!.chapters!.length,
                   itemBuilder: (context, index) {
@@ -175,21 +176,23 @@ void _loadChapters() async {
                           ),
                           leading: ClipRRect(
                             borderRadius: BorderRadius.circular(3),
-                            child: 
-                            Hero(
+                            child: Hero(
                               tag: "chapterImage-${list.chaptersId}",
                               child: CachedNetworkImage(
                                 imageUrl: list.chaptersImage ?? "",
-                                placeholder: (context, url) => Shimmer.fromColors(
-                                baseColor: Colors.grey[300]!,
-                                highlightColor: Colors.grey[100]!,
-                                child: Container(
-                                  width: 50, // Set fixed width and height
-                                  height: 50,
-                                  color: Colors.white,
+                                placeholder: (context, url) =>
+                                    Shimmer.fromColors(
+                                  baseColor: Colors.grey[300]!,
+                                  highlightColor: Colors.grey[100]!,
+                                  child: Container(
+                                    width: 50, // Set fixed width and height
+                                    height: 50,
+                                    color: Colors.white,
+                                  ),
                                 ),
-                              ),
-                                errorWidget: (context, url, error) => Image.asset("assets/images/course1.png", fit: BoxFit.cover),
+                                errorWidget: (context, url, error) =>
+                                    Image.asset("assets/images/course1.png",
+                                        fit: BoxFit.cover),
                                 fit: BoxFit.cover,
                               ),
                             ),

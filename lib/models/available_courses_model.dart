@@ -61,8 +61,8 @@ class Courses {
   String? categoryId;
   String? categoryName;
   double? avgStars;
-  // bool? subscribed;
-  // int? batchid;
+  bool? subscribed;
+  String? batchid;
   // int? enrollmentList;
 
   Courses({
@@ -70,8 +70,8 @@ class Courses {
     this.categoryId,
     this.categoryName,
     this.avgStars,
-    // this.subscribed,
-    // this.batchid,
+    this.subscribed,
+    this.batchid,
     // this.enrollmentList
   });
 
@@ -82,8 +82,8 @@ class Courses {
     categoryId = json['category_id'];
     categoryName = json['category_name'];
     avgStars = json['avg_stars'];
-    // subscribed = json['subscribed'];
-    // batchid = json['batchid'];
+    subscribed = json['subscribed'];
+    batchid = json['batchid'];
     // enrollmentList = json['enrollment_list'];
   }
 
@@ -95,8 +95,8 @@ class Courses {
     data['category_id'] = categoryId;
     data['category_name'] = categoryName;
     data['avg_stars'] = avgStars;
-    // data['subscribed'] = subscribed;
-    // data['batchid'] = batchid;
+    data['subscribed'] = subscribed;
+    data['batchid'] = batchid;
     // data['enrollment_list'] = enrollmentList;
     return data;
   }

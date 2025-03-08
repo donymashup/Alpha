@@ -5,10 +5,10 @@ import 'package:flutter/material.dart';
 class wave_widget extends StatelessWidget {
   final dynamic height;
 
-  const wave_widget({super.key, 
+  const wave_widget({
+    super.key,
     this.height,
-    });
-
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -16,7 +16,7 @@ class wave_widget extends StatelessWidget {
       clipper: WaveClipper(),
       child: Container(
         height: height,
-        color: AppConstant.primaryColor,
+        color: Colors.deepPurple,
       ),
     );
   }

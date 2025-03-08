@@ -12,7 +12,7 @@ class PaymentFailed extends StatelessWidget {
       children: [
         Center(
           child: Lottie.asset(
-            'assets/images/paymentfailed.json',
+            'assets/lottie/paymentfailed.json',
             fit: BoxFit.fill,
           ),
         ),
