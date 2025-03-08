@@ -92,7 +92,8 @@ class StartQuizSeriesInfo extends StatelessWidget {
                               IconText(
                                 iconName: Icons.question_mark_outlined,
                                 title: "$totalQuestions questions",
-                                subtitle: "1 points for each correct answer",
+                                subtitle:
+                                    "points for each correct answer is mentioned for each question",
                               ),
                               const SizedBox(height: 20),
                               IconText(
@@ -144,37 +145,39 @@ class StartQuizSeriesInfo extends StatelessWidget {
                     ),
 
                     // Start Quiz Button
-                    Padding(
-                      padding: const EdgeInsets.symmetric(
-                          horizontal: 20, vertical: 10),
-                      child: SizedBox(
-                        width: double.infinity,
-                        child: ElevatedButton(
-                          onPressed: () {
-                            Navigator.push(
-                              context,
-                              MaterialPageRoute(
-                                builder: (context) => AttendMainTestScreen(
-                                  testid: totalQuestions
-                                      .toString(), // Pass test ID here
+                    SafeArea(
+                      child: Padding(
+                        padding: const EdgeInsets.symmetric(
+                            horizontal: 20, vertical: 10),
+                        child: SizedBox(
+                          width: double.infinity,
+                          child: ElevatedButton(
+                            onPressed: () {
+                              Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                  builder: (context) => AttendMainTestScreen(
+                                    testid: totalQuestions
+                                        .toString(), // Pass test ID here
+                                  ),
                                 ),
+                              );
+                            },
+                            style: ElevatedButton.styleFrom(
+                              backgroundColor: AppConstant.buttonupdate,
+                              minimumSize: Size(
+                                  MediaQuery.of(context).size.width * 0.9, 50),
+                              shape: RoundedRectangleBorder(
+                                borderRadius: BorderRadius.circular(10),
                               ),
-                            );
-                          },
-                          style: ElevatedButton.styleFrom(
-                            backgroundColor: AppConstant.buttonupdate,
-                            minimumSize: Size(
-                                MediaQuery.of(context).size.width * 0.9, 50),
-                            shape: RoundedRectangleBorder(
-                              borderRadius: BorderRadius.circular(10),
                             ),
-                          ),
-                          child: const Text(
-                            "Start Test",
-                            style: TextStyle(
-                              fontSize: 14,
-                              fontWeight: FontWeight.bold,
-                              color: Colors.white,
+                            child: const Text(
+                              "Start Test",
+                              style: TextStyle(
+                                fontSize: 14,
+                                fontWeight: FontWeight.bold,
+                                color: Colors.white,
+                              ),
                             ),
                           ),
                         ),

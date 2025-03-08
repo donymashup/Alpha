@@ -132,10 +132,10 @@ class CourseDetailsService {
         }
 
         if (jsonResponse['type'] == 'success') {
-          showSnackbar(context, 'Enrollment successful');
+          showSnackbar(context, jsonResponse['message']);
           return PaymentErollmentDetails.fromJson(jsonResponse);
         } else {
-          showSnackbar(context, 'Enrollment failed');
+          showSnackbar(context, jsonResponse['message']);
           return null;
         }
       } else {

@@ -1,6 +1,9 @@
+import 'package:alpha/constants/config.dart';
 import 'package:alpha/features/drawermenu/screens/aboutus.dart';
 import 'package:alpha/constants/app_constants.dart';
 import 'package:alpha/features/auth/screen/logout.dart';
+import 'package:alpha/features/drawermenu/screens/privacypolicy.dart';
+import 'package:alpha/features/drawermenu/screens/terms&conditions.dart';
 import 'package:alpha/features/performance/screens/custom_peformance_message.dart';
 import 'package:alpha/features/performance/screens/student_performance_index.dart';
 import 'package:alpha/features/timeline/calendar_schedule_page.dart';
@@ -57,13 +60,13 @@ class DrawerScreen extends StatelessWidget {
                 'Phone:',
                 style: TextStyle(fontWeight: FontWeight.bold),
               ),
-              Text('+91 80785 59319'),
+              Text(phone_no),
               SizedBox(height: 8),
               Text(
                 'Email:',
                 style: TextStyle(fontWeight: FontWeight.bold),
               ),
-              Text('viratkohili@gmail.com'),
+              Text(email_id),
             ],
           ),
           actions: [
@@ -133,14 +136,20 @@ class DrawerScreen extends StatelessWidget {
               leading: const Icon(Icons.article_outlined),
               title: const Text('Terms And Conditions'),
               onTap: () {
-                Navigator.pushNamed(context, '/terms_conditions');
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(builder: (context) => TermsPage()),
+                );
               },
             ),
             ListTile(
               leading: const Icon(Icons.privacy_tip_outlined),
               title: const Text('Privacy Policy'),
               onTap: () {
-                Navigator.pushNamed(context, '/privacy_policy');
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(builder: (context) => PrivacypolicyPage()),
+                );
               },
             ),
             ListTile(
@@ -161,7 +170,23 @@ class DrawerScreen extends StatelessWidget {
                   content:
                       'Are you sure you want to delete your account? This action cannot be undone.',
                   onConfirm: () {
-                    Navigator.pushNamed(context, '/delete_account');
+                    showDialog(
+                      context: context,
+                      builder: (BuildContext context) {
+                        return AlertDialog(
+                          title: const Text('Account Deletion Initiated'),
+                          content: const Text(
+                              'Your account deletion process will be initiated in 24 hours.'),
+                          actions: [
+                            TextButton(
+                              onPressed: () =>
+                                  Navigator.pop(context), // Close dialog
+                              child: const Text('OK'),
+                            ),
+                          ],
+                        );
+                      },
+                    );
                   },
                 );
               },

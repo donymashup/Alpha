@@ -20,29 +20,31 @@ class VideoSectionWidget extends StatelessWidget {
   Widget build(BuildContext context) {
     return Padding(
       padding: const EdgeInsets.all(8.0),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          _buildSectionHeader(),
-          FutureBuilder<VideoModel?>(
-            future: fetchFunction,
-            builder: (context, snapshot) {
-              if (snapshot.connectionState == ConnectionState.waiting) {
-                return const Center(child: CircularProgressIndicator());
-              } else if (snapshot.hasError) {
-                return Center(child: Text("Error: ${snapshot.error}"));
-              } else if (!snapshot.hasData ||
-                  snapshot.data?.videos?.isEmpty == true) {
-                return const Text("No Data Available",
-                    style: TextStyle(color: Colors.grey));
-              }
+      child: SingleChildScrollView(
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            _buildSectionHeader(),
+            FutureBuilder<VideoModel?>(
+              future: fetchFunction,
+              builder: (context, snapshot) {
+                if (snapshot.connectionState == ConnectionState.waiting) {
+                  return const Center(child: CircularProgressIndicator());
+                } else if (snapshot.hasError) {
+                  return Center(child: Text("Error: ${snapshot.error}"));
+                } else if (!snapshot.hasData ||
+                    snapshot.data?.videos?.isEmpty == true) {
+                  return const Text("No Data Available",
+                      style: TextStyle(color: Colors.grey));
+                }
 
-              return _buildVideoList(
-                  snapshot.data!.videos!, context, snapshot.data);
-            },
-          ),
-          const SizedBox(height: 12), // Space after section
-        ],
+                return _buildVideoList(
+                    snapshot.data!.videos!, context, snapshot.data);
+              },
+            ),
+            const SizedBox(height: 12), // Space after section
+          ],
+        ),
       ),
     );
   }

@@ -1,4 +1,5 @@
 import 'dart:convert';
+import 'package:alpha/constants/app_constants.dart';
 import 'package:alpha/constants/config.dart';
 import 'package:alpha/constants/utils.dart';
 import 'package:alpha/models/available_courses_model.dart';
@@ -15,7 +16,7 @@ class HomeService {
     try {
       SharedPreferences prefs = await SharedPreferences.getInstance();
       String? userId = prefs.getString('userId');
-
+      debugPrint('userid ${userData.userid ?? 0}');
       final response = await _sendPostRequest(
         url: '$baseUrl$availableCourseUrl',
         fields: {'userid': userId!},

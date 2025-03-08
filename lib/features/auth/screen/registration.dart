@@ -1,11 +1,12 @@
-import 'package:alpha/common%20widgets/bottom_navigation_bar.dart';
 import 'package:alpha/constants/app_constants.dart';
-import 'package:alpha/features/auth/screen/phone_number.dart';
-import 'package:alpha/features/auth/widgets/custom_button.dart'; 
+import 'package:alpha/features/auth/screen/complete_registration.dart';
+import 'package:alpha/features/auth/services/login_service.dart';
+import 'package:alpha/features/auth/widgets/custom_button.dart';
 import 'package:alpha/features/auth/widgets/custom_textfield.dart';
-import 'package:alpha/features/auth/widgets/profile.dart';
 import 'package:alpha/features/auth/widgets/wave_widget.dart';
 import 'package:flutter/material.dart';
+import 'package:intl_phone_field/intl_phone_field.dart';
+import 'package:pinput/pinput.dart';
 
 class RegistrationScreen extends StatefulWidget {
   @override
@@ -15,8 +16,10 @@ class RegistrationScreen extends StatefulWidget {
 class _RegistrationScreenState extends State<RegistrationScreen> {
   final _formKey = GlobalKey<FormState>();
 
-  // Ensure initial value matches exactly with the dropdown list values
   String dropdownvalue = 'Class 5';
+  String? phoneNumber;
+  String? countryCode;
+  String? _otpMessage = ' ';
 
   final TextEditingController firstNameController = TextEditingController();
   final TextEditingController lastNameController = TextEditingController();
@@ -24,10 +27,17 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
   final TextEditingController classController = TextEditingController();
   final TextEditingController schoolController = TextEditingController();
   final TextEditingController passwordController = TextEditingController();
-  final TextEditingController confirmPasswordController = TextEditingController();
-  //final TextEditingController phoneController = TextEditingController();
+  final TextEditingController phoneController = TextEditingController();
+  final TextEditingController confirmPasswordController =
+      TextEditingController();
 
+  final pinController = TextEditingController();
+  final focusNode = FocusNode();
   final List<String> items = [
+    'Class 1',
+    'Class 2',
+    'Class 3',
+    'Class 4',
     'Class 5',
     'Class 6',
     'Class 7',
@@ -36,16 +46,28 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
     'Class 10',
     'Class 11',
     'Class 12',
-
   ];
+
+  static const focusedBorderColor = Color.fromRGBO(23, 171, 144, 1);
+  static const fillColor = Color.fromRGBO(243, 246, 249, 0);
+  static const borderColor = Color.fromRGBO(23, 171, 144, 0.4);
+
+  final defaultPinTheme = PinTheme(
+    width: 56,
+    height: 56,
+    textStyle:
+        const TextStyle(fontSize: 22, color: Color.fromRGBO(30, 60, 87, 1)),
+    decoration: BoxDecoration(
+      borderRadius: BorderRadius.circular(19),
+      border: Border.all(color: borderColor),
+    ),
+  );
+
+  final List<int> otpArray = [123456];
 
   void submitForm() {
     if (_formKey.currentState!.validate()) {
       print("Form Submitted Successfully!");
-      Navigator.pushReplacement(
-        context,
-        MaterialPageRoute(builder: (context) => PhoneNumberVerificationPage()),
-      );
     }
   }
 
@@ -60,12 +82,9 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
                 Opacity(
                   opacity: 0.5,
                   child: wave_widget(
-                    height: MediaQuery.of(context).size.height * 0.35,
-                  ),
+                      height: MediaQuery.of(context).size.height * 0.35),
                 ),
-                wave_widget(
-                  height: MediaQuery.of(context).size.height * 0.325,
-                ),
+                wave_widget(height: MediaQuery.of(context).size.height * 0.325),
                 Positioned(
                   top: MediaQuery.of(context).size.height * 0.05,
                   left: 0,
@@ -85,8 +104,6 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
                     ),
                   ),
                 ),
-                const SizedBox(height: 10),
-                profile(),
               ],
             ),
             const SizedBox(height: 20),
@@ -109,6 +126,35 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
                       controller: lastNameController,
                     ),
                     const SizedBox(height: 17),
+                    IntlPhoneField(
+                      controller: phoneController,
+                      decoration: InputDecoration(
+                        contentPadding: const EdgeInsets.symmetric(
+                            horizontal: 20, vertical: 18),
+                        border: OutlineInputBorder(
+                          borderRadius: BorderRadius.circular(30),
+                          borderSide:
+                              const BorderSide(color: Colors.grey, width: 1.0),
+                        ),
+                        filled: true,
+                        fillColor: Colors.white,
+                        hintText: 'Enter phone number',
+                        hintStyle: const TextStyle(color: Colors.grey),
+                      ),
+                      initialCountryCode: 'IN',
+                      keyboardType: TextInputType.number,
+                      onChanged: (phone) {
+                        setState(() {
+                          countryCode = phone.countryCode;
+                          phoneNumber = phone.number;
+                        });
+                      },
+                      onCountryChanged: (country) {
+                        setState(() {
+                          countryCode = country.dialCode;
+                        });
+                      },
+                    ),
                     CustomTextField(
                       labelText: "Email id",
                       hintText: "Enter your email id",
@@ -129,8 +175,6 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
                       controller: confirmPasswordController,
                     ),
                     const SizedBox(height: 17),
-
-                    // Dropdown Button Form Field
                     DropdownButtonHideUnderline(
                       child: Container(
                         decoration: BoxDecoration(
@@ -138,17 +182,20 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
                         ),
                         child: DropdownButtonFormField<String>(
                           decoration: InputDecoration(
-                            contentPadding: EdgeInsets.symmetric(horizontal: 8, vertical: 12),
+                            contentPadding: EdgeInsets.symmetric(
+                                horizontal: 8, vertical: 12),
                             enabledBorder: OutlineInputBorder(
                               borderRadius: BorderRadius.circular(25),
-                              borderSide: BorderSide(color: const Color.fromARGB(255, 120, 120, 120)),
+                              borderSide: BorderSide(
+                                  color:
+                                      const Color.fromARGB(255, 120, 120, 120)),
                             ),
                             focusedBorder: OutlineInputBorder(
                               borderRadius: BorderRadius.circular(25),
                             ),
                           ),
                           icon: const Icon(Icons.keyboard_arrow_down),
-                          isExpanded: true, // Ensures dropdown follows parent width
+                          isExpanded: true,
                           items: items.map((String item) {
                             return DropdownMenuItem(
                               value: item,
@@ -163,30 +210,185 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
                               dropdownvalue = newValue!;
                             });
                           },
-                          value: dropdownvalue, // Ensure `dropdownvalue` is initialized
+                          value: dropdownvalue,
                         ),
                       ),
                     ),
-
                     const SizedBox(height: 17),
                     CustomTextField(
                       labelText: "School Name",
                       hintText: "Enter your school name",
                       controller: schoolController,
                     ),
-                    // const SizedBox(height: 17),
-                    // CustomTextField(
-                    //   labelText: "Phone Number",
-                    //   hintText: "Enter your phone number",
-                    //   Controller: phoneController,
-                    // ),
                     const SizedBox(height: 30),
-                    Center(
-                      child: CustomButton(
-                        onPressed: () {
-                          
-                          submitForm();
-                        },
+                    SafeArea(
+                      child: Center(
+                        child: CustomButton(
+                          onPressed: () {
+                            if (_formKey.currentState!.validate() &&
+                                phoneNumber != null &&
+                                countryCode != null) {
+                              AuthService authService = AuthService();
+                              authService
+                                  .sendOtp(
+                                      code: countryCode!, phone: phoneNumber!)
+                                  .then((response) {
+                                if (response.type == 'success') {
+                                  var otp = response.otp;
+                                  otpArray.add(int.parse(otp));
+                                  showModalBottomSheet(
+                                    context: context,
+                                    isScrollControlled: true,
+                                    shape: RoundedRectangleBorder(
+                                      borderRadius: BorderRadius.vertical(
+                                          top: Radius.circular(25.0)),
+                                    ),
+                                    builder: (BuildContext context) {
+                                      return SafeArea(
+                                        child: Padding(
+                                          padding: EdgeInsets.only(
+                                              bottom: MediaQuery.of(context)
+                                                  .viewInsets
+                                                  .bottom),
+                                          child: Container(
+                                            padding: EdgeInsets.all(20),
+                                            child: Column(
+                                              mainAxisSize: MainAxisSize.min,
+                                              children: [
+                                                Text(
+                                                  'Enter OTP',
+                                                  style: TextStyle(
+                                                      fontSize: 20,
+                                                      fontWeight:
+                                                          FontWeight.bold),
+                                                ),
+                                                SizedBox(height: 20),
+                                                Pinput(
+                                                  length: 6,
+                                                  controller: pinController,
+                                                  focusNode: focusNode,
+                                                  defaultPinTheme:
+                                                      defaultPinTheme,
+                                                  onClipboardFound: (value) {
+                                                    pinController
+                                                        .setText(value);
+                                                  },
+                                                  hapticFeedbackType:
+                                                      HapticFeedbackType
+                                                          .lightImpact,
+                                                ),
+                                                SizedBox(height: 20),
+                                                Text(
+                                                  'Please enter the OTP sent to your phone number.',
+                                                  style: TextStyle(
+                                                      fontSize: 16,
+                                                      color: Colors.black54),
+                                                ),
+                                                Text(
+                                                  _otpMessage!,
+                                                  style: TextStyle(
+                                                      fontSize: 16,
+                                                      color: Colors.red),
+                                                ),
+                                                SizedBox(height: 20),
+                                                ElevatedButton(
+                                                  style:
+                                                      ElevatedButton.styleFrom(
+                                                          backgroundColor:
+                                                              Colors
+                                                                  .deepPurple),
+                                                  onPressed: () {
+                                                    if (otpArray.contains(
+                                                        int.parse(pinController
+                                                            .text))) {
+                                                      Navigator.of(context)
+                                                          .pop();
+                                                      ScaffoldMessenger.of(
+                                                              context)
+                                                          .showSnackBar(
+                                                        SnackBar(
+                                                          content: Text(
+                                                              'OTP Verified Successfully'),
+                                                          backgroundColor:
+                                                              Colors.green,
+                                                        ),
+                                                      );
+                                                      Navigator.pushReplacement(
+                                                        context,
+                                                        MaterialPageRoute(
+                                                          builder: (context) =>
+                                                              CompleteRegistration(
+                                                            classIDName:
+                                                                dropdownvalue,
+                                                            countryCode:
+                                                                countryCode!,
+                                                            emailId:
+                                                                emailController
+                                                                    .text,
+                                                            firstName:
+                                                                firstNameController
+                                                                    .text,
+                                                            lastName:
+                                                                lastNameController
+                                                                    .text,
+                                                            mobileNumber:
+                                                                phoneNumber!,
+                                                            password:
+                                                                passwordController
+                                                                    .text,
+                                                            school:
+                                                                schoolController
+                                                                    .text,
+                                                          ),
+                                                        ),
+                                                      );
+                                                    } else {
+                                                      setState(() {
+                                                        _otpMessage =
+                                                            'Invalid OTP. Please try again.';
+                                                      });
+                                                      ScaffoldMessenger.of(
+                                                              context)
+                                                          .showSnackBar(
+                                                        SnackBar(
+                                                          content: Text(
+                                                              'Invalid OTP'),
+                                                          backgroundColor:
+                                                              Colors.red,
+                                                        ),
+                                                      );
+                                                    }
+                                                  },
+                                                  child: Text('Verify OTP',
+                                                      style: TextStyle(
+                                                          color: Colors.white)),
+                                                ),
+                                              ],
+                                            ),
+                                          ),
+                                        ),
+                                      );
+                                    },
+                                  );
+                                } else {
+                                  ScaffoldMessenger.of(context).showSnackBar(
+                                    SnackBar(
+                                      content: Text('Failed to send OTP'),
+                                      backgroundColor: Colors.red,
+                                    ),
+                                  );
+                                }
+                              }).catchError((error) {
+                                ScaffoldMessenger.of(context).showSnackBar(
+                                  SnackBar(
+                                    content: Text('Failed to send OTP'),
+                                    backgroundColor: Colors.red,
+                                  ),
+                                );
+                              });
+                            }
+                          },
+                        ),
                       ),
                     ),
                     const SizedBox(height: 40),

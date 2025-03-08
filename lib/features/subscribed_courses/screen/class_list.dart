@@ -208,7 +208,7 @@ class _ClassListState extends State<ClassList> {
             bottom: 45,
             left: 0,
             right: 0,
-            child: const _SwipeableAddReviewSection(),
+            child: _SwipeableAddReviewSection(courseId: widget.courseId),
           ),
         ],
       ),
@@ -217,55 +217,36 @@ class _ClassListState extends State<ClassList> {
 }
 
 class _SwipeableAddReviewSection extends StatelessWidget {
-  const _SwipeableAddReviewSection({Key? key}) : super(key: key);
+  final String courseId;
+
+  const _SwipeableAddReviewSection({Key? key, required this.courseId})
+      : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    return GestureDetector(
-      // onVerticalDragUpdate: (details) {
-      //   if (details.primaryDelta != null && details.primaryDelta! < -10) {
-      //     showModalBottomSheet(
-      //       context: context,
-      //       isScrollControlled: true,
-      //       shape: const RoundedRectangleBorder(
-      //         borderRadius: BorderRadius.vertical(top: Radius.circular(20.0)),
-      //       ),
-      //       builder: (context) => const _AddReviewSheet(),
-      //     );
-      //   }
-      // },
-      onTap: () {
+    return FloatingActionButton.extended(
+      onPressed: () {
         showModalBottomSheet(
           context: context,
           isScrollControlled: true,
           shape: const RoundedRectangleBorder(
             borderRadius: BorderRadius.vertical(top: Radius.circular(20.0)),
           ),
-          builder: (context) => const _AddReviewSheet(),
+          builder: (context) => _AddReviewSheet(courseId: courseId),
         );
       },
-      child: Container(
-        height: 50,
-        padding: const EdgeInsets.all(8.0),
-        color: Colors.grey[200],
-        child: const Center(
-          child: Column(
-            children: [
-              // Icon(Icons.keyboard_arrow_up, size: 24, color: Colors.black54),
-              Text(
-                'Add review',
-                style: TextStyle(fontSize: 14, fontWeight: FontWeight.bold),
-              ),
-            ],
-          ),
-        ),
-      ),
+      label: const Text('Add review'),
+      icon: const Icon(Icons.rate_review),
+      backgroundColor: Colors.white,
+      foregroundColor: AppConstant.primaryColor2,
     );
   }
 }
 
 class _AddReviewSheet extends StatefulWidget {
-  const _AddReviewSheet({Key? key}) : super(key: key);
+  final String courseId;
+
+  const _AddReviewSheet({Key? key, required this.courseId}) : super(key: key);
 
   @override
   State<_AddReviewSheet> createState() => _AddReviewSheetState();
@@ -281,7 +262,7 @@ class _AddReviewSheetState extends State<_AddReviewSheet> {
       color: AppConstant.cardBackground,
       child: Padding(
         padding: EdgeInsets.only(
-          bottom: MediaQuery.of(context).viewInsets.bottom,
+          bottom: 50.0,
           left: 16.0,
           right: 16.0,
           top: 16.0,
@@ -326,9 +307,7 @@ class _AddReviewSheetState extends State<_AddReviewSheet> {
               width: double.infinity,
               child: ElevatedButton(
                 onPressed: () {
-                  // Handle submit action
-                  print('Rating: $_rating');
-                  print('Review: ${_reviewController.text}');
+                  addUserReview(courseId: widget.courseId);
                 },
                 child: const Text('Submit'),
               ),
@@ -337,5 +316,25 @@ class _AddReviewSheetState extends State<_AddReviewSheet> {
         ),
       ),
     );
+  }
+
+  void addUserReview({required String courseId}) {
+    UserSubscriptionsServices()
+        .createUserCourseReview(
+      userId: userData.userid,
+      courseid: courseId,
+      review: _reviewController.text,
+      rating: _rating.toString(),
+    )
+        .then((_) {
+      ScaffoldMessenger.of(context).showSnackBar(
+        const SnackBar(content: Text('Review submitted successfully')),
+      );
+      Navigator.pop(context);
+    }).catchError((error) {
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(content: Text('Failed to submit review: $error')),
+      );
+    });
   }
 }

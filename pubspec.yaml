@@ -9,7 +9,7 @@ version: 1.0.0+1
 
 # Define the Dart SDK version
 environment:
-  sdk: ">=3.4.1 <4.0.0"
+  sdk: ">=3.2.6 <4.0.0"
 
 # Dependencies required for the project
 dependencies:
@@ -52,9 +52,11 @@ dependencies:
   # better_player: ^0.0.84
   youtube_player_flutter: ^9.1.1
   # better_player_plus: ^1.0.8
-  tpstreams_player_sdk: ^2.1.7
+  # tpstreams_player_sdk: ^2.1.7
   flutter_inappwebview: ^6.1.5
   razorpay_flutter: ^1.4.0
+  flutter_widget_from_html_core: ^0.15.2
+  better_player_enhanced: ^0.0.5
 
 # Developer dependencies
 dev_dependencies:

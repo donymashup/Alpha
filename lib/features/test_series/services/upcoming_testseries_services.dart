@@ -1,4 +1,5 @@
 import 'dart:convert';
+import 'package:alpha/constants/config.dart';
 import 'package:http/http.dart' as http;
 import 'package:flutter/material.dart';
 import 'package:alpha/models/upcoming_testseries_model.dart';
@@ -10,7 +11,7 @@ class UpcomingTestseriesServices {
   }) async {
     try {
       var request = http.MultipartRequest(
-          'POST', Uri.parse('https://demo.etcweb.in/api/getUpcomingTests'));
+          'POST', Uri.parse('$baseUrl$getUpcomingTestsUrl'));
 
       request.fields.addAll({'userid': userId});
 

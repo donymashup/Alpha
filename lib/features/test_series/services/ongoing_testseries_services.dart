@@ -1,4 +1,5 @@
 import 'dart:convert';
+import 'package:alpha/constants/config.dart';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 import 'package:alpha/models/ongoing_testseries_model.dart';
@@ -10,17 +11,17 @@ class OngoingTestseriesServices {
     required BuildContext context,
   }) async {
     try {
-      var url = Uri.parse('https://demo.etcweb.in/api/getOngoingTests');
-      var headers = {'Cookie': 'etcpro_ci_session=3cto5mhceq47eusr1qvgjv5oc2r0agru'};
+      var url = Uri.parse('$baseUrl$getOngoingTestsUrl');
       var body = {'userid': userId};
 
-      var response = await http.post(url, headers: headers, body: body);
+      var response = await http.post(url, body: body);
 
       if (response.statusCode == 200) {
         var jsonResponse = json.decode(response.body);
         return OngoingTestsModel.fromJson(jsonResponse);
       } else {
-        showSnackbar(context, "Failed to fetch ongoing test series: ${response.statusCode}");
+        showSnackbar(context,
+            "Failed to fetch ongoing test series: ${response.statusCode}");
         return null;
       }
     } catch (e) {
