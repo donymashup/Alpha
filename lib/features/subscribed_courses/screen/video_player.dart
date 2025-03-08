@@ -1,12 +1,8 @@
-import 'dart:async';
-
 import 'package:alpha/common%20widgets/LargeLoading.dart';
 import 'package:alpha/features/subscribed_courses/widgets/videoListCardWidget.dart';
 import 'package:alpha/models/video_model.dart';
+import 'package:better_player/better_player.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
-import 'package:tpstreams_player_sdk/tpstreams_player_sdk.dart';
-import 'package:youtube_player_flutter/youtube_player_flutter.dart';
 
 class VideoPlayer extends StatefulWidget {
   final VideoModel videoModel;
@@ -25,31 +21,14 @@ class _VideoPlayerState extends State<VideoPlayer> {
   late int selectedIndex = widget.selectedIndex;
   late VideoModel videoList = widget.videoModel;
   bool isLoading = true;
-
-  late TPStreamsPlayerController tpstreamsController;
-  late YoutubePlayerController youtubeController;
-
-  late PlayerState playerState;
-  late YoutubeMetaData videoMetaData;
+  late BetterPlayerController betterPlayerController;
 
   @override
   void initState() {
     super.initState();
     setupData();
-
-    youtubeController = YoutubePlayerController(
-      initialVideoId: videoList.videos![selectedIndex].videoId!,
-      flags: const YoutubePlayerFlags(
-        mute: false,
-        autoPlay: true,
-        disableDragSeek: false,
-        loop: false,
-        isLive: false,
-        forceHD: false,
-        enableCaption: true,
-      ),
-    )..addListener(listener);
-    playerState = PlayerState.unknown;
+    // initializePlayer(videoList.videos![selectedIndex].videoLink!);
+    initializePlayer("https://media.istockphoto.com/id/2150949209/video/soccer-championship-game-at-an-outdoors-stadium-blue-team-football-forward-player-attacking.mp4?s=mp4-640x640-is&k=20&c=W9o__Elh8GghCBy0fMExIkHw96LjyVgoK9EW1Mg4I-Q=");
   }
 
   void setupData() async {
@@ -58,45 +37,40 @@ class _VideoPlayerState extends State<VideoPlayer> {
     });
   }
 
-  void listener() {
-    if (mounted && !youtubeController.value.isFullScreen) {
-      setState(() {
-        playerState = youtubeController.value.playerState;
-        videoMetaData = youtubeController.metadata;
-      });
-    }
-  }
-
-  @override
-  void deactivate() {
-    youtubeController.pause();
-    super.deactivate();
+  void initializePlayer(String url) {
+    BetterPlayerDataSource dataSource = BetterPlayerDataSource(
+      BetterPlayerDataSourceType.network,
+      url,
+    );
+    betterPlayerController = BetterPlayerController(
+      BetterPlayerConfiguration(
+        autoPlay: true,
+        looping: false,
+        aspectRatio: 16 / 9,
+      ),
+      betterPlayerDataSource: dataSource,
+    );
   }
 
   @override
   void dispose() {
-    youtubeController.dispose();
-    tpstreamsController.dispose();
+    betterPlayerController.dispose();
     super.dispose();
   }
 
-  Widget getYoutubePlayer() {
+  Widget getBetterPlayer() {
     return SafeArea(
-      child: YoutubePlayerBuilder(
-        player: YoutubePlayer(
-          controller: youtubeController,
-          showVideoProgressIndicator: true,
-          progressIndicatorColor: Colors.blueAccent,
-        ),
-        builder: (context, player) => Scaffold(
-          body: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              player,
-              titleHead(),
-              playlist(),
-            ],
-          ),
+      child: Scaffold(
+        body: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            AspectRatio(
+              aspectRatio: 16 / 9,
+              child: BetterPlayer(controller: betterPlayerController),
+            ),
+            titleHead(),
+            playlist(),
+          ],
         ),
       ),
     );
@@ -120,17 +94,11 @@ class _VideoPlayerState extends State<VideoPlayer> {
         itemBuilder: (BuildContext context, int index) {
           return InkWell(
             onTap: () {
-              if (videoList.videos![index].videoSource == "1") {
-                setState(() {
-                  selectedIndex = index;
-                });
-                youtubeController.load(videoList.videos![index].videoId!);
-              } else {
-                setState(() {
-                  selectedIndex = index;
-                });
-                // tpstreamsController.load(videoList.videos![index].videoHls!);
-              }
+              setState(() {
+                selectedIndex = index;
+              });
+              // initializePlayer(videoList.videos![index].videoLink!);
+              initializePlayer("https://media.istockphoto.com/id/2150949209/video/soccer-championship-game-at-an-outdoors-stadium-blue-team-football-forward-player-attacking.mp4?s=mp4-640x640-is&k=20&c=W9o__Elh8GghCBy0fMExIkHw96LjyVgoK9EW1Mg4I-Q=");
             },
             child: VideoListCardWidget(
               title: videoList.videos![index].videoName!,
@@ -144,36 +112,6 @@ class _VideoPlayerState extends State<VideoPlayer> {
     );
   }
 
-  Widget getTpstreamsPlayer() {
-    return Scaffold(
-      body: SafeArea(
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            AspectRatio(
-              aspectRatio: 16 / 9,
-              child: TPStreamPlayer(
-                // assetId: videoList.videos![selectedIndex].videoHls!,
-                assetId: '3k67BFzJX2q',
-                accessToken:
-                    'c55d061e-b2ef-47c5-a0cd-846ee2bebca9', // Replace with actual access token
-                showDownloadOption: false,
-                onPlayerCreated: (controller) {
-                  _controller = controller;
-                  // Listen to player value changes
-                  // _controller.addListener(_onPlayerValueChanged);
-                },
-              ),
-            ),
-            titleHead(),
-            playlist(),
-          ],
-        ),
-      ),
-    );
-  }
-
-  late TPStreamsPlayerController _controller;
   @override
   Widget build(BuildContext context) {
     return SafeArea(
@@ -182,9 +120,7 @@ class _VideoPlayerState extends State<VideoPlayer> {
             ? const Center(
                 child: LargeLoading(),
               )
-            : videoList.videos![selectedIndex].videoSource! == "1"
-                ? getYoutubePlayer()
-                : getTpstreamsPlayer(),
+            : getBetterPlayer(),
       ),
     );
   }
