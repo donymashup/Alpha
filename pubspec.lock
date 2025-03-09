@@ -1258,6 +1258,14 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "0.7.3"
+  tpstreams_player_sdk:
+    dependency: "direct main"
+    description:
+      name: tpstreams_player_sdk
+      sha256: "5dc87fd106ec4223afe2fdd9a5ac3404d97e8bb7f2617490231a496d985b85d7"
+      url: "https://pub.dev"
+    source: hosted
+    version: "2.1.8"
   typed_data:
     dependency: transitive
     description:

@@ -5,7 +5,7 @@ import 'package:alpha/constants/app_constants.dart';
 import 'package:alpha/features/subscribed_courses/services/user_subscriptions_services.dart';
 import 'package:alpha/features/subscribed_courses/widgets/videoListCardWidget.dart';
 import 'package:alpha/models/video_model.dart';
-import 'package:better_player_plus/better_player_plus.dart';
+
 // import 'package:better_player/better_player.dart';
 // import 'package:better_player_enhanced/better_player.dart';
 import 'package:flutter/material.dart';
