@@ -1,3 +1,4 @@
+import 'package:alpha/constants/app_constants.dart';
 import 'package:alpha/features/subscribed_courses/services/user_subscriptions_services.dart';
 import 'package:alpha/features/subscribed_courses/widgets/materials_section.dart';
 import 'package:alpha/features/subscribed_courses/widgets/practice_test_section.dart';
@@ -45,11 +46,22 @@ class _ChapterContentsState extends State<ChapterContents>
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.white,
+      backgroundColor: AppConstant.backgroundColor,
       appBar: AppBar(
-        title: Text(widget.chapterName),
+        leading: IconButton(
+          icon: const Icon(Icons.arrow_back_ios_new,size: 16, color: Colors.black,),
+          onPressed: () => Navigator.pop(context),
+        ),
+
+
+        title: Text(widget.chapterName,
+            style: TextStyle(fontWeight: FontWeight.bold)),
+        backgroundColor: AppConstant.backgroundColor,
         bottom: TabBar(
           controller: _tabController,
+          indicatorColor: AppConstant.primaryColor,
+          labelColor: AppConstant.primaryColor,
+          unselectedLabelColor: AppConstant.titlecolor,
           tabs: const [
             Tab(text: "Videos"),
             Tab(text: "Materials"),

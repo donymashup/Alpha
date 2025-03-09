@@ -38,6 +38,7 @@ class _ClassListState extends State<ClassList> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: AppConstant.backgroundColor,
       body: Stack(
         children: [
           NestedScrollView(
@@ -237,7 +238,7 @@ class _SwipeableAddReviewSection extends StatelessWidget {
       },
       label: const Text('Add review'),
       icon: const Icon(Icons.rate_review),
-      backgroundColor: Colors.white,
+      backgroundColor: AppConstant.backgroundColor,
       foregroundColor: AppConstant.primaryColor2,
     );
   }
@@ -309,7 +310,16 @@ class _AddReviewSheetState extends State<_AddReviewSheet> {
                 onPressed: () {
                   addUserReview(courseId: widget.courseId);
                 },
-                child: const Text('Submit'),
+                child: const Text(
+                  'Submit',
+                  style: TextStyle(
+                    color: Colors.white,
+                    fontWeight: FontWeight.bold,
+                  ),
+                ),
+                style: ElevatedButton.styleFrom(
+                  backgroundColor: AppConstant.primaryColor
+                ),
               ),
             ),
           ],
