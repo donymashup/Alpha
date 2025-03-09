@@ -1,8 +1,7 @@
 import 'package:flutter/material.dart';
 
 class AppConstant {
-  // static const appName = "Alpha Entrance Academy";
-  static const appName = "Etutor";
+  static const appName = "Alpha Entrance Academy";
   static const backgroundColor2 = Color.fromARGB(255, 250, 246, 247);
   static const primaryColor = Color(0xFFD70000);
   static const lightGradient = Color.fromARGB(255, 214, 63, 69);
@@ -29,7 +28,7 @@ class AppConstant {
 
   // Razorpay Api
 
-  static const String RazorPay_key_id = "rzp_live_FeDs6bDLc31d5B";
+  static const String RazorPay_key_id = "rzp_live_crfFcS32Hjr52m";
   //
 
   static const Gradient redWhiteGradient = LinearGradient(
@@ -49,41 +48,6 @@ class AppConstant {
     begin: Alignment.topLeft,
     end: Alignment.topRight,
   );
-
-//   static const List<String> carouselImages = [
-//     //'assets/images/alphalogo.png',
-//     'assets/images/etutorslider5.png',
-//     'assets/images/banner1.png',
-//     'assets/images/banner3.png',
-//     'assets/images/banner4.png',
-//   ];
-
-//   static const List<String> items = [
-//     "All Courses",
-//     "NEET",
-//     "JEE",
-//     "UPSC",
-//     "PSC",
-//     "SSC"
-//   ];
-
-//   static const List<Map<String, dynamic>> item = [
-//     {
-//       "title": "Bumper Olympiard",
-//       "imagePath": "assets/images/course1.png",
-//       "rating": 4.5,
-//     },
-//     {
-//       "title": "USS",
-//       "imagePath": "assets/images/course2.png",
-//       "rating": 4.8,
-//     },
-//     {
-//       "title": "NMMS",
-//       "imagePath": "assets/images/course3.png",
-//       "rating": 4.2,
-//     },
-//   ];
 }
 
 class userData {
