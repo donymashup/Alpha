@@ -33,14 +33,6 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "0.1.25"
-  better_player:
-    dependency: "direct main"
-    description:
-      name: better_player
-      sha256: fc8883218ab7a2fd7e916956c1f59b5c26c3cab1e4dfd6f051901f5e4da39619
-      url: "https://pub.dev"
-    source: hosted
-    version: "0.0.84"
   better_player_plus:
     dependency: "direct main"
     description:
@@ -1266,14 +1258,6 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "0.7.3"
-  tpstreams_player_sdk:
-    dependency: "direct main"
-    description:
-      name: tpstreams_player_sdk
-      sha256: "5dc87fd106ec4223afe2fdd9a5ac3404d97e8bb7f2617490231a496d985b85d7"
-      url: "https://pub.dev"
-    source: hosted
-    version: "2.1.8"
   typed_data:
     dependency: transitive
     description:

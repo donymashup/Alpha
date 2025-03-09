@@ -1,7 +1,8 @@
 import 'package:alpha/common%20widgets/LargeLoading.dart';
 import 'package:alpha/features/subscribed_courses/widgets/videoListCardWidget.dart';
 import 'package:alpha/models/video_model.dart';
-import 'package:better_player/better_player.dart';
+// import 'package:better_player/better_player.dart';
+import 'package:better_player_plus/better_player_plus.dart';
 import 'package:flutter/material.dart';
 
 class VideoPlayer extends StatefulWidget {
@@ -28,7 +29,8 @@ class _VideoPlayerState extends State<VideoPlayer> {
     super.initState();
     setupData();
     // initializePlayer(videoList.videos![selectedIndex].videoLink!);
-    initializePlayer("https://media.istockphoto.com/id/2150949209/video/soccer-championship-game-at-an-outdoors-stadium-blue-team-football-forward-player-attacking.mp4?s=mp4-640x640-is&k=20&c=W9o__Elh8GghCBy0fMExIkHw96LjyVgoK9EW1Mg4I-Q=");
+    initializePlayer(
+        "https://d3sigpa2r6yn5i.cloudfront.net/transcoded/9hpnhJKAPpX/video.m3u8");
   }
 
   void setupData() async {
@@ -98,7 +100,8 @@ class _VideoPlayerState extends State<VideoPlayer> {
                 selectedIndex = index;
               });
               // initializePlayer(videoList.videos![index].videoLink!);
-              initializePlayer("https://media.istockphoto.com/id/2150949209/video/soccer-championship-game-at-an-outdoors-stadium-blue-team-football-forward-player-attacking.mp4?s=mp4-640x640-is&k=20&c=W9o__Elh8GghCBy0fMExIkHw96LjyVgoK9EW1Mg4I-Q=");
+              initializePlayer(
+                  "https://media.istockphoto.com/id/2150949209/video/soccer-championship-game-at-an-outdoors-stadium-blue-team-football-forward-player-attacking.mp4?s=mp4-640x640-is&k=20&c=W9o__Elh8GghCBy0fMExIkHw96LjyVgoK9EW1Mg4I-Q=");
             },
             child: VideoListCardWidget(
               title: videoList.videos![index].videoName!,
