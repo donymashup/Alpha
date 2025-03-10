@@ -28,7 +28,13 @@ class AboutUsPage extends StatelessWidget {
       )
       ..loadRequest(Uri.parse(About_us));
     return Scaffold(
-      appBar: AppBar(title: const Text('About Us')),
+      appBar: AppBar(
+        leading: IconButton(
+          icon: const Icon(Icons.arrow_back_ios_new, size: 16, color: Colors.black),
+          onPressed: () => Navigator.pop(context),
+        ),
+        title: const Text('About Us',
+        style: TextStyle(fontWeight: FontWeight.bold),)),
       body: SafeArea(child: WebViewWidget(controller: controller)),
     );
   }

@@ -81,7 +81,8 @@ class Courses {
         : null;
     categoryId = json['category_id'];
     categoryName = json['category_name'];
-    avgStars = json['avg_stars'];
+    avgStars = (json['avg_stars'] as num?)?.toDouble();
+    //avgStars = json['avg_stars'];
     subscribed = json['subscribed'];
     batchid = json['batchid'];
     // enrollmentList = json['enrollment_list'];
@@ -94,7 +95,8 @@ class Courses {
     }
     data['category_id'] = categoryId;
     data['category_name'] = categoryName;
-    data['avg_stars'] = avgStars;
+    data['avg_stars'] = avgStars ?? 0.0;
+    //data['avg_stars'] = avgStars;
     data['subscribed'] = subscribed;
     data['batchid'] = batchid;
     // data['enrollment_list'] = enrollmentList;
