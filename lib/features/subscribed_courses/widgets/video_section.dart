@@ -111,7 +111,7 @@ class VideoSectionWidget extends StatelessWidget {
                                   highlightColor: Colors.grey[100]!,
                                   child: Container(
                                     width: double.infinity,
-                                    height: 200, // Adjust height as needed
+                                    height: 100, // Adjust height as needed
                                     color: Colors.white,
                                   ),
                                 ),

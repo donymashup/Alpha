@@ -60,7 +60,10 @@ class Courses {
         likedUserImages!.add(new LikedUserImages.fromJson(v));
       });
     }
-    avgStars = json['avg_stars'];
+    avgStars = (json['avg_stars'] is int) 
+    ? (json['avg_stars'] as int).toDouble() 
+    : json['avg_stars'];
+    //avgStars = json['avg_stars'];
   }
 
   Map<String, dynamic> toJson() {
