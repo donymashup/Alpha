@@ -28,7 +28,12 @@ class TermsPage extends StatelessWidget {
       )
       ..loadRequest(Uri.parse(Terms));
     return Scaffold(
-      appBar: AppBar(title: const Text('Terms and Condiction')),
+      appBar: AppBar(
+        leading: IconButton(
+          icon: const Icon(Icons.arrow_back_ios_new, size: 16, color: Colors.black),
+          onPressed: () => Navigator.pop(context),
+        ),
+        title: const Text('Terms and Condiction',style: TextStyle(fontWeight: FontWeight.bold),)),
       body: SafeArea(child: WebViewWidget(controller: controller)),
     );
   }

@@ -28,7 +28,12 @@ class PrivacypolicyPage extends StatelessWidget {
       )
       ..loadRequest(Uri.parse(Privacy));
     return Scaffold(
-      appBar: AppBar(title: const Text('Privacy Policy')),
+      appBar: AppBar(
+        leading: IconButton(
+          icon: const Icon(Icons.arrow_back_ios_new, size: 16, color: Colors.black),
+          onPressed: () => Navigator.pop(context),
+        ),
+        title: const Text('Privacy Policy',style: TextStyle(fontWeight: FontWeight.bold),)),
       body: SafeArea(child: WebViewWidget(controller: controller)),
     );
   }
