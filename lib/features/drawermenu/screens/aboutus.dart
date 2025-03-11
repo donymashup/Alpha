@@ -29,6 +29,7 @@ class AboutUsPage extends StatelessWidget {
       ..loadRequest(Uri.parse(About_us));
     return Scaffold(
       appBar: AppBar(
+        backgroundColor: Colors.white,
         leading: IconButton(
           icon: const Icon(Icons.arrow_back_ios_new, size: 16, color: Colors.black),
           onPressed: () => Navigator.pop(context),

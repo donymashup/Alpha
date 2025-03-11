@@ -55,6 +55,13 @@ class _ChatGptScreenState extends State<ChatGptScreen> {
       appBar: AppBar(
         title: const Text(
           'Alpha Genius Chatbot',
+          style: TextStyle(fontWeight: FontWeight.bold),
+        ),
+        leading: IconButton(
+          icon: const Icon(Icons.arrow_back_ios_new, size: 16, color: Colors.black),
+          onPressed: () {
+            Navigator.pop(context);
+          },
         ),
       ),
       body: DashChat(
