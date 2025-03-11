@@ -16,7 +16,7 @@ class HomeService {
     try {
       SharedPreferences prefs = await SharedPreferences.getInstance();
       String? userId = prefs.getString('userId');
-      debugPrint('userid ${userData.userid ?? 0}');
+      debugPrint('userid ${userData.userid}');
       final response = await _sendPostRequest(
         url: '$baseUrl$availableCourseUrl',
         fields: {'userid': userId!},
@@ -35,13 +35,13 @@ class HomeService {
             AvailableCoursesModel.fromJson(jsonResponse);
 
         if (availableCoursesModel.type == 'success') {
-          showSnackbar(context, 'Course fetch success');
+        // showSnackbar(context, 'Course fetch success');
 
           if (availableCoursesModel.data != null &&
               availableCoursesModel.data!.isNotEmpty) {
-            print("Data received: ${availableCoursesModel.data![0].name}");
+          //  print("Data received: ${availableCoursesModel.data![0].name}");
           } else {
-            print("No courses available.");
+          //  print("No courses available.");
           }
 
           return availableCoursesModel;
@@ -50,12 +50,12 @@ class HomeService {
           return null;
         }
       } else {
-        print("Failed to fetch courses: ${response.statusCode}");
+       // print("Failed to fetch courses: ${response.statusCode}");
         return null;
       }
     } catch (e) {
       showSnackbar(context, "Error fetching courses: $e");
-      print("Exception: $e");
+      //print("Exception: $e");
       return null;
     }
   }
@@ -84,13 +84,13 @@ class HomeService {
         final sliderImagesModel = SliderImagesModel.fromJson(jsonResponse);
 
         if (sliderImagesModel.type == 'success') {
-          showSnackbar(context, 'Slider images fetch success');
+         // showSnackbar(context, 'Slider images fetch success');
 
           if (sliderImagesModel.sliders != null &&
               sliderImagesModel.sliders!.isNotEmpty) {
-            print("Data received: ${sliderImagesModel.sliders![0].title}");
+          //  print("Data received: ${sliderImagesModel.sliders![0].title}");
           } else {
-            print("No slider images available.");
+          //  print("No slider images available.");
           }
 
           return sliderImagesModel;
@@ -99,12 +99,12 @@ class HomeService {
           return null;
         }
       } else {
-        print("Failed to fetch slider images: ${response.statusCode}");
+     //   print("Failed to fetch slider images: ${response.statusCode}");
         return null;
       }
     } catch (e) {
       showSnackbar(context, "Error fetching slider images: $e");
-      print("Exception: $e");
+    //  print("Exception: $e");
       return null;
     }
   }

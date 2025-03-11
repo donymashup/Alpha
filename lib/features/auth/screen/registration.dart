@@ -9,6 +9,8 @@ import 'package:intl_phone_field/intl_phone_field.dart';
 import 'package:pinput/pinput.dart';
 
 class RegistrationScreen extends StatefulWidget {
+  const RegistrationScreen({super.key});
+
   @override
   State<RegistrationScreen> createState() => _RegistrationScreenState();
 }
@@ -48,8 +50,8 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
     'Class 12',
   ];
 
-  static const focusedBorderColor = Color.fromRGBO(23, 171, 144, 1);
-  static const fillColor = Color.fromRGBO(243, 246, 249, 0);
+  //static const focusedBorderColor = Color.fromRGBO(23, 171, 144, 1);
+  //static const fillColor = Color.fromRGBO(243, 246, 249, 0);
   static const borderColor = Color.fromRGBO(23, 171, 144, 0.4);
 
   final defaultPinTheme = PinTheme(
@@ -65,11 +67,11 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
 
   final List<int> otpArray = [123456];
 
-  void submitForm() {
-    if (_formKey.currentState!.validate()) {
-      print("Form Submitted Successfully!");
-    }
-  }
+  // void submitForm() {
+  //   if (_formKey.currentState!.validate()) {
+  //     print("Form Submitted Successfully!");
+  //   }
+  // }
 
   @override
   Widget build(BuildContext context) {

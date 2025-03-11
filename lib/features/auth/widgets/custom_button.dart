@@ -1,7 +1,5 @@
-import 'package:alpha/common%20widgets/bottom_navigation_bar.dart';
 import 'package:flutter/material.dart';
 import 'package:alpha/constants/app_constants.dart';
-import 'package:alpha/features/auth/screen/phone_number.dart'; // Import the login screen
 
 class CustomButton extends StatelessWidget {
   final VoidCallback onPressed;
@@ -9,7 +7,7 @@ class CustomButton extends StatelessWidget {
   const CustomButton({
     required this.onPressed,
 
-   Key? key}) : super(key: key);
+   super.key});
 
 
   @override

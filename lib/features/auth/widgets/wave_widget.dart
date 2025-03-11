@@ -1,4 +1,3 @@
-import 'package:alpha/constants/app_constants.dart';
 import 'package:alpha/features/auth/widgets/wave_clipper.dart';
 import 'package:flutter/material.dart';
 

@@ -1,9 +1,6 @@
 import 'dart:convert';
-
-import 'package:alpha/common%20widgets/bottom_navigation_bar.dart';
 import 'package:alpha/constants/app_constants.dart';
 import 'package:alpha/constants/config.dart';
-import 'package:alpha/constants/utils.dart';
 import 'package:alpha/controllers/user_controller.dart';
 import 'package:alpha/models/common_model.dart';
 import 'package:alpha/models/login_model.dart';
@@ -25,7 +22,7 @@ class AuthService {
     required BuildContext context,
   }) async {
     try {
-      print('Phone: $phone, Code: $code, Password: $password');
+     // print('Phone: $phone, Code: $code, Password: $password');
       final response = await _sendPostRequest(
         url: "$baseUrl$loginUrl",
         fields: {'phone': phone, 'code': code, 'password': password},
@@ -73,7 +70,7 @@ class AuthService {
         if (userDetailsModel.type == 'success') {
           debugPrint('User Details: ${userDetailsModel.type}');
           await _saveUserDetailsToPrefs(userDetailsModel);
-          _showSnackbar(context, 'Data fetched');
+         // _showSnackbar(context, 'Data fetched');
         } else {
           debugPrint('User Details: ${userDetailsModel.type}');
           _showSnackbar(context, 'Data fetching failed');
@@ -124,7 +121,7 @@ class AuthService {
   // Handle error
   void _handleError(BuildContext context, String message) {
     _showSnackbar(context, message);
-    print(message);
+   // print(message);
   }
 
   // Show snackbar

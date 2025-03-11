@@ -1,9 +1,7 @@
 import 'package:alpha/constants/app_constants.dart';
-import 'package:alpha/controllers/is_subscribed_controller.dart';
 import 'package:alpha/models/course_details_model.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
-import 'package:get/get.dart';
 
 class ReviewTab extends StatelessWidget {
   final CourseDetailsModel courseDetailsModel;
