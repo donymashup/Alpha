@@ -36,7 +36,7 @@ class CourseDetailsService {
         final courseDetailsModel = CourseDetailsModel.fromJson(jsonResponse);
 
         if (courseDetailsModel.type == 'success') {
-          showSnackbar(context, 'Course details fetch success');
+          //showSnackbar(context, 'Course details fetch success');
           return courseDetailsModel;
         } else {
           showSnackbar(context, 'Course details fetch failed');
@@ -89,7 +89,7 @@ class CourseDetailsService {
         }
 
         if (jsonResponse['type'] == 'success') {
-          showSnackbar(context, 'Promo code verified successfully');
+         // showSnackbar(context, 'Promo code verified successfully');
           return PromoCodeDetails.fromJson(jsonResponse);
         } else {
           showSnackbar(context, 'Promo code verification failed');
@@ -177,7 +177,7 @@ class CourseDetailsService {
         }
         debugPrint(jsonResponse.toString());
         if (jsonResponse['type'] == 'success') {
-          showSnackbar(context, jsonResponse['message']);
+          //showSnackbar(context, jsonResponse['message']);
           return OrderIdDetails.fromJson(jsonResponse);
         } else {
           showSnackbar(context, jsonResponse['message']);

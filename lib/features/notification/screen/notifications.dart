@@ -22,7 +22,7 @@ class NotificationsPage extends StatelessWidget {
       body: Container(
         color: AppConstant.backgroundColor, // Set background color to the screen
         child: FutureBuilder<NotificationModel?>(
-          future: _notificationServices.getNotifications(userId: "1", context: context),
+          future: _notificationServices.getNotifications(context: context),
           builder: (context, snapshot) {
             if (snapshot.connectionState == ConnectionState.waiting) {
               return Center(child: CircularProgressIndicator());

@@ -1,10 +1,8 @@
 import 'package:alpha/constants/app_constants.dart';
-import 'package:alpha/features/auth/screen/login.dart';
 import 'package:alpha/features/auth/services/login_service.dart';
 import 'package:alpha/features/subscribed_courses/screen/my_courses.dart';
 import 'package:alpha/features/live/screen/live_courses.dart';
 import 'package:alpha/features/test_series/screens/test_series.dart';
-import 'package:alpha/models/user_details_model.dart';
 import 'package:fluentui_system_icons/fluentui_system_icons.dart';
 import 'package:flutter/material.dart';
 import 'package:alpha/features/home/screen/home_screen.dart';
@@ -12,7 +10,7 @@ import 'package:google_nav_bar/google_nav_bar.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class CustomBottomNavigation extends StatefulWidget {
-  const CustomBottomNavigation({Key? key}) : super(key: key);
+  const CustomBottomNavigation({super.key});
 
   @override
   State<CustomBottomNavigation> createState() => _CustomBottomNavigationState();
@@ -46,7 +44,7 @@ class _CustomBottomNavigationState extends State<CustomBottomNavigation> {
     String? userId = prefs.getString('userId');
 
     if (userId != null) {
-      UserDetailsModel? details = await AuthService()
+       await AuthService()
           .getUserDetails(userId: userId, context: context)
           .then((value) {
         if (value?.type == "success") {
@@ -58,7 +56,7 @@ class _CustomBottomNavigationState extends State<CustomBottomNavigation> {
         AuthService().logout(context);
       });
     } else {
-      print("User ID not found in SharedPreferences");
+     // print("User ID not found in SharedPreferences");
       AuthService().logout(context);
     }
   }

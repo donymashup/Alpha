@@ -18,7 +18,7 @@ class DrawerService {
       if (response.statusCode == 200) {
         String responseBody = await response.stream.bytesToString();
         debugPrint('Response: $date');
-        print("Data fetched");
+      //  print("Data fetched");
         return TimeLineModel.fromJson(json.decode(responseBody));
       } else {
         print('Failed to fetch timeline: ${response.statusCode}');

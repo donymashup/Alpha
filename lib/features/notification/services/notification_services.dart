@@ -1,4 +1,5 @@
 import 'dart:convert';
+import 'package:alpha/constants/app_constants.dart';
 import 'package:alpha/constants/config.dart';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
@@ -7,9 +8,10 @@ import 'package:alpha/models/notification_model.dart';
 
 class NotificationServices {
   Future<NotificationModel?> getNotifications({
-    required String userId,
+   // required String userId,
     required BuildContext context,
   }) async {
+    String userId = userData.userid;
     try {
       var request = http.MultipartRequest(
         'POST',

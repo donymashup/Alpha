@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:alpha/models/available_courses_model.dart';
 import 'package:alpha/features/home/services/home_service.dart';
 import '../../../common widgets/loadingIndicator.dart';
-import 'package:alpha/constants/app_constants.dart';
 
 class HeaderList extends StatefulWidget {
   const HeaderList({super.key});

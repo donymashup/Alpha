@@ -1,10 +1,7 @@
 //newalpha
 
-import 'package:alpha/features/auth/screen/login.dart';
 import 'package:flutter/material.dart';
 import 'package:alpha/constants/app_constants.dart';
-import 'package:alpha/features/auth/screen/registration.dart';
-import 'package:swipeable_button_view/swipeable_button_view.dart';
 import 'package:alpha/common%20widgets/color_dot.dart';
 
 class WelcomePage extends StatefulWidget {
@@ -14,8 +11,8 @@ class WelcomePage extends StatefulWidget {
   const WelcomePage({
     required this.currentIndex,
     required this.totalPages,
-    Key? key,
-  }) : super(key: key);
+    super.key,
+  });
 
   @override
   _WelcomePageState createState() => _WelcomePageState();

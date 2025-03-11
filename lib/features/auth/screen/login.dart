@@ -234,27 +234,6 @@ class _LoginState extends State<Login> {
               ),
             ),
           ),
-          // Positioned(
-          //   bottom: 3,
-          //   left: 0,
-          //   right: 0,
-          //   child: TextButton(
-          //     onPressed: () {
-          //       Navigator.push(
-          //         context,
-          //         MaterialPageRoute(builder: (context) => RegistrationScreen()),
-          //       );
-          //     },
-          //     child: const Text(
-          //       "Don't have an account? Sign Up",
-          //       style: TextStyle(
-          //         fontSize: 16,
-          //         fontWeight: FontWeight.w500,
-          //         color: Colors.black, // Customize color
-          //       ),
-          //     ),
-          //   ),
-          // ),
 
           const SizedBox(height: 50), // Extra spacing before gradient
         ],
