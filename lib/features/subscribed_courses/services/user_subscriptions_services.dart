@@ -5,6 +5,7 @@ import 'package:alpha/models/chapter_list_model.dart';
 import 'package:alpha/models/classs_list_model.dart';
 import 'package:alpha/models/common_model.dart';
 import 'package:alpha/models/material_model.dart';
+import 'package:alpha/models/miscellaneous_folder_model.dart';
 import 'package:alpha/models/practice_test_model.dart';
 import 'package:alpha/models/subject_list_model.dart';
 import 'package:alpha/models/user_subscriptions_model.dart';
@@ -244,5 +245,44 @@ class UserSubscriptionsServices {
     return pref.getString('userId');
   }
 
-  // TODO: updateCourseStars courseid, rating, review
+
+// function for fetching miscellaneous folders
+  Future<MiscellaneousFoldersModel?> getMiscellaneousFolders({
+    required BuildContext context,
+    required String courseId,
+    required String userId,
+    required String packageId,
+  }) async {
+   try {
+      print("start");
+      var request = http.MultipartRequest(
+          'POST', Uri.parse('https://dreamthemetutor.in/api/getMiscellaneousFolders'));
+      request.fields.addAll({
+        'packageid': '1',
+        'userid': '1',
+        'courseid': '1'
+      });
+      print("done");
+
+      http.StreamedResponse response = await request.send();
+      
+      print(response.statusCode);
+      if (response.statusCode == 200) {
+        var responseBody = await response.stream.bytesToString();
+        final jsonResponse = json.decode(responseBody);
+        print("success");
+        showSnackbar(context,'sucessfully fetch extra activities: ${response.statusCode}');
+        return MiscellaneousFoldersModel.fromJson(jsonResponse);
+      } else {
+        print("failure");
+       showSnackbar(context,'failed to fetch extra activities: ${response.statusCode}');
+      return MiscellaneousFoldersModel();
+      }
+    } catch (e) {
+      print("failure");
+      showSnackbar(context,'Error inserting timeline activity: $e');
+      return null;
+    }
+  }
+  
 }
