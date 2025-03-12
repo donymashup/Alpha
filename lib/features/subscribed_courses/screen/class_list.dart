@@ -1,4 +1,6 @@
 import 'package:alpha/constants/app_constants.dart';
+import 'package:alpha/features/subscribed_courses/screen/miscellaneous_folder.dart';
+import 'package:alpha/features/subscribed_courses/screen/miscillaneous_folder_screen.dart';
 import 'package:alpha/features/subscribed_courses/screen/subject_list.dart';
 import 'package:alpha/features/subscribed_courses/services/user_subscriptions_services.dart';
 import 'package:alpha/models/classs_list_model.dart';
@@ -124,37 +126,47 @@ class _ClassListState extends State<ClassList> {
                   itemBuilder: (context, index) {
                     if (index == snapshot.data!.classes!.length) {
                       // Add the Miscellaneous card at the end
-                      return Card(
-                        margin: const EdgeInsets.all(10),
-                        shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(10),
-                          side: BorderSide(
-                            color: AppConstant.primaryColor2,
-                            width: 1,
+                      return GestureDetector(
+                        onTap: () {
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                              builder: (context) => MiscellaneousFolderScreen()
+                            ),
+                          );
+                        },
+                        child: Card(
+                          margin: const EdgeInsets.all(10),
+                          shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(10),
+                            side: BorderSide(
+                              color: AppConstant.primaryColor2,
+                              width: 1,
+                            ),
                           ),
-                        ),
-                        color: AppConstant.cardBackground,
-                        elevation: 5,
-                        child: Padding(
-                          padding: const EdgeInsets.all(16.0),
-                          child: Row(
-                            children: [
-                              Icon(
-                                Icons.folder,
-                                size: 50,
-                                color: AppConstant.primaryColor2,
-                              ),
-                              const SizedBox(width: 10),
-                              const Expanded(
-                                child: Text(
-                                  "Miscellaneous",
-                                  style: TextStyle(
-                                    fontSize: 18,
-                                    fontWeight: FontWeight.bold,
+                          color: AppConstant.cardBackground,
+                          elevation: 5,
+                          child: Padding(
+                            padding: const EdgeInsets.all(16.0),
+                            child: Row(
+                              children: [
+                                Icon(
+                                  Icons.folder,
+                                  size: 50,
+                                  color: AppConstant.primaryColor2,
+                                ),
+                                const SizedBox(width: 10),
+                                const Expanded(
+                                  child: Text(
+                                    "Miscellaneous",
+                                    style: TextStyle(
+                                      fontSize: 18,
+                                      fontWeight: FontWeight.bold,
+                                    ),
                                   ),
                                 ),
-                              ),
-                            ],
+                              ],
+                            ),
                           ),
                         ),
                       );

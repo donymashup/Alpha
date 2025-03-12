@@ -46,3 +46,51 @@ class MiscellaneousFoldersModel {
     return data;
   }
 }
+
+// class MiscellaneousFoldersModel {
+//   String? title;
+//   String? type;
+//   String? thumbnail;
+//   String? id;
+//   String? link;
+//   String? duration;
+//   List<MiscellaneousFoldersModel>? list;
+
+//   MiscellaneousFoldersModel({
+//     this.title,
+//     this.type,
+//     this.thumbnail,
+//     this.id,
+//     this.link,
+//     this.duration,
+//     this.list,
+//   });
+
+//   /// ✅ JSON to Model
+//   factory MiscellaneousFoldersModel.fromJson(Map<String, dynamic> json) {
+//     return MiscellaneousFoldersModel(
+//       title: json['title'] as String?,
+//       type: json['type'] as String?,
+//       thumbnail: json['thumbnail'] as String?,
+//       id: json['id'] as String?,
+//       link: json['link'] as String?,
+//       duration: json['duration'] as String?,
+//       list: (json['list'] as List<dynamic>?)
+//           ?.map((item) => MiscellaneousFoldersModel.fromJson(item))
+//           .toList(), // ✅ Safe null check, no need for extra if condition
+//     );
+//   }
+
+//   /// ✅ Model to JSON
+//   Map<String, dynamic> toJson() {
+//     return {
+//       'title': title,
+//       'type': type,
+//       'thumbnail': thumbnail,
+//       'id': id,
+//       'link': link,
+//       'duration': duration,
+//       'list': list?.map((item) => item.toJson()).toList(), // ✅ Simplified
+//     };
+//   }
+// }
