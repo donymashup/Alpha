@@ -120,8 +120,46 @@ class _ClassListState extends State<ClassList> {
 
                 return ListView.builder(
                   padding: const EdgeInsets.only(bottom: 80),
-                  itemCount: snapshot.data!.classes!.length,
+                  itemCount: snapshot.data!.classes!.length + 1, // Add one for the Miscellaneous card
                   itemBuilder: (context, index) {
+                    if (index == snapshot.data!.classes!.length) {
+                      // Add the Miscellaneous card at the end
+                      return Card(
+                        margin: const EdgeInsets.all(10),
+                        shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(10),
+                          side: BorderSide(
+                            color: AppConstant.primaryColor2,
+                            width: 1,
+                          ),
+                        ),
+                        color: AppConstant.cardBackground,
+                        elevation: 5,
+                        child: Padding(
+                          padding: const EdgeInsets.all(16.0),
+                          child: Row(
+                            children: [
+                              Icon(
+                                Icons.folder,
+                                size: 50,
+                                color: AppConstant.primaryColor2,
+                              ),
+                              const SizedBox(width: 10),
+                              const Expanded(
+                                child: Text(
+                                  "Miscellaneous",
+                                  style: TextStyle(
+                                    fontSize: 18,
+                                    fontWeight: FontWeight.bold,
+                                  ),
+                                ),
+                              ),
+                            ],
+                          ),
+                        ),
+                      );
+                    }
+
                     final list = snapshot.data!.classes![index];
 
                     return GestureDetector(
@@ -244,90 +282,6 @@ class _SwipeableAddReviewSection extends StatelessWidget {
   }
 }
 
-// class _AddReviewSheet extends StatefulWidget {
-//   final String courseId;
-
-//   const _AddReviewSheet({Key? key, required this.courseId}) : super(key: key);
-
-//   @override
-//   State<_AddReviewSheet> createState() => _AddReviewSheetState();
-// }
-
-// class _AddReviewSheetState extends State<_AddReviewSheet> {
-//   double _rating = 5.0;
-//   final TextEditingController _reviewController = TextEditingController();
-
-//   @override
-//   Widget build(BuildContext context) {
-//     return Container(
-//       color: AppConstant.cardBackground,
-//       child: Padding(
-//         padding: EdgeInsets.only(
-//           bottom: 50.0,
-//           left: 16.0,
-//           right: 16.0,
-//           top: 16.0,
-//         ),
-//         child: Column(
-//           mainAxisSize: MainAxisSize.min,
-//           crossAxisAlignment: CrossAxisAlignment.start,
-//           children: [
-//             const Text(
-//               'Add Your Review',
-//               style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
-//             ),
-//             const SizedBox(height: 8),
-//             RatingBar.builder(
-//               initialRating: _rating,
-//               minRating: 1,
-//               direction: Axis.horizontal,
-//               allowHalfRating: true,
-//               itemCount: 5,
-//               itemBuilder: (context, _) => const Icon(
-//                 Icons.star,
-//                 color: Colors.amber,
-//                 size: 24,
-//               ),
-//               onRatingUpdate: (rating) {
-//                 setState(() {
-//                   _rating = rating;
-//                 });
-//               },
-//             ),
-//             const SizedBox(height: 8),
-//             TextField(
-//               controller: _reviewController,
-//               maxLines: 3,
-//               decoration: const InputDecoration(
-//                 border: OutlineInputBorder(),
-//                 hintText: 'Write your review here...',
-//               ),
-//             ),
-//             const SizedBox(height: 8),
-//             SizedBox(
-//               width: double.infinity,
-//               child: ElevatedButton(
-//                 onPressed: () {
-//                   addUserReview(courseId: widget.courseId);
-//                 },
-//                 child: const Text(
-//                   'Submit',
-//                   style: TextStyle(
-//                     color: Colors.white,
-//                     fontWeight: FontWeight.bold,
-//                   ),
-//                 ),
-//                 style: ElevatedButton.styleFrom(
-//                   backgroundColor: AppConstant.primaryColor
-//                 ),
-//               ),
-//             ),
-//           ],
-//         ),
-//       ),
-//     );
-//   }
-
 class _AddReviewSheet extends StatefulWidget {
   final String courseId;
 
@@ -435,25 +389,3 @@ class _AddReviewSheetState extends State<_AddReviewSheet> {
     });
   }
 }
-
-
-  // void addUserReview({required String courseId}) {
-  //   UserSubscriptionsServices()
-  //       .createUserCourseReview(
-  //     userId: userData.userid,
-  //     courseid: courseId,
-  //     review: _reviewController.text,
-  //     rating: _rating.toString(),
-  //   )
-  //       .then((_) {
-  //     ScaffoldMessenger.of(context).showSnackBar(
-  //       const SnackBar(content: Text('Review submitted successfully')),
-  //     );
-  //     Navigator.pop(context);
-  //   }).catchError((error) {
-  //     ScaffoldMessenger.of(context).showSnackBar(
-  //       SnackBar(content: Text('Failed to submit review: $error')),
-  //     );
-  //   });
-  // }
-//}
