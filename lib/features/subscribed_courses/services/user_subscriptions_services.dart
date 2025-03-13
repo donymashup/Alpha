@@ -251,27 +251,24 @@ class UserSubscriptionsServices {
     required BuildContext context,
     required String courseId,
     required String userId,
-    required String packageId,
+   // required String packageId,
   }) async {
    try {
       print("start");
       var request = http.MultipartRequest(
           'POST', Uri.parse('https://dreamthemetutor.in/api/getMiscellaneousFolders'));
       request.fields.addAll({
-        'packageid': '1',
-        'userid': '1',
-        'courseid': '1'
+        'packageid': "1",
+        'userid': userId,
+        'courseid': courseId,
       });
-      print("done");
 
       http.StreamedResponse response = await request.send();
-      
-      print(response.statusCode);
       if (response.statusCode == 200) {
         var responseBody = await response.stream.bytesToString();
         final jsonResponse = json.decode(responseBody);
-        print("success");
-        showSnackbar(context,'sucessfully fetch extra activities: ${response.statusCode}');
+        //print("success");
+       // showSnackbar(context,'sucessfully fetch extra activities: ${response.statusCode}');
         return MiscellaneousFoldersModel.fromJson(jsonResponse);
       } else {
         print("failure");
@@ -280,7 +277,7 @@ class UserSubscriptionsServices {
       }
     } catch (e) {
       print("failure");
-      showSnackbar(context,'Error inserting timeline activity: $e');
+      showSnackbar(context,'Error in fetching data activity: $e');
       return null;
     }
   }

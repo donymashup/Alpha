@@ -58,6 +58,7 @@ class _MyCoursesState extends State<MyCourses> {
                           courseName: course.courseDetails?.courseListName ?? "Course Name",
                           batchId: course.courseDetails!.batchListId!,
                           courseImage: course.courseDetails?.courseListImage ?? "assets/images/course1.png",
+                        //  packageid: course.packageDetails!.package!.id!,
                         ),
                       ),
                     );
