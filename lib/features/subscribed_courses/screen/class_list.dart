@@ -14,14 +14,14 @@ class ClassList extends StatefulWidget {
   final String courseName;
   final String batchId;
   final String courseImage;
- // final String packageid;
+  final String packageid;
 
   const ClassList({
     required this.courseId,
     required this.courseName,
     required this.batchId,
     required this.courseImage,
-  //  required this.packageid,
+    required this.packageid,
     super.key,
   });
 
@@ -135,7 +135,7 @@ class _ClassListState extends State<ClassList> {
                             MaterialPageRoute(
                               builder: (context) => MiscellaneousFolderScreen(
                                 courseId: widget.courseId,
-                              //  packageId:widget.packageid ,
+                                packageId:widget.packageid ,
                               )
                             ),
                           );
