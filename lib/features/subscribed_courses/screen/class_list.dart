@@ -14,12 +14,14 @@ class ClassList extends StatefulWidget {
   final String courseName;
   final String batchId;
   final String courseImage;
+ // final String packageid;
 
   const ClassList({
     required this.courseId,
     required this.courseName,
     required this.batchId,
     required this.courseImage,
+  //  required this.packageid,
     super.key,
   });
 
@@ -131,7 +133,10 @@ class _ClassListState extends State<ClassList> {
                           Navigator.push(
                             context,
                             MaterialPageRoute(
-                              builder: (context) => MiscellaneousFolderScreen()
+                              builder: (context) => MiscellaneousFolderScreen(
+                                courseId: widget.courseId,
+                              //  packageId:widget.packageid ,
+                              )
                             ),
                           );
                         },
@@ -149,16 +154,16 @@ class _ClassListState extends State<ClassList> {
                           child: Padding(
                             padding: const EdgeInsets.all(16.0),
                             child: Row(
-                              children: [
+                              children:const [
                                 Icon(
                                   Icons.folder,
                                   size: 50,
                                   color: AppConstant.primaryColor2,
                                 ),
-                                const SizedBox(width: 10),
-                                const Expanded(
+                                 SizedBox(width: 10),
+                                 Expanded(
                                   child: Text(
-                                    "Miscellaneous",
+                                    "Extra Lessons",
                                     style: TextStyle(
                                       fontSize: 18,
                                       fontWeight: FontWeight.bold,

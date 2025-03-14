@@ -1,108 +1,18 @@
-// import 'package:alpha/features/subscribed_courses/services/user_subscriptions_services.dart';
-// import 'package:alpha/models/miscellaneous_folder_model.dart';
-// import 'package:flutter/material.dart';
-
-// class MiscillaneousFolderScreen extends StatefulWidget {
-//   const MiscillaneousFolderScreen({super.key});
-
-//   @override
-//   State<MiscillaneousFolderScreen> createState() => _MiscillaneousFolderScreenState();
-// }
-
-// class _MiscillaneousFolderScreenState extends State<MiscillaneousFolderScreen> {
-//   late Future<MiscellaneousFoldersModel?> folders;
-
-//   void fetchInitialFolders() {
-//     setState(() {
-//       folders = UserSubscriptionsServices().getMiscellaneousFolders(
-//         context: context,
-//         courseId: "1",
-//         userId: "1", // Assuming `userData` is globally available
-//         packageId: "1",
-//       );
-//       print(folders.toString());
-//     });
-//   }
-
-//   @override
-//   void initState() {
-//     // TODO: implement initState
-//     super.initState();
-//     fetchInitialFolders();
-//   }
-
-//   @override
-//   Widget build(BuildContext context) {
-//     return Scaffold(
-//       appBar: AppBar(
-//         title: const Text("Miscellaneous Folders"),
-//         leading: IconButton(
-//           icon: const Icon(Icons.arrow_back),
-//           onPressed: () => Navigator.of(context).pop(),
-//         ),
-//       ),
-//       // body: Text("data"),
-//       body: FutureBuilder<MiscellaneousFoldersModel?>(
-//         future: folders,
-//         builder: (context, snapshot) {
-//           if (snapshot.connectionState == ConnectionState.waiting) {
-//             return const Center(
-//               child: Padding(
-//                 padding: EdgeInsets.all(20.0),
-//                 child: CircularProgressIndicator(),
-//               ),
-//             );
-//           } else if (snapshot.hasError) {
-//             return Center(
-//               child: Padding(
-//                 padding: const EdgeInsets.all(20.0),
-//                 child: Text("Error: ${snapshot.error}"),
-//               ),
-//             );
-//           } else if (!snapshot.hasData ||
-//               snapshot.data!.list == null ||
-//               snapshot.data!.list!.isEmpty) {
-//             if (snapshot.data?.list == null || snapshot.data!.list!.isEmpty) {
-//               return const Center(
-//                 child: Padding(
-//                   padding: EdgeInsets.all(20.0),
-//                   child: Text("No chapters found"),
-//                 ),
-//               );
-//             }
-//           }
-
-//           return ListView.builder(
-//             itemCount: snapshot.data!.list!.length,
-//             itemBuilder: (context, index) {
-//               var folder = snapshot.data!.list![index];
-//               return ListTile(
-//                 title: Text(folder.title ?? "No Title"),
-//                 leading: folder.thumbnail != null
-//                     ? Image.network(folder.thumbnail!,
-//                         width: 50, height: 50, fit: BoxFit.cover)
-//                     : const Icon(Icons.folder, size: 50), // Fallback icon
-//                 onTap: () {
-//                   // Handle folder click
-//                 },
-//               );
-//             },
-//           );
-//         },
-//       ),
-//     );
-//   }
-// }
-
-
+import 'package:alpha/constants/app_constants.dart';
 import 'package:alpha/features/subscribed_courses/services/user_subscriptions_services.dart';
 import 'package:alpha/models/miscellaneous_folder_model.dart';
+import 'package:better_player/better_player.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:shimmer/shimmer.dart';
 
 class MiscellaneousFolderScreen extends StatefulWidget {
-  const MiscellaneousFolderScreen({super.key});
+  final String courseId;
+  //final String packageId;
+  const MiscellaneousFolderScreen({
+    required this.courseId,
+ //   required this.packageId,
+    super.key});
 
   @override
   State<MiscellaneousFolderScreen> createState() => _MiscellaneousFolderScreenState();
@@ -110,7 +20,8 @@ class MiscellaneousFolderScreen extends StatefulWidget {
 
 class _MiscellaneousFolderScreenState extends State<MiscellaneousFolderScreen> {
   late Future<MiscellaneousFoldersModel?> folders;
-  MiscellaneousFoldersModel? currentFolder; // Track the selected folder
+  MiscellaneousFoldersModel? currentFolder;
+  List<MiscellaneousFoldersModel> folderStack = []; // Stack to track folder history
 
   @override
   void initState() {
@@ -122,86 +33,175 @@ class _MiscellaneousFolderScreenState extends State<MiscellaneousFolderScreen> {
     setState(() {
       folders = UserSubscriptionsServices().getMiscellaneousFolders(
         context: context,
-        courseId: "1",
-        userId: "1",
-        packageId: "1",
+        courseId: widget.courseId,
+        userId: userData.userid,
+        //packageId: widget.packageId,
       );
     });
   }
 
   void updateFolder(MiscellaneousFoldersModel selectedFolder) {
     setState(() {
+      if (currentFolder != null) {
+        folderStack.add(currentFolder!); // Push current folder to stack
+      }
       currentFolder = selectedFolder;
     });
   }
 
+  void playVideo(BuildContext context, String videoUrl, String videoName) {
+    Navigator.push(
+      context,
+      MaterialPageRoute(
+        builder: (context) => VideoPlayerScreen(videoUrl: videoUrl,videoName: videoName,),
+      ),
+    );
+  }
+
+  Future<bool> _onWillPop() async {
+    if (folderStack.isNotEmpty) {
+      setState(() {
+        currentFolder = folderStack.removeLast(); // Pop the last folder
+      });
+      return false;
+    }
+    return true;
+  }
+
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: Text(currentFolder == null ? "Miscellaneous Folders" : currentFolder!.title ?? "Subfolder"),
-        leading: IconButton(
-          icon: Icon(Icons.arrow_back),
-          onPressed: () {
-            if (currentFolder != null) {
-              setState(() {
-                currentFolder = null; // Go back to the root level
-              });
-            } else {
-              Navigator.of(context).pop();
+    return WillPopScope(
+      onWillPop: _onWillPop,
+      child: Scaffold(
+        backgroundColor: AppConstant.backgroundColor,
+        appBar: AppBar(
+          backgroundColor: AppConstant.backgroundColor,
+          title: Text(
+            currentFolder == null ? "Extras Lessons" : currentFolder!.title ?? "Subfolder",
+            style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
+          ),
+          leading: IconButton(
+            icon: Icon(Icons.arrow_back_ios_new, size: 16),
+            onPressed: () {
+              if (folderStack.isNotEmpty) {
+                setState(() {
+                  currentFolder = folderStack.removeLast();
+                });
+              } else {
+                Navigator.of(context).pop();
+              }
+            },
+          ),
+        ),
+        body: FutureBuilder<MiscellaneousFoldersModel?>(
+          future: folders,
+          builder: (context, snapshot) {
+            if (snapshot.connectionState == ConnectionState.waiting) {
+              return const Center(child: CircularProgressIndicator());
+            } else if (snapshot.hasError) {
+              return Center(child: Text("Error: ${snapshot.error}"));
+            } else if (!snapshot.hasData || snapshot.data!.list == null || snapshot.data!.list!.isEmpty) {
+              return const Center(child: Text("No Lessons found"));
             }
+
+            List<MiscellaneousFoldersModel> displayList = currentFolder?.list ?? snapshot.data!.list!;
+
+            return ListView.builder(
+              itemCount: displayList.length,
+              itemBuilder: (context, index) {
+                var folder = displayList[index];
+                bool isFolder = folder.list != null && folder.list!.isNotEmpty;
+                bool isVideo = folder.type == "video";
+
+                return Card(
+                  color: AppConstant.cardBackground,
+                  elevation: 2,
+                  margin: const EdgeInsets.symmetric(horizontal: 10, vertical: 5),
+                  child: ListTile(
+                    title: Text(folder.title ?? "No Title"),
+                    leading: isFolder
+                        ? Icon(Icons.folder, size: 50, color:AppConstant.primaryColor2)
+                        : isVideo
+                            ? CachedNetworkImage(
+                                imageUrl: folder.thumbnail ?? '',
+                                width: 70,
+                                height: 50,
+                                fit: BoxFit.cover,
+                                placeholder: (context, url) => Shimmer.fromColors(
+                                  baseColor: Colors.grey[300]!,
+                                  highlightColor: Colors.grey[100]!,
+                                  child: Container(
+                                    width: 70,
+                                    height: 50,
+                                    color: Colors.white,
+                                  ),
+                                ),
+                                errorWidget: (context, url, error) => Icon(Icons.broken_image, size: 50),
+                              )
+                               : Icon(Icons.play_circle_fill, size: 50, color: Colors.red),
+                    trailing: isFolder ? Icon(Icons.arrow_forward_ios,size:14,color: Colors.grey,) : null,
+                    onTap: () {
+                      if (isFolder) {
+                        updateFolder(folder);
+                      } else if (isVideo && folder.link != null) {
+                        playVideo(context, folder.link!,folder.title!);
+                      }
+                    },
+                  ),
+                );
+              },
+            );
           },
         ),
       ),
-      body: FutureBuilder<MiscellaneousFoldersModel?>(
-        future: folders,
-        builder: (context, snapshot) {
-          if (snapshot.connectionState == ConnectionState.waiting) {
-            return const Center(child: CircularProgressIndicator());
-          } else if (snapshot.hasError) {
-            return Center(child: Text("Error: ${snapshot.error}"));
-          } else if (!snapshot.hasData || snapshot.data!.list == null || snapshot.data!.list!.isEmpty) {
-            return const Center(child: Text("No folders found"));
-          }
+    );
+  }
+}
 
-          // Determine which list to show
-          List<MiscellaneousFoldersModel> displayList = currentFolder?.list ?? snapshot.data!.list!;
 
-          return ListView.builder(
-            itemCount: displayList.length,
-            itemBuilder: (context, index) {
-              var folder = displayList[index];
+class VideoPlayerScreen extends StatelessWidget {
+  final String videoUrl;
+  final String videoName;
+  const VideoPlayerScreen({Key? key, required this.videoUrl,required this.videoName}) : super(key: key);
 
-              return ListTile(
-                title: Text(folder.title ?? "No Title"),
-                leading: folder.thumbnail != null
-                    ? CachedNetworkImage(
-                    imageUrl: folder.thumbnail!,
-                    width: 50,
-                    height: 50,
-                    fit: BoxFit.cover,
-                    placeholder: (context, url) => Shimmer.fromColors(
-                      baseColor: Colors.grey[300]!,
-                      highlightColor: Colors.grey[100]!,
-                      child: Container(
-                        width: 100,
-                        height: 50,
-                        color: Colors.white,
-                      ),
-                    ),
-                    errorWidget: (context, url, error) => Icon(Icons.broken_image, size: 50),
-                     )
-                   : Icon(Icons.folder, size: 50),
-                trailing: folder.list != null && folder.list!.isNotEmpty ? Icon(Icons.arrow_back_ios_new) : null,
-                onTap: () {
-                  if (folder.list != null && folder.list!.isNotEmpty) {
-                    updateFolder(folder);
-                  }
-                },
-              );
-            },
-          );
-        },
+  @override
+   Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(
+        leading: IconButton(
+          icon: Icon(Icons.arrow_back_ios_new, size: 16),
+          onPressed: () {
+              Navigator.of(context).pop();
+              },
+        ),
+        title: Text(videoName,style: TextStyle(fontSize: 20,fontWeight: FontWeight.bold),)),
+      body: Column(
+        mainAxisAlignment: MainAxisAlignment.start,
+        children: [
+          BetterPlayer.network(
+            videoUrl,
+            betterPlayerConfiguration: BetterPlayerConfiguration(
+              autoPlay: true,
+              looping: false,
+              controlsConfiguration: BetterPlayerControlsConfiguration(
+                enableProgressText: true,
+                enablePlayPause: true,
+                enablePlaybackSpeed: true,
+                enableSkips: true,
+                enableFullscreen: true,
+                enablePip: true,
+                enableRetry: true,
+                enableMute: true,
+                showControlsOnInitialize: true,
+              ),
+            ),
+          ),
+        //  SizedBox(height: 15,),
+        //  Padding(
+        //    padding: const EdgeInsets.all(8.0),
+        //    child: Text(videoName,style: TextStyle(fontSize: 16,fontWeight: FontWeight.w700),),
+        //  )
+        ],
       ),
     );
   }
