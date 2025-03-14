@@ -8,10 +8,10 @@ import 'package:shimmer/shimmer.dart';
 
 class MiscellaneousFolderScreen extends StatefulWidget {
   final String courseId;
-  //final String packageId;
+  final String packageId;
   const MiscellaneousFolderScreen({
     required this.courseId,
- //   required this.packageId,
+   required this.packageId,
     super.key});
 
   @override
@@ -35,7 +35,7 @@ class _MiscellaneousFolderScreenState extends State<MiscellaneousFolderScreen> {
         context: context,
         courseId: widget.courseId,
         userId: userData.userid,
-        //packageId: widget.packageId,
+        packageId: widget.packageId,
       );
     });
   }

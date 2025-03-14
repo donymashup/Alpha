@@ -171,7 +171,7 @@ class _HomeScreenState extends State<HomeScreen> {
                             batchId: course.batchid!,
                             courseImage: course.courseDetails?.image ??
                                 "assets/images/course1.png", 
-                            // packageid: "1",    
+                             packageid: "1",    
                           ),
                         ),
                       );
