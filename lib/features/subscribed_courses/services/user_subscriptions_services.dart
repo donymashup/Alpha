@@ -226,7 +226,7 @@ class UserSubscriptionsServices {
         var responseBody = await response.stream.bytesToString();
         final jsonResponse = json.decode(responseBody);
         var model = fromJson(jsonResponse);
-       // showSnackbar(context, successMessage);
+        // showSnackbar(context, successMessage);
         return model;
       } else {
         print("Failed to fetch data: ${response.statusCode}");
@@ -245,20 +245,17 @@ class UserSubscriptionsServices {
     return pref.getString('userId');
   }
 
-
 // function for fetching miscellaneous folders
   Future<MiscellaneousFoldersModel?> getMiscellaneousFolders({
     required BuildContext context,
     required String courseId,
     required String userId,
-    required String packageId,
   }) async {
-   try {
+    try {
       print("start");
       var request = http.MultipartRequest(
-          'POST', Uri.parse('https://dreamthemetutor.in/api/getMiscellaneousFolders'));
+          'POST', Uri.parse(baseUrl + getMiscellaneousFoldersUrl));
       request.fields.addAll({
-        'packageid': "1",
         'userid': userId,
         'courseid': courseId,
       });
@@ -268,18 +265,18 @@ class UserSubscriptionsServices {
         var responseBody = await response.stream.bytesToString();
         final jsonResponse = json.decode(responseBody);
         //print("success");
-       // showSnackbar(context,'sucessfully fetch extra activities: ${response.statusCode}');
+        // showSnackbar(context,'sucessfully fetch extra activities: ${response.statusCode}');
         return MiscellaneousFoldersModel.fromJson(jsonResponse);
       } else {
         print("failure");
-       showSnackbar(context,'failed to fetch extra activities: ${response.statusCode}');
-      return MiscellaneousFoldersModel();
+        showSnackbar(context,
+            'failed to fetch extra activities: ${response.statusCode}');
+        return MiscellaneousFoldersModel();
       }
     } catch (e) {
       print("failure");
-      showSnackbar(context,'Error in fetching data activity: $e');
+      showSnackbar(context, 'Error in fetching data activity: $e');
       return null;
     }
   }
-  
 }

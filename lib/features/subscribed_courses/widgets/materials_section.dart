@@ -32,8 +32,12 @@ class MaterialsSectionWidget extends StatelessWidget {
                   return Center(child: Text("Error: ${snapshot.error}"));
                 } else if (!snapshot.hasData ||
                     snapshot.data!.materials!.isEmpty) {
-                  return const Text("No Data Available",
-                      style: TextStyle(color: Colors.grey));
+                  return const Center(
+                    child: Text(
+                      "No Data Available",
+                      style: TextStyle(color: Colors.grey),
+                    ),
+                  );
                 }
 
                 return _buildMaterialList(snapshot.data!.materials!);
@@ -89,37 +93,40 @@ class MaterialsSectionWidget extends StatelessWidget {
               shape: RoundedRectangleBorder(
                 borderRadius: BorderRadius.circular(10),
               ),
-              child: Row(
-                crossAxisAlignment: CrossAxisAlignment.center,
-                children: [
-                  Expanded(
-                    child: Padding(
-                      padding: const EdgeInsets.all(8.0),
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          Text(
-                            material.materialListName ?? "Material",
-                            style: const TextStyle(
-                                fontSize: 14, fontWeight: FontWeight.bold),
-                            maxLines: 1,
-                            overflow: TextOverflow.ellipsis,
-                          ),
-                          const SizedBox(height: 4),
-                          Text(
-                            material.materialListDescription ??
-                                "No description available",
-                            style: const TextStyle(
-                                fontSize: 12, color: Colors.grey),
-                            maxLines: 2,
-                            overflow: TextOverflow.ellipsis,
-                          ),
-                        ],
+              child: Padding(
+                padding: const EdgeInsets.all(12.0), // Increased padding
+                child: Row(
+                  crossAxisAlignment: CrossAxisAlignment.center,
+                  children: [
+                    Expanded(
+                      child: Padding(
+                        padding: const EdgeInsets.all(8.0),
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Text(
+                              material.materialListName ?? "Material",
+                              style: const TextStyle(
+                                  fontSize: 14, fontWeight: FontWeight.bold),
+                              maxLines: 1,
+                              overflow: TextOverflow.ellipsis,
+                            ),
+                            const SizedBox(height: 4),
+                            Text(
+                              material.materialListDescription ??
+                                  "No description available",
+                              style: const TextStyle(
+                                  fontSize: 12, color: Colors.grey),
+                              maxLines: 2,
+                              overflow: TextOverflow.ellipsis,
+                            ),
+                          ],
+                        ),
                       ),
                     ),
-                  ),
-                  const Icon(Icons.arrow_forward_ios, size: 16),
-                ],
+                    const Icon(Icons.arrow_forward_ios, size: 16),
+                  ],
+                ),
               ),
             ),
           ),

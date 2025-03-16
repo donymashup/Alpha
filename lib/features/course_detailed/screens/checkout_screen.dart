@@ -91,6 +91,7 @@ class _CheckoutScreenState extends State<CheckoutScreen> {
   }
 
   void makePayment() async {
+    debugPrint(AppConstant.RazorPay_key_id);
     setState(() {
       _isPaymentProcessing = true;
     });

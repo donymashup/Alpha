@@ -14,14 +14,12 @@ class ClassList extends StatefulWidget {
   final String courseName;
   final String batchId;
   final String courseImage;
-  final String packageid;
 
   const ClassList({
     required this.courseId,
     required this.courseName,
     required this.batchId,
     required this.courseImage,
-    required this.packageid,
     super.key,
   });
 
@@ -42,6 +40,8 @@ class _ClassListState extends State<ClassList> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      floatingActionButton:
+          _SwipeableAddReviewSection(courseId: widget.courseId),
       backgroundColor: AppConstant.backgroundColor,
       body: Stack(
         children: [
@@ -124,7 +124,8 @@ class _ClassListState extends State<ClassList> {
 
                 return ListView.builder(
                   padding: const EdgeInsets.only(bottom: 80),
-                  itemCount: snapshot.data!.classes!.length + 1, // Add one for the Miscellaneous card
+                  itemCount: snapshot.data!.classes!.length +
+                      1, // Add one for the Miscellaneous card
                   itemBuilder: (context, index) {
                     if (index == snapshot.data!.classes!.length) {
                       // Add the Miscellaneous card at the end
@@ -133,11 +134,9 @@ class _ClassListState extends State<ClassList> {
                           Navigator.push(
                             context,
                             MaterialPageRoute(
-                              builder: (context) => MiscellaneousFolderScreen(
-                                courseId: widget.courseId,
-                                packageId:widget.packageid ,
-                              )
-                            ),
+                                builder: (context) => MiscellaneousFolderScreen(
+                                      courseId: widget.courseId,
+                                    )),
                           );
                         },
                         child: Card(
@@ -154,14 +153,14 @@ class _ClassListState extends State<ClassList> {
                           child: Padding(
                             padding: const EdgeInsets.all(16.0),
                             child: Row(
-                              children:const [
+                              children: const [
                                 Icon(
                                   Icons.folder,
                                   size: 50,
                                   color: AppConstant.primaryColor2,
                                 ),
-                                 SizedBox(width: 10),
-                                 Expanded(
+                                SizedBox(width: 10),
+                                Expanded(
                                   child: Text(
                                     "Extra Lessons",
                                     style: TextStyle(
@@ -260,12 +259,6 @@ class _ClassListState extends State<ClassList> {
               },
             ),
           ),
-          Positioned(
-            bottom: 45,
-            left: 0,
-            right: 0,
-            child: _SwipeableAddReviewSection(courseId: widget.courseId),
-          ),
         ],
       ),
     );
@@ -295,6 +288,10 @@ class _SwipeableAddReviewSection extends StatelessWidget {
       icon: const Icon(Icons.rate_review),
       backgroundColor: AppConstant.backgroundColor,
       foregroundColor: AppConstant.primaryColor2,
+      shape: RoundedRectangleBorder(
+        side: BorderSide(color: Colors.red, width: 2),
+        borderRadius: BorderRadius.circular(20),
+      ),
     );
   }
 }
@@ -318,12 +315,14 @@ class _AddReviewSheetState extends State<_AddReviewSheet> {
       padding: EdgeInsets.only(
         bottom: MediaQuery.of(context).viewInsets.bottom, // Adjust for keyboard
       ),
-      child: SingleChildScrollView(  // Make it scrollable
+      child: SingleChildScrollView(
+        // Make it scrollable
         child: Container(
           padding: const EdgeInsets.all(16.0),
           decoration: BoxDecoration(
             color: AppConstant.cardBackground,
-            borderRadius: const BorderRadius.vertical(top: Radius.circular(20.0)),
+            borderRadius:
+                const BorderRadius.vertical(top: Radius.circular(20.0)),
           ),
           child: Column(
             mainAxisSize: MainAxisSize.min,
@@ -379,6 +378,7 @@ class _AddReviewSheetState extends State<_AddReviewSheet> {
                   ),
                 ),
               ),
+              const SizedBox(height: 30),
             ],
           ),
         ),

@@ -8,20 +8,18 @@ import 'package:shimmer/shimmer.dart';
 
 class MiscellaneousFolderScreen extends StatefulWidget {
   final String courseId;
-  final String packageId;
-  const MiscellaneousFolderScreen({
-    required this.courseId,
-   required this.packageId,
-    super.key});
+  const MiscellaneousFolderScreen({required this.courseId, super.key});
 
   @override
-  State<MiscellaneousFolderScreen> createState() => _MiscellaneousFolderScreenState();
+  State<MiscellaneousFolderScreen> createState() =>
+      _MiscellaneousFolderScreenState();
 }
 
 class _MiscellaneousFolderScreenState extends State<MiscellaneousFolderScreen> {
   late Future<MiscellaneousFoldersModel?> folders;
   MiscellaneousFoldersModel? currentFolder;
-  List<MiscellaneousFoldersModel> folderStack = []; // Stack to track folder history
+  List<MiscellaneousFoldersModel> folderStack =
+      []; // Stack to track folder history
 
   @override
   void initState() {
@@ -35,7 +33,6 @@ class _MiscellaneousFolderScreenState extends State<MiscellaneousFolderScreen> {
         context: context,
         courseId: widget.courseId,
         userId: userData.userid,
-        packageId: widget.packageId,
       );
     });
   }
@@ -53,7 +50,10 @@ class _MiscellaneousFolderScreenState extends State<MiscellaneousFolderScreen> {
     Navigator.push(
       context,
       MaterialPageRoute(
-        builder: (context) => VideoPlayerScreen(videoUrl: videoUrl,videoName: videoName,),
+        builder: (context) => VideoPlayerScreen(
+          videoUrl: videoUrl,
+          videoName: videoName,
+        ),
       ),
     );
   }
@@ -77,7 +77,9 @@ class _MiscellaneousFolderScreenState extends State<MiscellaneousFolderScreen> {
         appBar: AppBar(
           backgroundColor: AppConstant.backgroundColor,
           title: Text(
-            currentFolder == null ? "Extras Lessons" : currentFolder!.title ?? "Subfolder",
+            currentFolder == null
+                ? "Extras Lessons"
+                : currentFolder!.title ?? "Subfolder",
             style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
           ),
           leading: IconButton(
@@ -100,11 +102,14 @@ class _MiscellaneousFolderScreenState extends State<MiscellaneousFolderScreen> {
               return const Center(child: CircularProgressIndicator());
             } else if (snapshot.hasError) {
               return Center(child: Text("Error: ${snapshot.error}"));
-            } else if (!snapshot.hasData || snapshot.data!.list == null || snapshot.data!.list!.isEmpty) {
+            } else if (!snapshot.hasData ||
+                snapshot.data!.list == null ||
+                snapshot.data!.list!.isEmpty) {
               return const Center(child: Text("No Lessons found"));
             }
 
-            List<MiscellaneousFoldersModel> displayList = currentFolder?.list ?? snapshot.data!.list!;
+            List<MiscellaneousFoldersModel> displayList =
+                currentFolder?.list ?? snapshot.data!.list!;
 
             return ListView.builder(
               itemCount: displayList.length,
@@ -116,18 +121,21 @@ class _MiscellaneousFolderScreenState extends State<MiscellaneousFolderScreen> {
                 return Card(
                   color: AppConstant.cardBackground,
                   elevation: 2,
-                  margin: const EdgeInsets.symmetric(horizontal: 10, vertical: 5),
+                  margin:
+                      const EdgeInsets.symmetric(horizontal: 10, vertical: 5),
                   child: ListTile(
                     title: Text(folder.title ?? "No Title"),
                     leading: isFolder
-                        ? Icon(Icons.folder, size: 50, color:AppConstant.primaryColor2)
+                        ? Icon(Icons.folder,
+                            size: 50, color: AppConstant.primaryColor2)
                         : isVideo
                             ? CachedNetworkImage(
                                 imageUrl: folder.thumbnail ?? '',
                                 width: 70,
                                 height: 50,
                                 fit: BoxFit.cover,
-                                placeholder: (context, url) => Shimmer.fromColors(
+                                placeholder: (context, url) =>
+                                    Shimmer.fromColors(
                                   baseColor: Colors.grey[300]!,
                                   highlightColor: Colors.grey[100]!,
                                   child: Container(
@@ -136,15 +144,23 @@ class _MiscellaneousFolderScreenState extends State<MiscellaneousFolderScreen> {
                                     color: Colors.white,
                                   ),
                                 ),
-                                errorWidget: (context, url, error) => Icon(Icons.broken_image, size: 50),
+                                errorWidget: (context, url, error) =>
+                                    Icon(Icons.broken_image, size: 50),
                               )
-                               : Icon(Icons.play_circle_fill, size: 50, color: Colors.red),
-                    trailing: isFolder ? Icon(Icons.arrow_forward_ios,size:14,color: Colors.grey,) : null,
+                            : Icon(Icons.play_circle_fill,
+                                size: 50, color: Colors.red),
+                    trailing: isFolder
+                        ? Icon(
+                            Icons.arrow_forward_ios,
+                            size: 14,
+                            color: Colors.grey,
+                          )
+                        : null,
                     onTap: () {
                       if (isFolder) {
                         updateFolder(folder);
                       } else if (isVideo && folder.link != null) {
-                        playVideo(context, folder.link!,folder.title!);
+                        playVideo(context, folder.link!, folder.title!);
                       }
                     },
                   ),
@@ -158,23 +174,27 @@ class _MiscellaneousFolderScreenState extends State<MiscellaneousFolderScreen> {
   }
 }
 
-
 class VideoPlayerScreen extends StatelessWidget {
   final String videoUrl;
   final String videoName;
-  const VideoPlayerScreen({Key? key, required this.videoUrl,required this.videoName}) : super(key: key);
+  const VideoPlayerScreen(
+      {Key? key, required this.videoUrl, required this.videoName})
+      : super(key: key);
 
   @override
-   Widget build(BuildContext context) {
+  Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        leading: IconButton(
-          icon: Icon(Icons.arrow_back_ios_new, size: 16),
-          onPressed: () {
+          leading: IconButton(
+            icon: Icon(Icons.arrow_back_ios_new, size: 16),
+            onPressed: () {
               Navigator.of(context).pop();
-              },
-        ),
-        title: Text(videoName,style: TextStyle(fontSize: 20,fontWeight: FontWeight.bold),)),
+            },
+          ),
+          title: Text(
+            videoName,
+            style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
+          )),
       body: Column(
         mainAxisAlignment: MainAxisAlignment.start,
         children: [
@@ -196,11 +216,11 @@ class VideoPlayerScreen extends StatelessWidget {
               ),
             ),
           ),
-        //  SizedBox(height: 15,),
-        //  Padding(
-        //    padding: const EdgeInsets.all(8.0),
-        //    child: Text(videoName,style: TextStyle(fontSize: 16,fontWeight: FontWeight.w700),),
-        //  )
+          //  SizedBox(height: 15,),
+          //  Padding(
+          //    padding: const EdgeInsets.all(8.0),
+          //    child: Text(videoName,style: TextStyle(fontSize: 16,fontWeight: FontWeight.w700),),
+          //  )
         ],
       ),
     );

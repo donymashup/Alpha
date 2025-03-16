@@ -90,7 +90,7 @@ class VideoSectionWidget extends StatelessWidget {
             child: Card(
               color: Colors.white,
               shape: RoundedRectangleBorder(
-                borderRadius: BorderRadius.circular(10),
+                borderRadius: BorderRadius.circular(5),
               ),
               child: Row(
                 crossAxisAlignment: CrossAxisAlignment.center,
@@ -100,7 +100,7 @@ class VideoSectionWidget extends StatelessWidget {
                       padding: const EdgeInsets.all(8.0),
                       child: ClipRRect(
                         borderRadius:
-                            const BorderRadius.all(Radius.circular(10.0)),
+                            const BorderRadius.all(Radius.circular(5.0)),
                         child: Stack(
                           children: [
                             CachedNetworkImage(
@@ -111,7 +111,7 @@ class VideoSectionWidget extends StatelessWidget {
                                   highlightColor: Colors.grey[100]!,
                                   child: Container(
                                     width: double.infinity,
-                                    height: 100, // Adjust height as needed
+                                    height: 75, // Adjust height as needed
                                     color: Colors.white,
                                   ),
                                 ),
@@ -119,6 +119,7 @@ class VideoSectionWidget extends StatelessWidget {
                               errorWidget: (context, url, error) =>
                                   const Icon(Icons.error, color: Colors.red),
                               fit: BoxFit.cover,
+                              height: 75,
                             ),
                             Positioned(
                               bottom: 0,
@@ -149,29 +150,25 @@ class VideoSectionWidget extends StatelessWidget {
                     ),
                   ),
                   Expanded(
-                    child: Padding(
-                      padding: const EdgeInsets.all(8.0),
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          Text(
-                            video.videoName ?? "Video",
-                            style: const TextStyle(
-                                fontSize: 14, fontWeight: FontWeight.bold),
-                            maxLines: 1,
-                            overflow: TextOverflow.ellipsis,
-                          ),
-                          const SizedBox(height: 4),
-                          Text(
-                            video.videoDescription ??
-                                "No description available",
-                            style: const TextStyle(
-                                fontSize: 12, color: Colors.grey),
-                            maxLines: 2,
-                            overflow: TextOverflow.ellipsis,
-                          ),
-                        ],
-                      ),
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Text(
+                          video.videoName ?? "Video",
+                          style: const TextStyle(
+                              fontSize: 12, fontWeight: FontWeight.bold),
+                          maxLines: 2,
+                          // overflow: TextOverflow.ellipsis,
+                        ),
+                        const SizedBox(height: 4),
+                        Text(
+                          video.videoDescription ?? "No description available",
+                          style:
+                              const TextStyle(fontSize: 12, color: Colors.grey),
+                          maxLines: 2,
+                          overflow: TextOverflow.ellipsis,
+                        ),
+                      ],
                     ),
                   ),
                 ],

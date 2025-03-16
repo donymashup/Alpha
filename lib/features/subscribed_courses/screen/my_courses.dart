@@ -55,10 +55,11 @@ class _MyCoursesState extends State<MyCourses> {
                       MaterialPageRoute(
                         builder: (context) => ClassList(
                           courseId: course.courseDetails!.courseListId!,
-                          courseName: course.courseDetails?.courseListName ?? "Course Name",
+                          courseName: course.courseDetails?.courseListName ??
+                              "Course Name",
                           batchId: course.courseDetails!.batchListId!,
-                          courseImage: course.courseDetails?.courseListImage ?? "assets/images/course1.png",
-                          packageid: course.packageDetails!.package!.id!,
+                          courseImage: course.courseDetails?.courseListImage ??
+                              "assets/images/course1.png",
                         ),
                       ),
                     );
@@ -75,16 +76,19 @@ class _MyCoursesState extends State<MyCourses> {
                       child: Column(
                         children: [
                           Hero(
-                            tag: "courseImage-${course.courseDetails!.courseListId!}", // Hero tag
+                            tag:
+                                "courseImage-${course.courseDetails!.courseListId!}", // Hero tag
                             child: ClipRRect(
                               borderRadius: const BorderRadius.horizontal(
                                 left: Radius.circular(10),
                               ),
                               child: CachedNetworkImage(
-                                imageUrl: course.courseDetails?.courseListImage ?? "",
+                                imageUrl:
+                                    course.courseDetails?.courseListImage ?? "",
                                 width: double.infinity,
                                 fit: BoxFit.cover,
-                                placeholder: (context, url) => Shimmer.fromColors(
+                                placeholder: (context, url) =>
+                                    Shimmer.fromColors(
                                   baseColor: Colors.grey[300]!,
                                   highlightColor: Colors.grey[100]!,
                                   child: Container(
@@ -93,7 +97,8 @@ class _MyCoursesState extends State<MyCourses> {
                                     color: Colors.white,
                                   ),
                                 ),
-                                errorWidget: (context, url, error) => Image.asset(
+                                errorWidget: (context, url, error) =>
+                                    Image.asset(
                                   "assets/images/course1.png",
                                   width: double.infinity,
                                   fit: BoxFit.cover,
@@ -107,7 +112,8 @@ class _MyCoursesState extends State<MyCourses> {
                             children: [
                               Flexible(
                                 child: Text(
-                                  course.courseDetails?.courseListName ?? "Course Name",
+                                  course.courseDetails?.courseListName ??
+                                      "Course Name",
                                   style: const TextStyle(
                                     fontSize: 15,
                                     fontWeight: FontWeight.bold,
@@ -117,7 +123,8 @@ class _MyCoursesState extends State<MyCourses> {
                               ),
                               Row(
                                 children: [
-                                  const Icon(Icons.star, color: Colors.amber, size: 15),
+                                  const Icon(Icons.star,
+                                      color: Colors.amber, size: 15),
                                   const SizedBox(width: 5),
                                   Text(
                                     course.avgStars?.toString() ?? "0.0",

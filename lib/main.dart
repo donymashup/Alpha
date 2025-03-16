@@ -2,6 +2,7 @@
 import 'package:alpha/bindings/app_bindings.dart';
 import 'package:alpha/common%20widgets/splash_screen.dart';
 import 'package:alpha/constants/app_constants.dart';
+import 'package:alpha/constants/app_key_services.dart';
 import 'package:alpha/features/course_detailed/screens/checkout_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -13,7 +14,12 @@ import 'package:flutter_tex/flutter_tex.dart';
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   // TPStreamsSDK.initialize(provider: PROVIDER.tpstreams, orgCode: "85xd8j");
-
+  // Fetch the app keys from the appkeyService
+  final appKeyService = Get.put(AppKeyServices());
+  AppConstant.RazorPay_key_id = await appKeyService.fetchRazorpayKey();
+  AppConstant.OPENAI_API_KEY = await appKeyService.fetchOpenAIKey();
+  debugPrint("Razorpay Key: ${AppConstant.RazorPay_key_id}");
+  debugPrint("OpenAI Key: ${AppConstant.OPENAI_API_KEY}");
   // Check if user is logged in
   SharedPreferences prefs = await SharedPreferences.getInstance();
   bool isLoggedIn = prefs.getBool('isLoggedIn') ?? false;

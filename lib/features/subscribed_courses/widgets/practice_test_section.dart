@@ -32,8 +32,12 @@ class PracticeTestSection extends StatelessWidget {
                   return Center(child: Text("Error: ${snapshot.error}"));
                 } else if (!snapshot.hasData ||
                     snapshot.data!.practices!.isEmpty) {
-                  return const Text("No Data Available",
-                      style: TextStyle(color: Colors.grey));
+                  return const Center(
+                    child: Text(
+                      "No Data Available",
+                      style: TextStyle(color: Colors.grey),
+                    ),
+                  );
                 }
 
                 return _buildPracticeTestList(snapshot.data!.practices!);
@@ -72,48 +76,53 @@ class PracticeTestSection extends StatelessWidget {
             Navigator.push(
               context,
               MaterialPageRoute(
-                builder: (context) =>
-                    AttendPracticeTestScreen(testid: practice.practiceTestsId!),
+                builder: (context) => AttendPracticeTestScreen(
+                  testid: practice.practiceTestsId!,
+                ),
               ),
             );
           },
           child: Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 2, vertical: 4),
+            padding:
+                const EdgeInsets.only(right: 2, top: 4, bottom: 4, left: 2),
             child: Card(
               color: Colors.white,
               shape: RoundedRectangleBorder(
                 borderRadius: BorderRadius.circular(10),
               ),
-              child: Row(
-                crossAxisAlignment: CrossAxisAlignment.center,
-                children: [
-                  Expanded(
-                    child: Padding(
-                      padding: const EdgeInsets.all(8.0),
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          Text(
-                            practice.practiceTestsName ?? "Practice Test",
-                            style: const TextStyle(
-                                fontSize: 14, fontWeight: FontWeight.bold),
-                            maxLines: 1,
-                            overflow: TextOverflow.ellipsis,
-                          ),
-                          const SizedBox(height: 4),
-                          Text(
-                            "${practice.practiceTestsDuration ?? '0'} min",
-                            style: const TextStyle(
-                                fontSize: 12, color: Colors.grey),
-                            maxLines: 1,
-                            overflow: TextOverflow.ellipsis,
-                          ),
-                        ],
+              child: Padding(
+                padding: const EdgeInsets.all(12.0), // Increased padding
+                child: Row(
+                  crossAxisAlignment: CrossAxisAlignment.center,
+                  children: [
+                    Expanded(
+                      child: Padding(
+                        padding: const EdgeInsets.all(8.0),
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Text(
+                              practice.practiceTestsName ?? "Practice Test",
+                              style: const TextStyle(
+                                  fontSize: 14, fontWeight: FontWeight.bold),
+                              maxLines: 1,
+                              overflow: TextOverflow.ellipsis,
+                            ),
+                            const SizedBox(height: 4),
+                            Text(
+                              "${practice.practiceTestsDuration ?? '0'} min",
+                              style: const TextStyle(
+                                  fontSize: 12, color: Colors.grey),
+                              maxLines: 1,
+                              overflow: TextOverflow.ellipsis,
+                            ),
+                          ],
+                        ),
                       ),
                     ),
-                  ),
-                  const Icon(Icons.arrow_forward_ios, size: 16),
-                ],
+                    const Icon(Icons.arrow_forward_ios, size: 16),
+                  ],
+                ),
               ),
             ),
           ),
