@@ -1,3 +1,4 @@
+import 'package:alpha/constants/app_constants.dart';
 import 'package:alpha/constants/config.dart';
 import 'package:flutter/material.dart';
 import 'package:webview_flutter/webview_flutter.dart';
@@ -29,6 +30,7 @@ class PrivacypolicyPage extends StatelessWidget {
       ..loadRequest(Uri.parse(Privacy));
     return Scaffold(
       appBar: AppBar(
+        backgroundColor: AppConstant.cardBackground,
         leading: IconButton(
           icon: const Icon(Icons.arrow_back_ios_new, size: 16, color: Colors.black),
           onPressed: () => Navigator.pop(context),
