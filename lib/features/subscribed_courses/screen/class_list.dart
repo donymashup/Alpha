@@ -1,5 +1,4 @@
 import 'package:alpha/constants/app_constants.dart';
-import 'package:alpha/features/subscribed_courses/screen/miscellaneous_folder.dart';
 import 'package:alpha/features/subscribed_courses/screen/miscillaneous_folder_screen.dart';
 import 'package:alpha/features/subscribed_courses/screen/subject_list.dart';
 import 'package:alpha/features/subscribed_courses/services/user_subscriptions_services.dart';
@@ -157,7 +156,7 @@ class _ClassListState extends State<ClassList> {
                                 Icon(
                                   Icons.folder,
                                   size: 50,
-                                  color: AppConstant.primaryColor2,
+                                  color: AppConstant.primaryColor,
                                 ),
                                 SizedBox(width: 10),
                                 Expanded(

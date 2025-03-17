@@ -8,15 +8,14 @@ class CustomPeformanceMessage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: AppConstant.backgroundColor,
+      backgroundColor: AppConstant.cardBackground,
       appBar: AppBar(
-        title: const Text('Performance Index' ,style: TextStyle(fontSize: 20),),
+        title: const Text('Performance Index' ,style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold)),
+        backgroundColor: AppConstant.cardBackground,
         leading: IconButton(
-          onPressed: (){
-            Navigator.pop(context);
-          }, 
-          icon: Icon(Icons.arrow_back,size: 16,),
-          ),
+          icon: const Icon(Icons.arrow_back_ios_new, size: 16, color: Colors.black),
+          onPressed: () => Navigator.pop(context),
+        ),
       ),
       body: SafeArea(
         child: Center(
