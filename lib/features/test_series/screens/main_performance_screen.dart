@@ -34,8 +34,8 @@ class MainPerformanceScreen extends StatelessWidget {
         ),
       )
       ..loadRequest(
-          Uri.parse('${printReport}/mains/${userController.userId}/$testid'));
-    debugPrint('${printReport}mains/${userController.userId}/$testid');
+          Uri.parse('${printReport}/mains/${userData.userid}/$testid'));
+    debugPrint('${printReport}mains/${userData.userid}/$testid');
     return Scaffold(
       appBar: AppBar(
         title: const Text('Test Performance Report'),

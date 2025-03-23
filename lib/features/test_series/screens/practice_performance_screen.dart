@@ -3,12 +3,13 @@ import 'package:alpha/constants/config.dart';
 import 'package:alpha/controllers/user_controller.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:get/get_core/src/get_main.dart';
 import 'package:webview_flutter/webview_flutter.dart';
 
-class AttendMainTestScreen extends StatelessWidget {
+class PracticePerformanceScreen extends StatelessWidget {
   final String testid;
 
-  AttendMainTestScreen({super.key, required this.testid});
+  PracticePerformanceScreen({super.key, required this.testid});
 
   final UserController userController = Get.put(UserController());
   @override
@@ -32,14 +33,17 @@ class AttendMainTestScreen extends StatelessWidget {
           },
         ),
       )
-      ..loadRequest(Uri.parse('$attendMainTest/${userData.userid}/$testid'));
-    debugPrint('$attendMainTest/${userData.userid}/$testid');
-    return PopScope(
-      canPop: false,
-      child: Scaffold(
-        // appBar: AppBar(title: const Text('Test Performance Report')),
-        body: SafeArea(child: WebViewWidget(controller: controller)),
+      ..loadRequest(
+          Uri.parse('${printReport}/practice/${userData.userid}/$testid'));
+    debugPrint('${printReport}practice/${userData.userid}/$testid');
+    return Scaffold(
+      appBar: AppBar(
+        title: const Text('Test Performance Report'),
+        backgroundColor: Colors.white,
+        iconTheme: IconThemeData(color: Colors.black),
+        titleTextStyle: TextStyle(color: Colors.black),
       ),
+      body: WebViewWidget(controller: controller),
     );
   }
 }
