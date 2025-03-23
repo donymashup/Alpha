@@ -75,6 +75,7 @@ class _OngoingTestSeriesState extends State<OngoingTestSeries> {
                               context,
                               MaterialPageRoute(
                                 builder: (context) => StartQuizSeriesInfo(
+                                  testid: test.mainTestsId ?? "0",
                                   quizTitle:
                                       test.mainTestsName ?? "Unknown Test",
                                   totalQuestions: int.tryParse(
